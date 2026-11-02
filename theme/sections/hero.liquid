@@ -60,7 +60,7 @@
     <div class="hero__stats">
       {%- for block in section.blocks -%}
         <div class="hero__stat" {{ block.shopify_attributes }}>
-          <strong>{{ block.settings.value }}</strong>
+          <strong dir="ltr">{{ block.settings.value }}</strong>
           <span>{% render 'tx', en: block.settings.label, ar: block.settings.label_ar %}</span>
         </div>
       {%- endfor -%}
