@@ -1112,3 +1112,62 @@ html, body { max-width: 100%; }
   .nav__link { padding: 28px 7px; font-size: 11px; letter-spacing: .08em; }
   .logo__text { font-size: 18px; letter-spacing: .2em; }
 }
+
+
+/* =========================================================
+   v2.2 — Typography: Inter Tight (EN) + IBM Plex Sans Arabic (AR)
+   bold, uppercase display, tight tracking — matches owner's reference
+   ========================================================= */
+:root {
+  --f-display: 'Inter Tight', 'IBM Plex Sans Arabic', 'Helvetica Neue', Arial, sans-serif;
+  --f-logo: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+  --f-body: 'Inter Tight', 'IBM Plex Sans Arabic', 'Helvetica Neue', Arial, sans-serif;
+}
+html[lang="ar"] {
+  --f-display: 'IBM Plex Sans Arabic', 'Inter Tight', sans-serif;
+  --f-body: 'IBM Plex Sans Arabic', 'Inter Tight', sans-serif;
+}
+body { font-family: var(--f-body); }
+.display, .h1, .h2, .h3, .hero__title, .world__title, .page-hero__title, .col-hero__title, .pdp__title, .qv__title,
+.step__title, .mega__title, .drawer__title, .footer__h, .concern__title, .col-tile__t, .quiz__q, .mnav__link, .mnav__group summary,
+.marquee--serif .marquee__item, .hero__stat strong, .set-hero__save, .faq .acc summary, .lookbook__word, .footer__word, .preloader__word,
+.step__num, .look__n, .ritual__counter, .card__title {
+  font-family: var(--f-display);
+}
+/* Display titles: bold, uppercase, tight */
+.hero__title, .world__title, .page-hero__title, .col-hero__title, .h1, .mega__title, .lookbook__word, .footer__word, .marquee--serif .marquee__item {
+  font-weight: 700; text-transform: uppercase; letter-spacing: -0.035em; font-style: normal;
+}
+.hero__title { line-height: .92; font-size: clamp(42px, 7.6vw, 120px); }
+.world__title, .page-hero__title, .col-hero__title { line-height: .95; }
+.h1 { line-height: .98; }
+.h2, .h3, .pdp__title, .qv__title, .step__title, .drawer__title, .footer__h, .quiz__q, .concern__title, .col-tile__t, .faq .acc summary, .mnav__link, .mnav__group summary {
+  font-weight: 700; letter-spacing: -0.02em; font-style: normal;
+}
+.hero__stat strong { font-weight: 700; letter-spacing: -0.02em; }
+em, .hero__title em { font-style: normal; }
+.marquee--serif .marquee__item { font-size: clamp(28px, 4.6vw, 64px); }
+.lookbook__word { letter-spacing: -0.05em; }
+.footer__word { letter-spacing: -0.02em; }
+/* Logo: bold uppercase wordmark */
+.logo__text { font-family: var(--f-logo); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding-inline-start: 0; }
+@media (max-width: 749px) { .logo__text { font-size: 18px; letter-spacing: .04em; } }
+@media (max-width: 360px) { .logo__text { font-size: 15px; letter-spacing: .02em; } }
+.preloader__word { font-weight: 700; letter-spacing: .04em; }
+/* Arabic: never uppercase-style tracking, comfortable line-height */
+html[lang="ar"] .hero__title, html[lang="ar"] .world__title, html[lang="ar"] .page-hero__title, html[lang="ar"] .col-hero__title,
+html[lang="ar"] .h1, html[lang="ar"] .h2, html[lang="ar"] .h3, html[lang="ar"] .pdp__title, html[lang="ar"] .qv__title,
+html[lang="ar"] .step__title, html[lang="ar"] .mega__title, html[lang="ar"] .quiz__q, html[lang="ar"] .faq .acc summary,
+html[lang="ar"] .mnav__link, html[lang="ar"] .mnav__group summary, html[lang="ar"] .card__title, html[lang="ar"] .footer__h {
+  letter-spacing: 0; font-weight: 700; text-transform: none;
+}
+html[lang="ar"] .hero__title { line-height: 1.25; font-size: clamp(36px, 6vw, 92px); }
+html[lang="ar"] .world__title, html[lang="ar"] .page-hero__title, html[lang="ar"] .col-hero__title, html[lang="ar"] .h1 { line-height: 1.3; }
+/* UI labels use the same grotesk */
+.nav__link, .btn, .eyebrow, .tab, .link-arrow, .card__vendor, .badge, .announce, .world__cta, .acc summary { font-family: var(--f-body); }
+.btn { font-weight: 700; letter-spacing: .06em; }
+.nav__link { font-weight: 600; }
+/* hero eyebrow legibility on photography */
+.hero .hero__eyebrow { color: #F6E4CC; text-shadow: 0 1px 12px rgba(0,0,0,.45); }
+.hero .hero__eyebrow::before { background: #F6E4CC; }
+@media (max-width: 749px) { .hero .hero__eyebrow { letter-spacing: .14em; font-size: 10px; } }
