@@ -20,11 +20,15 @@
     "enable_quick_add": true,
     "whatsapp_message": "Hi Seoul Glow! I need help choosing my routine ✨",
     "enable_reveal": true,
-    "enable_grain": true,
+    "enable_grain": false,
     "sections": {
       "cart-drawer": {
         "type": "cart-drawer",
-        "settings": { "upsell_collection": "best", "upsell_heading": "Complete your ritual", "upsell_heading_ar": "أكملي روتينك" }
+        "settings": {
+          "upsell_collection": "best",
+          "upsell_heading": "Complete your ritual",
+          "upsell_heading_ar": "أكملي روتينك"
+        }
       }
     }
   },

@@ -401,52 +401,6 @@
       ],
       "settings": {}
     },
-    "manifesto": {
-      "type": "marquee",
-      "blocks": {
-        "q1": {
-          "type": "item",
-          "settings": {
-            "text": "Glass skin",
-            "text_ar": "بشرة زجاجية"
-          }
-        },
-        "q2": {
-          "type": "item",
-          "settings": {
-            "text": "서울 글로우",
-            "text_ar": "서울 글로우"
-          }
-        },
-        "q3": {
-          "type": "item",
-          "settings": {
-            "text": "Quiet glow, loud craft",
-            "text_ar": "توهّج هادئ، إتقان واضح"
-          }
-        },
-        "q4": {
-          "type": "item",
-          "settings": {
-            "text": "KAVO Drop 001",
-            "text_ar": "KAVO ٠٠١"
-          }
-        }
-      },
-      "block_order": [
-        "q1",
-        "q2",
-        "q3",
-        "q4"
-      ],
-      "settings": {
-        "style": "serif",
-        "tone": "dark",
-        "separator": "✦",
-        "speed": 50,
-        "reverse": true
-      }
-    },
     "lookbook": {
       "type": "lookbook",
       "settings": {
@@ -595,7 +549,6 @@
     "bestsellers",
     "concerns",
     "ritual",
-    "manifesto",
     "lookbook",
     "quiz",
     "sets",
