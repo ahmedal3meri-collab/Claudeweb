@@ -8,8 +8,8 @@
         "m1": {
           "type": "message",
           "settings": {
-            "text": "Free UAE delivery on orders over 200 AED",
-            "text_ar": "توصيل مجاني داخل الإمارات للطلبات فوق ٢٠٠ درهم",
+            "text": "Free UAE delivery on orders over 500 AED",
+            "text_ar": "توصيل مجاني داخل الإمارات للطلبات فوق ٥٠٠ درهم",
             "link": "/pages/shipping-returns"
           }
         },

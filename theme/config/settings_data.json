@@ -13,7 +13,7 @@
     "color_celadon": "#A8B09E",
     "color_gold": "#B26A2C",
     "color_dark": "#0B0A09",
-    "free_shipping_threshold": 200,
+    "free_shipping_threshold": 500,
     "low_stock_threshold": 5,
     "show_vendor": true,
     "show_second_image": true,
