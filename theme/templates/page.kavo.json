@@ -202,7 +202,7 @@
       "type": "kavo-rack",
       "settings": {
         "collection": "kavo-by-seoulglow",
-        "limit": 10,
+        "limit": 21,
         "tone": "light"
       }
     }

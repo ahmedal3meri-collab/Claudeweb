@@ -536,7 +536,7 @@
       "type": "kavo-rack",
       "settings": {
         "collection": "kavo-by-seoulglow",
-        "limit": 10,
+        "limit": 21,
         "tone": "light",
         "label": "KAVO Rack — swipe the drop",
         "label_ar": "رف KAVO — اسحبي وتصفحي"
