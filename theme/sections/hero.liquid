@@ -26,6 +26,7 @@
     <div class="hero__shade"></div>
     <div class="grain"></div>
   </div>
+  {%- if section.settings.stamp != blank -%}<span class="film-stamp hero__stamp" aria-hidden="true">{{ section.settings.stamp }}</span>{%- endif -%}
 
   {%- if section.settings.vertical_kr != blank -%}
     <p class="hero__vertical" aria-hidden="true">{{ section.settings.vertical_kr }}</p>
@@ -81,6 +82,7 @@
     { "type": "select", "id": "align", "label": "Text position", "default": "start", "options": [{ "value": "start", "label": "Start" }, { "value": "center", "label": "Center" }] },
     { "type": "select", "id": "theme", "label": "Text color", "default": "dark", "options": [{ "value": "dark", "label": "Light text on image" }, { "value": "light", "label": "Dark text on image" }] },
     { "type": "text", "id": "vertical_kr", "label": "Vertical Korean text", "default": "빛나는 피부의 비밀" },
+    { "type": "text", "id": "stamp", "label": "Film date stamp (e.g. '26 11 02)", "default": "'26 11 02" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Seoul → Dubai · Authentic K-Beauty" },
     { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)", "default": "من سيول إلى الإمارات · جمال كوري أصلي" },
     { "type": "text", "id": "heading", "label": "Heading (use | for new lines, *word~ for italic)", "default": "The *quiet~ glow|of Seoul." },

@@ -34,24 +34,25 @@
         "s3"
       ],
       "settings": {
-        "image": "shopify://shop_images/sg-maison-hero-desktop.png",
-        "image_mobile": "shopify://shop_images/sg-maison-hero-mobile.png",
-        "overlay": 25,
+        "image": "shopify://shop_images/sg-campaign-not-your-usual-seoul.png",
+        "image_mobile": "shopify://shop_images/sg-cine-hero-mobile.png",
+        "overlay": 20,
         "align": "start",
         "theme": "light",
         "vertical_kr": "빛나는 피부의 비밀",
-        "eyebrow": "Seoul → UAE · Authentic K-Beauty & Fashion",
-        "eyebrow_ar": "من سيول إلى الإمارات · جمال وأزياء كورية أصلية",
-        "heading": "The *quiet~ glow|of Seoul.",
-        "heading_ar": "توهّج سيول|*الهادئ~",
-        "text": "Curated Korean skincare and KAVO fashion — authentic, held in the UAE, at your door in 1–3 days.",
-        "text_ar": "عناية كورية مختارة وأزياء KAVO — أصلية ١٠٠٪، من مخازننا في الإمارات إلى باب بيتك خلال ١–٣ أيام.",
+        "eyebrow": "Not your usual Seoul · K-Beauty & KAVO",
+        "eyebrow_ar": "سيول بنظرة مختلفة · جمال وأزياء كورية",
+        "heading": "Not your *usual~|Seoul.",
+        "heading_ar": "ليست سيول|*المعتادة~",
+        "text": "After-dark Seoul, delivered to the UAE — authentic Korean skincare and KAVO fashion, at your door in 1–3 days.",
+        "text_ar": "روح سيول الليلية تصلك للإمارات — عناية كورية أصلية وأزياء KAVO، على باب بيتك خلال ١–٣ أيام.",
         "btn1_label": "Shop Beauty",
         "btn1_label_ar": "تسوقي الجمال",
         "btn1_link": "/collections/seoulglow-beauty-shop",
         "btn2_label": "Discover KAVO",
         "btn2_label_ar": "اكتشفي KAVO",
-        "btn2_link": "/collections/kavo-by-seoulglow"
+        "btn2_link": "/collections/kavo-by-seoulglow",
+        "stamp": "'26 11 02"
       }
     },
     "brands": {
@@ -162,8 +163,8 @@
         "w1": {
           "type": "world",
           "settings": {
-            "image": "shopify://shop_images/sg-maison-ritual.png",
-            "tone": "light",
+            "image": "shopify://shop_images/sg-cine-beauty.png",
+            "tone": "dark",
             "korean": "뷰티",
             "title": "Seoul Glow Beauty",
             "title_ar": "سيول جلو للجمال",
@@ -177,7 +178,7 @@
         "w2": {
           "type": "world",
           "settings": {
-            "image": "shopify://shop_images/sg-maison-kavo-editorial.png",
+            "image": "shopify://shop_images/sg-cine-kavo.png",
             "tone": "dark",
             "korean": "패션",
             "title": "KAVO Fashion",
@@ -406,9 +407,9 @@
       "settings": {
         "collection": "kavo-by-seoulglow",
         "limit": 12,
-        "lead_image": "shopify://shop_images/sg-maison-kavo-dark.png",
-        "lead_caption": "Seongsu, Seoul — Drop 001",
-        "lead_caption_ar": "سيونغسو، سيول — الإصدار ٠٠١"
+        "lead_image": "shopify://shop_images/sg-cine-alley.png",
+        "lead_caption": "Euljiro, Seoul — Drop 001",
+        "lead_caption_ar": "أولجيرو، سيول — الإصدار ٠٠١"
       }
     },
     "quiz": {
@@ -466,7 +467,7 @@
         "p3"
       ],
       "settings": {
-        "image": "shopify://shop_images/sg-maison-texture.png",
+        "image": "shopify://shop_images/sg-cine-counter.png",
         "badge": "AUTHENTIC · FROM SEOUL · HELD IN UAE · ",
         "flip": false,
         "tone": "paper",

@@ -19,6 +19,7 @@
     {%- if section.settings.lead_image != blank -%}
       <div class="look look--lead">
         {{ section.settings.lead_image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 50vw, 85vw', widths: '600,900,1200,1600', alt: '' }}
+        <span class="film-stamp look__stamp" aria-hidden="true">'26 11 02</span>
         <span class="look__tag">{% render 'tx', en: section.settings.lead_caption, ar: section.settings.lead_caption_ar %}</span>
       </div>
     {%- endif -%}

@@ -1022,3 +1022,48 @@ html[lang="ar"] .card__title { font-size: 14.5px; font-weight: 600; line-height:
 /* Announcement must never sit above the open menu / drawers */
 .section-announce, .announce { z-index: 1; }
 .section-header { z-index: 50; }
+
+
+/* =========================================================
+   v2.0 — "Not Your Usual Seoul": vintage cinematic, direct flash
+   ========================================================= */
+.has-grain .grain { display: block !important; opacity: .1; mix-blend-mode: overlay; }
+/* film date stamp, like a 90s point-and-shoot */
+.film-stamp { position: absolute; z-index: 3; font-family: 'Courier New', ui-monospace, monospace; font-weight: 700; font-size: clamp(13px, 1.2vw, 18px); letter-spacing: .14em; color: #FF8A2A; text-shadow: 0 0 6px rgba(255,120,30,.75), 0 0 1px #ffb070; direction: ltr; pointer-events: none; }
+.hero__stamp { inset-inline-end: var(--gutter); bottom: 108px; }
+@media (max-width: 749px) { .hero__stamp { bottom: 96px; font-size: 12px; } }
+.look__stamp { bottom: 20px; inset-inline-end: 20px; }
+/* flash vignette on editorial imagery */
+.world__media::after, .editorial__img::after, .look::after, .page-hero__media::after, .col-hero__media::after, .mega__feature::after, .popup__media::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,.38) 100%);
+}
+.look::after { z-index: 1; }
+.look__info, .look__tag { z-index: 2; }
+.world__img, .editorial__img img, .look img { filter: contrast(1.04) saturate(1.05); }
+.look img { filter: contrast(1.04) saturate(1.05); }
+.look:hover img { filter: contrast(1.06) saturate(1.1); }
+/* hero: night campaign */
+.hero { background: #070605; }
+.hero__img { animation-duration: 30s; object-position: 50% 45%; }
+.hero__eyebrow { color: #F3D9B8; }
+.hero__title em { color: #FF5A45; font-style: italic; }
+.hero__shade { background: linear-gradient(to top, rgba(6,5,4,.82) 0%, rgba(6,5,4,.35) 42%, rgba(6,5,4,.05) 70%) !important; }
+/* signage-red accents */
+.eyebrow { color: var(--c-accent); }
+.tone-dark .eyebrow, .footer .eyebrow { color: #FF6A55; }
+.btn::before { background: var(--c-accent); }
+.announce { background: var(--c-accent); }
+.announce__dot { color: #fff; opacity: .7; }
+.badge--accent { background: var(--c-accent); }
+.cart-count { background: var(--c-accent); }
+.tab.is-active { background: var(--c-accent); }
+.ship-bar__track span { background: linear-gradient(90deg, #E2803A, var(--c-accent)); }
+.concern__arch { background: linear-gradient(170deg, var(--c-paper), #E2CCB4) !important; }
+.concern:nth-child(3n+2) .concern__arch { background: linear-gradient(170deg, var(--c-paper), #D9C2A6) !important; }
+.lookbook, .footer { background: #0B0A09; }
+/* cinematic letterbox feel on the lookbook rail */
+.lookbook__rail { padding-block: 6px; }
+.look { border-radius: 6px; }
+.world, .editorial__img, .set-hero, .grid-promo, .card__media, .concern__arch { border-radius: 10px; }
+.card__media { border-radius: 10px; }
