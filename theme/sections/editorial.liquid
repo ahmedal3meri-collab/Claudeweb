@@ -1,0 +1,77 @@
+<section class="editorial section{% if section.settings.tone == 'dark' %} tone-dark{% elsif section.settings.tone == 'paper' %} tone-paper{% endif %}">
+  <div class="container editorial__grid{% if section.settings.flip %} is-flip{% endif %}">
+    <div class="editorial__media" data-reveal>
+      <div class="editorial__img" data-parallax="0.08">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '600,900,1200,1600', alt: '' }}
+        {%- else -%}
+          <div class="world__ph"></div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.image_2 != blank -%}
+        <div class="editorial__img2">{{ section.settings.image_2 | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '25vw', widths: '400,600,800', alt: '' }}</div>
+      {%- endif -%}
+      {%- if section.settings.badge != blank -%}
+        <span class="editorial__badge" aria-hidden="true">
+          <svg viewBox="0 0 100 100"><defs><path id="badge-{{ section.id }}" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs><text><textPath href="#badge-{{ section.id }}">{{ section.settings.badge }}</textPath></text></svg>
+        </span>
+      {%- endif -%}
+    </div>
+    <div class="editorial__copy" data-reveal style="--d: 120ms">
+      <p class="eyebrow">{% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+      <h2 class="h1">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
+      <div class="rte">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</div>
+      {%- if section.blocks.size > 0 -%}
+        <ul class="pillars">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>
+              <span class="pillars__icon">{% render 'icon', name: block.settings.icon %}</span>
+              <div><b>{% render 'tx', en: block.settings.title, ar: block.settings.title_ar %}</b><p>{% render 'tx', en: block.settings.text, ar: block.settings.text_ar %}</p></div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.btn_label != blank -%}
+        <a href="{{ section.settings.btn_link }}" class="btn btn--dark" data-magnetic>{% render 'tx', en: section.settings.btn_label, ar: section.settings.btn_label_ar %} {% render 'icon', name: 'arrow' %}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial story",
+  "class": "section-editorial",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Main image" },
+    { "type": "image_picker", "id": "image_2", "label": "Floating image (optional)" },
+    { "type": "text", "id": "badge", "label": "Rotating badge text", "default": "AUTHENTIC · FROM SEOUL · HELD IN UAE · " },
+    { "type": "checkbox", "id": "flip", "label": "Image on the other side", "default": false },
+    { "type": "select", "id": "tone", "label": "Background", "default": "none", "options": [{ "value": "none", "label": "Default" }, { "value": "paper", "label": "Paper" }, { "value": "dark", "label": "Dark" }] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Quiet glow, loud craft" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Chosen for skin that lives in 40°C." },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>We don't stock a brand because it went viral. We stock it because the formula makes sense for heat, humidity and air conditioning that pulls moisture from your face all day.</p>" },
+    { "type": "richtext", "id": "text_ar", "label": "Text (Arabic)" },
+    { "type": "text", "id": "btn_label", "label": "Button", "default": "Our story" },
+    { "type": "text", "id": "btn_label_ar", "label": "Button (Arabic)" },
+    { "type": "url", "id": "btn_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "shield", "options": [{ "value": "shield", "label": "Shield" }, { "value": "truck", "label": "Truck" }, { "value": "cash", "label": "Cash" }, { "value": "return", "label": "Return" }, { "value": "sparkle", "label": "Sparkle" }, { "value": "leaf", "label": "Leaf" }] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Authorised sourcing" },
+        { "type": "text", "id": "title_ar", "label": "Title (Arabic)" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Every product from authorised Korean channels." },
+        { "type": "text", "id": "text_ar", "label": "Text (Arabic)" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Editorial story" }]
+}
+{% endschema %}

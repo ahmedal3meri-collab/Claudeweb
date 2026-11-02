@@ -1,0 +1,10 @@
+<section class="page section-top"><div class="container">
+  <p><a href="{{ routes.account_url }}" class="link-arrow">← {{ 'customer.orders' | t }}</a></p>
+  <h1 class="h1 page__title">{{ order.name }}</h1>
+  <p class="muted">{{ order.created_at | date: format: 'abbreviated_date' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</p>
+  <table class="table"><tbody>
+    {%- for item in order.line_items -%}<tr><td>{{ item.title }}</td><td>× {{ item.quantity }}</td><td>{{ item.final_line_price | money }}</td></tr>{%- endfor -%}
+    <tr><td colspan="2"><b>{{ 'cart.subtotal' | t }}</b></td><td><b>{{ order.total_price | money }}</b></td></tr>
+  </tbody></table>
+  {%- if order.shipping_address -%}<div class="rte">{{ order.shipping_address | format_address }}</div>{%- endif -%}
+</div></section>

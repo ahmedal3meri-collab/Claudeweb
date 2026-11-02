@@ -1,0 +1,23 @@
+{%- liquid
+  assign target = product.selected_or_first_available_variant
+  if variant
+    assign target = variant
+  endif
+  assign compare = target.compare_at_price
+  assign price = target.price
+  assign on_sale = false
+  if compare > price
+    assign on_sale = true
+  endif
+-%}
+<div class="price{% if on_sale %} price--sale{% endif %}" data-price>
+  {%- if product.price_varies and variant == blank and use_from -%}
+    <span class="price__from">{{ 'products.from' | t }}</span>
+  {%- endif -%}
+  <span class="price__now">{{ price | money }}</span>
+  {%- if on_sale -%}
+    <s class="price__was">{{ compare | money }}</s>
+    {%- assign save = compare | minus: price | times: 100 | divided_by: compare -%}
+    <span class="price__save">−{{ save }}%</span>
+  {%- endif -%}
+</div>

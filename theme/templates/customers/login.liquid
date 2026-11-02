@@ -1,0 +1,17 @@
+<section class="page section-top"><div class="container container--narrow">
+  <p class="eyebrow">로그인</p><h1 class="h1 page__title">{{ 'customer.login' | t }}</h1>
+  {%- form 'customer_login', class: 'form' -%}
+    {{ form.errors | default_errors }}
+    <label><span>{{ 'contact.email' | t }}</span><input type="email" name="customer[email]" autocomplete="email" required></label>
+    <label><span>{{ 'general.password' | t }}</span><input type="password" name="customer[password]" autocomplete="current-password" required></label>
+    <button type="submit" class="btn btn--dark">{{ 'customer.sign_in' | t }}</button>
+    <p><a href="{{ routes.account_register_url }}">{{ 'customer.create' | t }}</a></p>
+  {%- endform -%}
+  {%- form 'recover_customer_password', class: 'form' -%}
+    {%- if form.posted_successfully? -%}<p class="form__ok">{{ 'customer.recover_sent' | t }}</p>{%- endif -%}
+    <details><summary>{{ 'customer.forgot' | t }}</summary>
+      <label><span>{{ 'contact.email' | t }}</span><input type="email" name="email" autocomplete="email" required></label>
+      <button type="submit" class="btn btn--ghost-dark">{{ 'customer.reset' | t }}</button>
+    </details>
+  {%- endform -%}
+</div></section>

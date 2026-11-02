@@ -1,0 +1,9 @@
+<section class="page section-top"><div class="container container--narrow">
+  <h1 class="h1 page__title">{{ 'customer.activate' | t }}</h1>
+  {%- form 'activate_customer_password', class: 'form' -%}
+    {{ form.errors | default_errors }}
+    <label><span>{{ 'general.password' | t }}</span><input type="password" name="customer[password]" autocomplete="new-password" required></label>
+    <label><span>{{ 'customer.confirm_password' | t }}</span><input type="password" name="customer[password_confirmation]" autocomplete="new-password" required></label>
+    <button type="submit" class="btn btn--dark">{{ 'customer.activate' | t }}</button>
+  {%- endform -%}
+</div></section>

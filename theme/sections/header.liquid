@@ -1,0 +1,128 @@
+{%- liquid
+  assign menu = section.settings.menu
+  if request.locale.iso_code == 'ar' and section.settings.menu_ar != blank
+    assign menu = section.settings.menu_ar
+  endif
+  assign transparent = false
+  if template.name == 'index' and section.settings.transparent_home
+    assign transparent = true
+  endif
+-%}
+<header class="header{% if transparent %} header--transparent{% endif %}" data-header>
+  <div class="header__inner container">
+    <div class="header__left">
+      <button class="icon-btn header__burger" type="button" data-drawer-open="menu" aria-label="{{ 'general.menu' | t }}">{% render 'icon', name: 'menu' %}</button>
+      <nav class="nav" aria-label="{{ 'general.menu' | t }}">
+        <ul class="nav__list">
+          {%- for link in menu.links -%}
+            <li class="nav__item{% if link.links != blank %} has-mega{% endif %}">
+              <a href="{{ link.url }}" class="nav__link{% if link.active or link.child_active %} is-active{% endif %}">{{ link.title }}</a>
+              {%- if link.links != blank -%}
+                <div class="mega">
+                  <div class="mega__inner container">
+                    <div class="mega__cols">
+                      <p class="mega__title">{{ link.title }}</p>
+                      <ul class="mega__list{% if link.links.size > 8 %} mega__list--cols{% endif %}">
+                        {%- for child in link.links -%}
+                          <li style="--i: {{ forloop.index0 }}"><a href="{{ child.url }}">{{ child.title }}</a></li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                    {%- assign t_handle = link.title | handle -%}
+                    {%- if t_handle contains 'kavo' or t_handle contains 'fashion' -%}
+                      {%- assign mega_img = section.settings.mega_image_fashion -%}
+                      {%- assign mega_cap = section.settings.mega_caption_fashion -%}
+                    {%- else -%}
+                      {%- assign mega_img = section.settings.mega_image -%}
+                      {%- assign mega_cap = section.settings.mega_caption -%}
+                    {%- endif -%}
+                    {%- if mega_img != blank -%}
+                      <a href="{{ link.url }}" class="mega__feature">
+                        {{ mega_img | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '30vw', widths: '400,600,800' }}
+                        <span class="mega__cap">{{ mega_cap }} {% render 'icon', name: 'arrow' %}</span>
+                      </a>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    </div>
+
+    <a href="{{ routes.root_url }}" class="logo" aria-label="{{ shop.name }}">
+      {%- if settings.logo != blank -%}
+        {{ settings.logo | image_url: width: 520 | image_tag: class: 'logo__img', alt: shop.name, loading: 'eager' }}
+      {%- else -%}
+        <span class="logo__text">{{ settings.logo_text }}</span>
+        {%- if settings.logo_korean != blank -%}<span class="logo__kr">{{ settings.logo_korean }}</span>{%- endif -%}
+      {%- endif -%}
+    </a>
+
+    <div class="header__right">
+      {%- if localization.available_languages.size > 1 -%}
+        {%- form 'localization', class: 'lang-switch' -%}
+          <input type="hidden" name="locale_code" value="{% if request.locale.iso_code == 'ar' %}en{% else %}ar{% endif %}">
+          <button type="submit" class="lang-switch__btn" aria-label="{{ 'general.language' | t }}">
+            {%- if request.locale.iso_code == 'ar' -%}EN{%- else -%}عربي{%- endif -%}
+          </button>
+        {%- endform -%}
+      {%- endif -%}
+      <button class="icon-btn" type="button" data-drawer-open="search" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</button>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="icon-btn hide-sm" href="{{ routes.account_url }}" aria-label="{{ 'general.account' | t }}">{% render 'icon', name: 'user' %}</a>
+      {%- endif -%}
+      <a class="icon-btn cart-btn" href="{{ routes.cart_url }}" data-drawer-open="cart" aria-label="{{ 'cart.title' | t }}">
+        {% render 'icon', name: 'bag' %}
+        <span class="cart-count{% if cart.item_count == 0 %} is-empty{% endif %}" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="drawer drawer--menu" data-drawer="menu" aria-hidden="true">
+  <div class="drawer__overlay" data-drawer-close></div>
+  <div class="drawer__panel drawer__panel--start" role="dialog" aria-modal="true" aria-label="{{ 'general.menu' | t }}">
+    <div class="drawer__head">
+      <span class="logo__text">{{ settings.logo_text }}</span>
+      <button class="icon-btn" type="button" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <nav class="mnav">
+      {%- for link in menu.links -%}
+        {%- if link.links != blank -%}
+          <details class="mnav__group" style="--i: {{ forloop.index0 }}">
+            <summary>{{ link.title }} {% render 'icon', name: 'plus' %}</summary>
+            <ul>
+              <li><a href="{{ link.url }}">{{ 'general.view_all' | t }}</a></li>
+              {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}
+            </ul>
+          </details>
+        {%- else -%}
+          <a class="mnav__link" href="{{ link.url }}" style="--i: {{ forloop.index0 }}">{{ link.title }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+    <div class="drawer__foot">
+      {%- if shop.customer_accounts_enabled -%}<a href="{{ routes.account_url }}">{% render 'icon', name: 'user' %} {{ 'general.account' | t }}</a>{%- endif -%}
+      <p class="muted small">{{ 'general.promise_short' | t }}</p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "link_list", "id": "menu_ar", "label": "Menu for Arabic storefront (optional)" },
+    { "type": "checkbox", "id": "transparent_home", "label": "Transparent over homepage hero", "default": true },
+    { "type": "header", "content": "Mega menu feature images" },
+    { "type": "image_picker", "id": "mega_image", "label": "Beauty feature image" },
+    { "type": "text", "id": "mega_caption", "label": "Beauty caption", "default": "The Glass Skin Edit" },
+    { "type": "image_picker", "id": "mega_image_fashion", "label": "KAVO feature image" },
+    { "type": "text", "id": "mega_caption_fashion", "label": "KAVO caption", "default": "KAVO — Drop 001" }
+  ]
+}
+{% endschema %}

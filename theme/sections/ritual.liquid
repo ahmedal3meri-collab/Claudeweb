@@ -1,0 +1,86 @@
+<section class="ritual section tone-paper" data-ritual>
+  <div class="container ritual__grid">
+    <div class="ritual__visual">
+      <div class="ritual__sticky">
+        <div class="ritual__frame">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign col = block.settings.collection
+              assign img = block.settings.image
+              if img == blank and col != blank
+                for p in col.products
+                  if p.featured_media and p.available
+                    assign img = p.featured_media
+                    break
+                  endif
+                endfor
+              endif
+            -%}
+            <div class="ritual__img{% if forloop.first %} is-active{% endif %}" data-ritual-img="{{ forloop.index0 }}">
+              {%- if img != blank -%}{{ img | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 45vw, 100vw', widths: '500,800,1200', alt: '' }}{%- endif -%}
+            </div>
+          {%- endfor -%}
+          <div class="ritual__counter"><span data-ritual-num>01</span> / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="ritual__steps">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">{% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+          <h2 class="h1">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
+          <p class="muted">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>
+        </div>
+      </div>
+      <ol class="steps">
+        {%- for block in section.blocks -%}
+          <li class="step{% if forloop.first %} is-active{% endif %}" data-ritual-step="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <span class="step__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <div>
+              <p class="step__kr">{{ block.settings.korean }}</p>
+              <h3 class="step__title">{% render 'tx', en: block.settings.title, ar: block.settings.title_ar %}</h3>
+              <p class="step__text">{% render 'tx', en: block.settings.text, ar: block.settings.text_ar %}</p>
+              {%- if block.settings.collection != blank -%}
+                <a class="link-arrow" href="{{ block.settings.collection.url }}">{% render 'tx', en: block.settings.cta, ar: block.settings.cta_ar %} {% render 'icon', name: 'arrow' %}</a>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The Seoul ritual",
+  "class": "section-ritual",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Seoul Ritual · 루틴" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)", "default": "روتين سيول" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Five steps to glass skin" },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "خمس خطوات لبشرة زجاجية" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "The Korean method, simplified for the Gulf climate. Layer light, protect always." },
+    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)", "default": "الطريقة الكورية مبسطة لمناخ الخليج: طبقات خفيفة وحماية دائمة." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "korean", "label": "Korean word", "default": "세안" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Cleanse" },
+        { "type": "text", "id": "title_ar", "label": "Title (Arabic)" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Melt the day away without stripping the barrier." },
+        { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "image_picker", "id": "image", "label": "Image (optional)" },
+        { "type": "text", "id": "cta", "label": "Link label", "default": "Shop this step" },
+        { "type": "text", "id": "cta_ar", "label": "Link label (Arabic)", "default": "تسوقي هذه الخطوة" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "The Seoul ritual", "blocks": [{ "type": "step" }, { "type": "step" }, { "type": "step" }] }]
+}
+{% endschema %}

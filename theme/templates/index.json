@@ -1,0 +1,155 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "s1": { "type": "stat", "settings": { "value": "100%", "label": "Authentic K-beauty", "label_ar": "أصلي ١٠٠٪" } },
+        "s2": { "type": "stat", "settings": { "value": "1–3", "label": "Day UAE delivery", "label_ar": "أيام توصيل" } },
+        "s3": { "type": "stat", "settings": { "value": "COD", "label": "Cash on delivery", "label_ar": "الدفع عند الاستلام" } }
+      },
+      "block_order": ["s1", "s2", "s3"],
+      "settings": {
+        "image": "shopify://shop_images/sg-maison-hero-desktop.png",
+        "image_mobile": "shopify://shop_images/sg-maison-hero-mobile.png",
+        "overlay": 25,
+        "align": "start",
+        "theme": "light",
+        "vertical_kr": "빛나는 피부의 비밀",
+        "eyebrow": "Seoul → UAE · Authentic K-Beauty & Fashion",
+        "eyebrow_ar": "من سيول إلى الإمارات · جمال وأزياء كورية أصلية",
+        "heading": "The *quiet~ glow|of Seoul.",
+        "heading_ar": "توهّج سيول|*الهادئ~",
+        "text": "Curated Korean skincare and KAVO fashion — authentic, held in the UAE, at your door in 1–3 days.",
+        "text_ar": "عناية كورية مختارة وأزياء KAVO — أصلية ١٠٠٪، من مخازننا في الإمارات إلى باب بيتك خلال ١–٣ أيام.",
+        "btn1_label": "Shop Beauty",
+        "btn1_label_ar": "تسوقي الجمال",
+        "btn1_link": "/collections/seoulglow-beauty-shop",
+        "btn2_label": "Discover KAVO",
+        "btn2_label_ar": "اكتشفي KAVO",
+        "btn2_link": "/collections/kavo-by-seoulglow"
+      }
+    },
+    "brands": {
+      "type": "marquee",
+      "blocks": {
+        "b1": { "type": "item", "settings": { "text": "Medicube", "link": "/collections/medicube" } },
+        "b2": { "type": "item", "settings": { "text": "numbuzin", "link": "/collections/numbuzin" } },
+        "b3": { "type": "item", "settings": { "text": "SKIN1004", "link": "/collections/skin1004" } },
+        "b4": { "type": "item", "settings": { "text": "Anua", "link": "/collections/anua" } },
+        "b5": { "type": "item", "settings": { "text": "Beauty of Joseon", "link": "/collections/beauty-of-joseon" } },
+        "b6": { "type": "item", "settings": { "text": "Dr. Althea", "link": "/collections/dr-althea" } },
+        "b7": { "type": "item", "settings": { "text": "Eqqualberry", "link": "/collections/eqqualberry" } },
+        "b8": { "type": "item", "settings": { "text": "AXIS-Y", "link": "/collections/axis-y" } },
+        "b9": { "type": "item", "settings": { "text": "SOME BY MI", "link": "/collections/some-by-mi" } },
+        "b10": { "type": "item", "settings": { "text": "La Roche-Posay", "link": "/collections/la-roche-posay" } },
+        "b11": { "type": "item", "settings": { "text": "KAVO", "link": "/collections/kavo-by-seoulglow" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9", "b10", "b11"],
+      "settings": { "style": "caps", "tone": "none", "separator": "✦", "speed": 40, "reverse": false }
+    },
+    "worlds": {
+      "type": "dual-worlds",
+      "blocks": {
+        "w1": { "type": "world", "settings": { "image": "shopify://shop_images/sg-maison-ritual.png", "tone": "light", "korean": "뷰티", "title": "Seoul Glow Beauty", "title_ar": "سيول جلو للجمال", "text": "Medicube, numbuzin, SKIN1004, Anua, Beauty of Joseon — formulas chosen for skin living in the Gulf.", "text_ar": "ميديكيوب، نمبوزين، سكن ١٠٠٤، أنوا، بيوتي أوف جوسون — تركيبات مختارة لبشرة الخليج.", "cta": "Enter beauty", "cta_ar": "ادخلي عالم الجمال", "link": "/collections/seoulglow-beauty-shop" } },
+        "w2": { "type": "world", "settings": { "image": "shopify://shop_images/sg-maison-kavo-editorial.png", "tone": "dark", "korean": "패션", "title": "KAVO Fashion", "title_ar": "أزياء KAVO", "text": "Korean-cut clothing curated for the UAE. Relaxed silhouettes, breathable weights, limited drops.", "text_ar": "ملابس بقصّات كورية مختارة للإمارات. قصّات مريحة، أقمشة خفيفة، وإصدارات محدودة.", "cta": "Enter KAVO", "cta_ar": "ادخلي عالم KAVO", "link": "/collections/kavo-by-seoulglow" } }
+      },
+      "block_order": ["w1", "w2"],
+      "settings": { "eyebrow": "Two houses · One standard", "eyebrow_ar": "عالمان · معيار واحد", "heading": "Skin first. Then the wardrobe.", "heading_ar": "البشرة أولاً، ثم الإطلالة." }
+    },
+    "bestsellers": {
+      "type": "product-rail",
+      "blocks": {
+        "t1": { "type": "tab", "settings": { "label": "Bestsellers", "label_ar": "الأكثر مبيعاً", "collection": "best" } },
+        "t2": { "type": "tab", "settings": { "label": "New in", "label_ar": "وصل حديثاً", "collection": "new-arrivals" } },
+        "t3": { "type": "tab", "settings": { "label": "Rituals & sets", "label_ar": "الأطقم", "collection": "kits-bundles" } }
+      },
+      "block_order": ["t1", "t2", "t3"],
+      "settings": { "eyebrow": "Most loved in the UAE", "eyebrow_ar": "الأكثر حباً في الإمارات", "heading": "The cult edit", "heading_ar": "المنتجات الأيقونية", "limit": 10, "hide_soldout": true, "tone": "none" }
+    },
+    "concerns": {
+      "type": "concerns",
+      "blocks": {
+        "c1": { "type": "concern", "settings": { "collection": "glow", "korean": "광채", "title": "Glow & brightening", "title_ar": "نضارة وتفتيح" } },
+        "c2": { "type": "concern", "settings": { "collection": "hydration", "korean": "수분", "title": "Deep hydration", "title_ar": "ترطيب عميق" } },
+        "c3": { "type": "concern", "settings": { "collection": "acne", "korean": "진정", "title": "Acne & breakouts", "title_ar": "حبوب وبثور" } },
+        "c4": { "type": "concern", "settings": { "collection": "pores", "korean": "모공", "title": "Pores & texture", "title_ar": "المسام والملمس" } },
+        "c5": { "type": "concern", "settings": { "collection": "dark-spots", "korean": "잡티", "title": "Dark spots", "title_ar": "التصبغات" } },
+        "c6": { "type": "concern", "settings": { "collection": "anti-aging", "korean": "탄력", "title": "Firming & anti-aging", "title_ar": "شد ومكافحة الشيخوخة" } },
+        "c7": { "type": "concern", "settings": { "collection": "sensitive-skin", "korean": "민감", "title": "Sensitive skin", "title_ar": "بشرة حساسة" } },
+        "c8": { "type": "concern", "settings": { "collection": "eye-care", "korean": "눈가", "title": "Eye care", "title_ar": "العناية بالعين" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"],
+      "settings": {}
+    },
+    "ritual": {
+      "type": "ritual",
+      "blocks": {
+        "r1": { "type": "step", "settings": { "korean": "세안", "title": "Cleanse", "title_ar": "التنظيف", "text": "Oil or balm first, then a gentle foam. Clean skin without the tight, stripped feeling.", "text_ar": "زيت أو بلسم أولاً ثم غسول لطيف — بشرة نظيفة بدون شد أو جفاف.", "collection": "cleanser", "cta": "Shop cleansers", "cta_ar": "تسوقي الغسول" } },
+        "r2": { "type": "step", "settings": { "korean": "토너", "title": "Tone & prep", "title_ar": "التونر والتحضير", "text": "Toners and pads rebalance and gently exfoliate so everything after sinks in.", "text_ar": "التونر والبادز توازن البشرة وتقشرها بلطف لتمتص ما بعدها.", "collection": "toner", "cta": "Shop toners", "cta_ar": "تسوقي التونر" } },
+        "r3": { "type": "step", "settings": { "korean": "세럼", "title": "Treat", "title_ar": "العلاج", "text": "Targeted serums and ampoules — niacinamide, PDRN, centella, glutathione.", "text_ar": "سيرومات وأمبولات مركزة — نياسيناميد، PDRN، سنتيلا، جلوتاثيون.", "collection": "serum", "cta": "Shop serums", "cta_ar": "تسوقي السيروم" } },
+        "r4": { "type": "step", "settings": { "korean": "보습", "title": "Moisturise", "title_ar": "الترطيب", "text": "Light gel-creams for the heat, barrier creams for air-conditioned days.", "text_ar": "جل كريم خفيف للحر، وكريمات حاجز للأيام تحت المكيف.", "collection": "cream", "cta": "Shop moisturisers", "cta_ar": "تسوقي المرطبات" } },
+        "r5": { "type": "step", "settings": { "korean": "선크림", "title": "Protect", "title_ar": "الحماية", "text": "The step that matters most in the UAE. Featherlight Korean SPF you'll actually reapply.", "text_ar": "أهم خطوة في الإمارات — واقي شمس كوري خفيف ستستخدمينه فعلاً.", "collection": "sunscreen", "cta": "Shop sunscreen", "cta_ar": "تسوقي واقي الشمس" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5"],
+      "settings": {}
+    },
+    "manifesto": {
+      "type": "marquee",
+      "blocks": {
+        "q1": { "type": "item", "settings": { "text": "Glass skin", "text_ar": "بشرة زجاجية" } },
+        "q2": { "type": "item", "settings": { "text": "서울 글로우", "text_ar": "서울 글로우" } },
+        "q3": { "type": "item", "settings": { "text": "Quiet glow, loud craft", "text_ar": "توهّج هادئ، إتقان واضح" } },
+        "q4": { "type": "item", "settings": { "text": "KAVO Drop 001", "text_ar": "KAVO ٠٠١" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4"],
+      "settings": { "style": "serif", "tone": "dark", "separator": "✦", "speed": 50, "reverse": true }
+    },
+    "lookbook": {
+      "type": "lookbook",
+      "settings": { "collection": "kavo-by-seoulglow", "limit": 12, "lead_image": "shopify://shop_images/sg-maison-kavo-dark.png", "lead_caption": "Seongsu, Seoul — Drop 001", "lead_caption_ar": "سيونغسو، سيول — الإصدار ٠٠١" }
+    },
+    "quiz": {
+      "type": "skin-quiz",
+      "settings": {
+        "col_oily": "oily-skin", "col_dry": "dry-skin", "col_combination": "combination", "col_sensitive": "sensitive-skin",
+        "col_acne": "acne", "col_glow": "glow", "col_spots": "dark-spots", "col_pores": "pores", "col_aging": "anti-aging", "col_hydration": "hydration"
+      }
+    },
+    "story": {
+      "type": "editorial",
+      "blocks": {
+        "p1": { "type": "pillar", "settings": { "icon": "shield", "title": "Authorised sourcing", "title_ar": "مصادر معتمدة", "text": "Every product from authorised Korean channels — never grey market.", "text_ar": "كل منتج من قنوات كورية معتمدة — بدون سوق موازي." } },
+        "p2": { "type": "pillar", "settings": { "icon": "truck", "title": "Held in the UAE", "title_ar": "مخزّن في الإمارات", "text": "No six-week waits, no customs. Dubai & Sharjah in 1–2 days.", "text_ar": "بدون انتظار أو جمارك. دبي والشارقة خلال ١–٢ يوم." } },
+        "p3": { "type": "pillar", "settings": { "icon": "leaf", "title": "Edited for the climate", "title_ar": "مختار لمناخنا", "text": "Gel textures, barrier care and suncare made for 40°C and AC.", "text_ar": "قوامات جل، عناية بالحاجز، وواقي شمس لحرارة ٤٠ درجة والمكيّف." } }
+      },
+      "block_order": ["p1", "p2", "p3"],
+      "settings": {
+        "image": "shopify://shop_images/sg-maison-texture.png",
+        "badge": "AUTHENTIC · FROM SEOUL · HELD IN UAE · ",
+        "flip": false,
+        "tone": "paper",
+        "eyebrow": "Quiet glow, loud craft",
+        "eyebrow_ar": "توهّج هادئ، إتقان واضح",
+        "heading": "Chosen for skin that lives in 40°C.",
+        "heading_ar": "مختارة لبشرة تعيش في ٤٠ درجة.",
+        "text": "<p>We don't stock a brand because it went viral. We stock it because the formula makes sense for heat, humidity and air conditioning that pulls moisture from your face all day.</p>",
+        "text_ar": "<p>لا نختار الماركة لأنها انتشرت على السوشيال ميديا، بل لأن تركيبتها مناسبة للحرارة والرطوبة والمكيّف الذي يسحب الرطوبة من بشرتك طوال اليوم.</p>",
+        "btn_label": "Our story",
+        "btn_label_ar": "قصتنا",
+        "btn_link": "/pages/about"
+      }
+    },
+    "trust": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "truck", "title": "Free delivery over 200 AED", "title_ar": "توصيل مجاني فوق ٢٠٠ درهم", "text": "1–3 working days across the UAE", "text_ar": "١–٣ أيام عمل لكل الإمارات" } },
+        "t2": { "type": "item", "settings": { "icon": "shield", "title": "100% authentic", "title_ar": "أصلي ١٠٠٪", "text": "Authorised Korean channels only", "text_ar": "من قنوات كورية معتمدة فقط" } },
+        "t3": { "type": "item", "settings": { "icon": "cash", "title": "Cash on delivery", "title_ar": "الدفع عند الاستلام", "text": "Pay when it reaches your door", "text_ar": "ادفعي عند وصول الطلب" } },
+        "t4": { "type": "item", "settings": { "icon": "return", "title": "Damaged? Replaced.", "title_ar": "تالف؟ نستبدله", "text": "Photo within 48h — full refund or replacement", "text_ar": "صورة خلال ٤٨ ساعة — استبدال أو استرداد كامل" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": { "tone": "none" }
+    }
+  },
+  "order": ["hero", "brands", "worlds", "bestsellers", "concerns", "ritual", "manifesto", "lookbook", "quiz", "story", "trust"]
+}

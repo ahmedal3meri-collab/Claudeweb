@@ -1,0 +1,119 @@
+{%- liquid
+  assign threshold = settings.free_shipping_threshold | times: 100
+  assign remaining = threshold | minus: cart.total_price
+  assign remaining_money = remaining | money
+  assign pct = 100
+  if threshold > 0
+    assign pct = cart.total_price | times: 100 | divided_by: threshold
+    if pct > 100
+      assign pct = 100
+    endif
+  endif
+-%}
+<div class="drawer drawer--cart" data-drawer="cart" aria-hidden="true" data-cart-drawer data-count="{{ cart.item_count }}">
+  <div class="drawer__overlay" data-drawer-close></div>
+  <div class="drawer__panel drawer__panel--end" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}">
+    <div class="drawer__head">
+      <h2 class="drawer__title">{{ 'cart.title' | t }} <sup>{{ cart.item_count }}</sup></h2>
+      <button class="icon-btn" type="button" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+
+    {%- if threshold > 0 -%}
+      <div class="ship-bar">
+        <p>
+          {%- if remaining > 0 -%}
+            {{ 'cart.free_shipping_remaining_html' | t: amount: remaining_money }}
+          {%- else -%}
+            {% render 'icon', name: 'sparkle' %} {{ 'cart.free_shipping_unlocked' | t }}
+          {%- endif -%}
+        </p>
+        <div class="ship-bar__track"><span style="--p: {{ pct }}%"></span></div>
+      </div>
+    {%- endif -%}
+
+    <div class="drawer__body">
+      {%- if cart.item_count == 0 -%}
+        <div class="cart-empty">
+          <p class="cart-empty__kr">비어 있음</p>
+          <p class="h3">{{ 'cart.empty' | t }}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn--dark">{{ 'cart.continue' | t }}</a>
+        </div>
+      {%- else -%}
+        <ul class="cart-lines">
+          {%- for item in cart.items -%}
+            <li class="cart-line" data-line="{{ forloop.index }}">
+              <a href="{{ item.url }}" class="cart-line__img">
+                {%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.title }}{%- endif -%}
+              </a>
+              <div class="cart-line__info">
+                <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}<p class="cart-line__variant">{{ item.variant.title }}</p>{%- endunless -%}
+                {%- for d in item.line_level_discount_allocations -%}<p class="cart-line__disc">{{ d.discount_application.title }} (−{{ d.amount | money }})</p>{%- endfor -%}
+                <div class="cart-line__row">
+                  <div class="qty qty--sm">
+                    <button type="button" data-cart-qty="{{ forloop.index }}" data-qty="{{ item.quantity | minus: 1 }}" aria-label="{{ 'cart.decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
+                    <span>{{ item.quantity }}</span>
+                    <button type="button" data-cart-qty="{{ forloop.index }}" data-qty="{{ item.quantity | plus: 1 }}" aria-label="{{ 'cart.increase' | t }}">{% render 'icon', name: 'plus' %}</button>
+                  </div>
+                  <span class="cart-line__price">{{ item.final_line_price | money }}</span>
+                </div>
+                <button type="button" class="cart-line__remove" data-cart-qty="{{ forloop.index }}" data-qty="0">{{ 'cart.remove' | t }}</button>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if section.settings.upsell_collection != blank -%}
+          {%- assign in_cart = cart.items | map: 'product_id' -%}
+          <div class="upsell">
+            <p class="eyebrow">{% render 'tx', en: section.settings.upsell_heading, ar: section.settings.upsell_heading_ar %}</p>
+            <div class="upsell__row">
+              {%- assign shown = 0 -%}
+              {%- for p in section.settings.upsell_collection.products -%}
+                {%- if shown >= 4 -%}{%- break -%}{%- endif -%}
+                {%- if in_cart contains p.id or p.available == false or p.has_only_default_variant == false -%}{%- continue -%}{%- endif -%}
+                {%- assign shown = shown | plus: 1 -%}
+                <div class="upsell__item">
+                  {%- if p.featured_media -%}{{ p.featured_media | image_url: width: 200 | image_tag: loading: 'lazy', alt: p.title }}{%- endif -%}
+                  <div>
+                    <p class="upsell__title">{{ p.title | truncate: 38 }}</p>
+                    <p class="upsell__price">{{ p.price | money }}</p>
+                  </div>
+                  <button type="button" class="upsell__add" data-quick-add="{{ p.selected_or_first_available_variant.id }}" aria-label="{{ 'products.quick_add' | t }}">{% render 'icon', name: 'plus' %}</button>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="drawer__foot cart-foot">
+        {%- for d in cart.cart_level_discount_applications -%}
+          <p class="cart-foot__row"><span>{{ d.title }}</span><span>−{{ d.total_allocated_amount | money }}</span></p>
+        {%- endfor -%}
+        <p class="cart-foot__row cart-foot__total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
+        <p class="small muted">{{ 'cart.taxes_note' | t }}</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="btn btn--dark btn--full btn--shine">{{ 'cart.checkout' | t }} {% render 'icon', name: 'arrow' %}</button>
+        </form>
+        <div class="cart-foot__trust">
+          <span>{% render 'icon', name: 'cash' %} {{ 'trust.cod' | t }}</span>
+          <span>{% render 'icon', name: 'shield' %} {{ 'trust.authentic' | t }}</span>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": [
+    { "type": "collection", "id": "upsell_collection", "label": "“Complete your ritual” collection" },
+    { "type": "text", "id": "upsell_heading", "label": "Upsell heading", "default": "Complete your ritual" },
+    { "type": "text", "id": "upsell_heading_ar", "label": "Upsell heading (Arabic)", "default": "أكملي روتينك" }
+  ]
+}
+{% endschema %}

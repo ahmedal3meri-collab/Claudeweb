@@ -1,0 +1,121 @@
+{%- liquid
+  assign is_kavo = false
+  if collection.handle contains 'kavo'
+    assign is_kavo = true
+  endif
+  assign banner = collection.image
+  if banner == blank and is_kavo
+    assign banner = section.settings.kavo_banner
+  elsif banner == blank
+    assign banner = section.settings.default_banner
+  endif
+-%}
+<section class="col-hero{% if is_kavo %} tone-dark{% endif %}">
+  {%- if banner != blank -%}
+    <div class="col-hero__media" data-parallax="0.12">
+      {{ banner | image_url: width: 2000 | image_tag: loading: 'eager', sizes: '100vw', widths: '750,1100,1500,2000', alt: '' }}
+      <div class="hero__shade"></div>
+    </div>
+  {%- endif -%}
+  <div class="container col-hero__inner{% if banner != blank %} has-media{% endif %}">
+    <nav class="crumbs"><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span>/</span><span>{{ collection.title }}</span></nav>
+    <p class="eyebrow">{% if is_kavo %}KAVO · 카보{% else %}Seoul Glow · 서울{% endif %}</p>
+    <h1 class="col-hero__title"><span class="line"><span class="line__in">{{ collection.title | remove: 'KAVO — ' }}</span></span></h1>
+    {%- if collection.description != blank -%}<div class="col-hero__desc rte" dir="auto">{{ collection.description }}</div>{%- endif -%}
+    <p class="col-hero__count">{{ 'collections.products_count' | t: count: collection.products_count }}</p>
+  </div>
+</section>
+
+{%- paginate collection.products by section.settings.per_page -%}
+<section class="col section-top" data-collection>
+  <div class="container">
+    <form class="toolbar" data-filter-form>
+      <div class="toolbar__filters">
+        {%- for filter in collection.filters -%}
+          {%- if filter.type == 'price_range' -%}{%- continue -%}{%- endif -%}
+          <details class="fdrop">
+            <summary>{{ filter.label }}{% if filter.active_values.size > 0 %} <sup>{{ filter.active_values.size }}</sup>{% endif %} {% render 'icon', name: 'plus' %}</summary>
+            <div class="fdrop__panel">
+              {%- for value in filter.values -%}
+                <label class="check{% if value.count == 0 and value.active == false %} is-disabled{% endif %}">
+                  <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" {% if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                  <span>{{ value.label }}</span><small>{{ value.count }}</small>
+                </label>
+              {%- endfor -%}
+            </div>
+          </details>
+        {%- endfor -%}
+        {%- assign has_active = false -%}
+        {%- for filter in collection.filters -%}{%- if filter.active_values.size > 0 -%}{%- assign has_active = true -%}{%- endif -%}{%- endfor -%}
+        {%- if has_active -%}<a class="toolbar__clear" href="{{ collection.url }}?sort_by={{ collection.sort_by }}">{{ 'collections.clear' | t }}</a>{%- endif -%}
+      </div>
+      <div class="toolbar__right">
+        <label class="sort">
+          <span class="visually-hidden">{{ 'collections.sort' | t }}</span>
+          <select name="sort_by" data-sort>
+            {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+        </label>
+        <div class="grid-toggle" role="group" aria-label="{{ 'collections.layout' | t }}">
+          <button type="button" data-cols="2" aria-label="2">▮▮</button>
+          <button type="button" data-cols="4" class="is-active" aria-label="4">▮▮▮▮</button>
+        </div>
+      </div>
+    </form>
+
+    {%- if collection.products.size > 0 -%}
+      <div class="grid" data-grid>
+        {%- for product in collection.products -%}
+          {%- if forloop.index <= 4 -%}{%- assign eager = true -%}{%- else -%}{%- assign eager = false -%}{%- endif -%}
+          {% render 'product-card', product: product, index: forloop.index0, eager: eager %}
+          {%- if forloop.index == 6 and section.settings.promo_image != blank and paginate.current_page == 1 and is_kavo == false -%}
+            <a href="{{ section.settings.promo_link }}" class="grid-promo" data-reveal>
+              {{ section.settings.promo_image | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '500,750,1000', alt: '' }}
+              <span class="grid-promo__copy"><span class="eyebrow">{% render 'tx', en: section.settings.promo_eyebrow, ar: section.settings.promo_eyebrow_ar %}</span><span class="h2">{% render 'tx', en: section.settings.promo_title, ar: section.settings.promo_title_ar %}</span></span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="empty-state" data-reveal>
+        <p class="empty-state__kr">{% if is_kavo %}곧 공개{% else %}곧 입고{% endif %}</p>
+        <p class="h2">{% if is_kavo %}{{ 'collections.coming_soon' | t }}{% else %}{{ 'collections.empty' | t }}{% endif %}</p>
+        <p class="muted">{{ 'collections.empty_text' | t }}</p>
+        <a href="{% if is_kavo %}/collections/kavo-by-seoulglow{% else %}{{ routes.all_products_collection_url }}{% endif %}" class="btn btn--dark">{{ 'collections.browse' | t }} {% render 'icon', name: 'arrow' %}</a>
+      </div>
+    {%- endif -%}
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination" aria-label="pagination">
+        {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="round-btn pagination__prev" aria-label="{{ 'general.previous' | t }}">{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>{%- elsif part.title == paginate.current_page -%}<span class="is-current">{{ part.title }}</span>{%- else -%}<span>{{ part.title }}</span>{%- endif -%}
+        {%- endfor -%}
+        {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="round-btn" aria-label="{{ 'general.next' | t }}">{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "class": "section-main-collection",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "image_picker", "id": "default_banner", "label": "Default banner (beauty collections without image)" },
+    { "type": "image_picker", "id": "kavo_banner", "label": "Default banner (KAVO collections without image)" },
+    { "type": "header", "content": "In-grid promo tile" },
+    { "type": "image_picker", "id": "promo_image", "label": "Image" },
+    { "type": "url", "id": "promo_link", "label": "Link" },
+    { "type": "text", "id": "promo_eyebrow", "label": "Eyebrow", "default": "Save up to 20%" },
+    { "type": "text", "id": "promo_eyebrow_ar", "label": "Eyebrow (Arabic)" },
+    { "type": "text", "id": "promo_title", "label": "Title", "default": "Curated rituals & sets" },
+    { "type": "text", "id": "promo_title_ar", "label": "Title (Arabic)" }
+  ]
+}
+{% endschema %}

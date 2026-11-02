@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": { "type": "main-collection", "settings": { "per_page": 24, "default_banner": "shopify://shop_images/sg-maison-texture.png", "kavo_banner": "shopify://shop_images/sg-maison-kavo-dark.png", "promo_image": "shopify://shop_images/sg-maison-ritual.png", "promo_link": "/collections/kits-bundles", "promo_eyebrow": "Curated rituals", "promo_eyebrow_ar": "روتينات مختارة", "promo_title": "Sets that save you up to 20%", "promo_title_ar": "أطقم توفر لكِ حتى ٢٠٪" } },
+    "trust": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "truck", "title": "Free delivery over 200 AED", "title_ar": "توصيل مجاني فوق ٢٠٠ درهم", "text": "1–3 working days across the UAE", "text_ar": "١–٣ أيام عمل لكل الإمارات" } },
+        "t2": { "type": "item", "settings": { "icon": "shield", "title": "100% authentic", "title_ar": "أصلي ١٠٠٪", "text": "Authorised Korean channels only", "text_ar": "من قنوات كورية معتمدة فقط" } },
+        "t3": { "type": "item", "settings": { "icon": "cash", "title": "Cash on delivery", "title_ar": "الدفع عند الاستلام", "text": "Pay when it reaches your door", "text_ar": "ادفعي عند وصول الطلب" } }
+      },
+      "block_order": ["t1", "t2", "t3"],
+      "settings": { "tone": "none" }
+    }
+  },
+  "order": ["main", "trust"]
+}

@@ -1,0 +1,16 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "about": { "type": "text", "settings": { "heading": "Seoul Glow", "heading_ar": "سيول جلو", "text": "<p>Authentic Korean beauty and KAVO fashion — held in the UAE, delivered in 1–3 days. We answer our own messages.</p>", "text_ar": "<p>جمال كوري أصلي وأزياء KAVO — من مخازننا في الإمارات وتوصيل خلال ١–٣ أيام. فريقنا يرد عليكِ بنفسه.</p>" } },
+        "help": { "type": "menu", "settings": { "heading": "Help", "heading_ar": "المساعدة", "menu": "footer", "menu_ar": "seoulglow-footer-ar" } }
+      },
+      "block_order": ["about", "help"],
+      "settings": { "show_payment": true }
+    }
+  },
+  "order": ["footer"]
+}

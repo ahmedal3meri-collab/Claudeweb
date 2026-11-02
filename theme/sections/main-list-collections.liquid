@@ -1,0 +1,20 @@
+<section class="section-top">
+  <div class="container">
+    <div class="section-head" data-reveal><div><p class="eyebrow">서울 글로우</p><h1 class="h1">{{ 'collections.all' | t }}</h1></div></div>
+    <div class="col-list">
+      {%- for collection in collections -%}
+        {%- if collection.products_count == 0 -%}{%- continue -%}{%- endif -%}
+        {%- assign img = collection.featured_image -%}
+        {%- if img == blank -%}{%- for p in collection.products -%}{%- if p.featured_media -%}{%- assign img = p.featured_media -%}{%- break -%}{%- endif -%}{%- endfor -%}{%- endif -%}
+        <a href="{{ collection.url }}" class="col-tile" data-reveal style="--d: {{ forloop.index0 | modulo: 4 | times: 70 }}ms">
+          <div class="col-tile__img">{%- if img -%}{{ img | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 50vw', widths: '350,500,700', alt: '' }}{%- endif -%}</div>
+          <p class="col-tile__t">{{ collection.title }}</p>
+          <p class="col-tile__c">{{ 'collections.products_count' | t: count: collection.products_count }}</p>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Collections list", "settings": [] }
+{% endschema %}

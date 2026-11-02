@@ -1,0 +1,85 @@
+{%- liquid
+  assign s = section.settings
+-%}
+<section class="quiz section tone-blush" data-quiz>
+  <div class="container quiz__grid">
+    <div class="quiz__intro" data-reveal>
+      <p class="eyebrow">{% render 'tx', en: s.eyebrow, ar: s.eyebrow_ar %}</p>
+      <h2 class="h1">{% render 'tx', en: s.heading, ar: s.heading_ar %}</h2>
+      <p class="muted">{% render 'tx', en: s.text, ar: s.text_ar %}</p>
+      <div class="quiz__orb" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="quiz__card" data-reveal>
+      <div class="quiz__progress"><span data-quiz-bar></span></div>
+
+      <div class="quiz__step is-active" data-quiz-step="0">
+        <p class="quiz__q"><span>01</span> {{ 'quiz.q1' | t }}</p>
+        <div class="quiz__opts">
+          <button type="button" class="quiz__opt" data-answer="type" data-value="{{ s.col_oily.url }}"><b>{{ 'quiz.oily' | t }}</b><small>{{ 'quiz.oily_d' | t }}</small></button>
+          <button type="button" class="quiz__opt" data-answer="type" data-value="{{ s.col_dry.url }}"><b>{{ 'quiz.dry' | t }}</b><small>{{ 'quiz.dry_d' | t }}</small></button>
+          <button type="button" class="quiz__opt" data-answer="type" data-value="{{ s.col_combination.url }}"><b>{{ 'quiz.combination' | t }}</b><small>{{ 'quiz.combination_d' | t }}</small></button>
+          <button type="button" class="quiz__opt" data-answer="type" data-value="{{ s.col_sensitive.url }}"><b>{{ 'quiz.sensitive' | t }}</b><small>{{ 'quiz.sensitive_d' | t }}</small></button>
+        </div>
+      </div>
+
+      <div class="quiz__step" data-quiz-step="1">
+        <p class="quiz__q"><span>02</span> {{ 'quiz.q2' | t }}</p>
+        <div class="quiz__opts quiz__opts--3">
+          <button type="button" class="quiz__opt" data-answer="concern" data-value="{{ s.col_acne.url }}"><b>{{ 'quiz.acne' | t }}</b></button>
+          <button type="button" class="quiz__opt" data-answer="concern" data-value="{{ s.col_glow.url }}"><b>{{ 'quiz.glow' | t }}</b></button>
+          <button type="button" class="quiz__opt" data-answer="concern" data-value="{{ s.col_spots.url }}"><b>{{ 'quiz.spots' | t }}</b></button>
+          <button type="button" class="quiz__opt" data-answer="concern" data-value="{{ s.col_pores.url }}"><b>{{ 'quiz.pores' | t }}</b></button>
+          <button type="button" class="quiz__opt" data-answer="concern" data-value="{{ s.col_aging.url }}"><b>{{ 'quiz.aging' | t }}</b></button>
+          <button type="button" class="quiz__opt" data-answer="concern" data-value="{{ s.col_hydration.url }}"><b>{{ 'quiz.hydration' | t }}</b></button>
+        </div>
+      </div>
+
+      <div class="quiz__step" data-quiz-step="2">
+        <p class="quiz__q"><span>03</span> {{ 'quiz.q3' | t }}</p>
+        <div class="quiz__opts">
+          <button type="button" class="quiz__opt" data-answer="level" data-value="2"><b>{{ 'quiz.minimal' | t }}</b><small>{{ 'quiz.minimal_d' | t }}</small></button>
+          <button type="button" class="quiz__opt" data-answer="level" data-value="4"><b>{{ 'quiz.full' | t }}</b><small>{{ 'quiz.full_d' | t }}</small></button>
+        </div>
+      </div>
+
+      <div class="quiz__step quiz__result" data-quiz-step="3">
+        <p class="eyebrow">{{ 'quiz.result_eyebrow' | t }}</p>
+        <p class="h3">{{ 'quiz.result_title' | t }}</p>
+        <div class="quiz__products" data-quiz-products><div class="loader"></div></div>
+        <div class="quiz__actions">
+          <a href="#" class="btn btn--dark" data-quiz-more>{{ 'quiz.see_all' | t }} {% render 'icon', name: 'arrow' %}</a>
+          <button type="button" class="btn btn--ghost-dark" data-quiz-restart>{{ 'quiz.restart' | t }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Glass skin quiz",
+  "class": "section-quiz",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "30-second skin diagnosis" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)", "default": "تشخيص البشرة في ٣٠ ثانية" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find your ritual." },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "اكتشفي روتينك." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Three questions. A routine matched to your skin and our shelves — instantly." },
+    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)", "default": "ثلاثة أسئلة فقط، وروتين مناسب لبشرتك من منتجاتنا فوراً." },
+    { "type": "header", "content": "Skin type collections" },
+    { "type": "collection", "id": "col_oily", "label": "Oily" },
+    { "type": "collection", "id": "col_dry", "label": "Dry" },
+    { "type": "collection", "id": "col_combination", "label": "Combination" },
+    { "type": "collection", "id": "col_sensitive", "label": "Sensitive" },
+    { "type": "header", "content": "Concern collections" },
+    { "type": "collection", "id": "col_acne", "label": "Acne" },
+    { "type": "collection", "id": "col_glow", "label": "Glow / brightening" },
+    { "type": "collection", "id": "col_spots", "label": "Dark spots" },
+    { "type": "collection", "id": "col_pores", "label": "Pores" },
+    { "type": "collection", "id": "col_aging", "label": "Anti-aging" },
+    { "type": "collection", "id": "col_hydration", "label": "Hydration" }
+  ],
+  "presets": [{ "name": "Glass skin quiz" }]
+}
+{% endschema %}

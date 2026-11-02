@@ -1,0 +1,66 @@
+{%- assign col = section.settings.collection -%}
+<section class="lookbook tone-dark" data-lookbook>
+  <div class="lookbook__head container">
+    <div class="lookbook__titles" data-reveal>
+      <p class="eyebrow">{% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+      <h2 class="lookbook__word" aria-label="{{ section.settings.word }}">
+        {%- assign letters = section.settings.word | split: '' -%}
+        {%- for l in letters -%}<span style="--i: {{ forloop.index0 }}">{{ l }}</span>{%- endfor -%}
+      </h2>
+      <p class="lookbook__drop">{% render 'tx', en: section.settings.drop, ar: section.settings.drop_ar %}</p>
+    </div>
+    <div class="lookbook__aside" data-reveal style="--d: 150ms">
+      <p>{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>
+      {%- if col != blank -%}<a href="{{ col.url }}" class="btn btn--light" data-magnetic>{% render 'tx', en: section.settings.cta, ar: section.settings.cta_ar %} {% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+    </div>
+  </div>
+
+  <div class="lookbook__rail" data-rail data-drag>
+    {%- if section.settings.lead_image != blank -%}
+      <div class="look look--lead">
+        {{ section.settings.lead_image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 50vw, 85vw', widths: '600,900,1200,1600', alt: '' }}
+        <span class="look__tag">{% render 'tx', en: section.settings.lead_caption, ar: section.settings.lead_caption_ar %}</span>
+      </div>
+    {%- endif -%}
+    {%- if col != blank -%}
+      {%- for product in col.products limit: section.settings.limit -%}
+        <a href="{{ product.url }}" class="look" style="--d: {{ forloop.index0 | times: 60 }}ms">
+          {%- if product.featured_media -%}{{ product.featured_media | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 26vw, 70vw', widths: '400,600,900', alt: product.title }}{%- endif -%}
+          <span class="look__info">
+            <span class="look__n">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <span class="look__t">{{ product.title | remove: 'KAVO — ' }}</span>
+            <span class="look__p">{{ product.price | money }}</span>
+          </span>
+        </a>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  <div class="container lookbook__foot">
+    <span class="lookbook__hint">{% render 'icon', name: 'drag' %} {{ 'general.drag' | t }}</span>
+    <div class="rail__progress rail__progress--light"><span data-rail-progress></span></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KAVO lookbook",
+  "class": "section-lookbook",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Korean-cut clothing · Curated for the UAE" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)", "default": "قصّات كورية · مختارة للإمارات" },
+    { "type": "text", "id": "word", "label": "Big word", "default": "KAVO" },
+    { "type": "text", "id": "drop", "label": "Drop label", "default": "Drop 001 — Limited release" },
+    { "type": "text", "id": "drop_ar", "label": "Drop label (Arabic)", "default": "الإصدار ٠٠١ — كمية محدودة" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Relaxed silhouettes, breathable weights, a neutral palette. Released in small drops — never restocked the same way twice." },
+    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)", "default": "قصّات مريحة، أقمشة تتنفس، وألوان هادئة. تُطرح بإصدارات محدودة لا تتكرر." },
+    { "type": "text", "id": "cta", "label": "Button", "default": "Shop the drop" },
+    { "type": "text", "id": "cta_ar", "label": "Button (Arabic)", "default": "تسوقي الإصدار" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Looks shown", "min": 4, "max": 24, "step": 1, "default": 12 },
+    { "type": "image_picker", "id": "lead_image", "label": "Lead editorial image" },
+    { "type": "text", "id": "lead_caption", "label": "Lead caption", "default": "Seongsu, Seoul — SS Edit" },
+    { "type": "text", "id": "lead_caption_ar", "label": "Lead caption (Arabic)" }
+  ],
+  "presets": [{ "name": "KAVO lookbook" }]
+}
+{% endschema %}

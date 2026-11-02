@@ -1,0 +1,112 @@
+{%- comment -%}
+  Renders a product card. Params: product, index (for stagger), sizes (img sizes attr), eager (bool)
+{%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign is_kavo = false
+  if product.tags contains 'kavo'
+    assign is_kavo = true
+  endif
+  assign img = product.featured_media
+  assign img2 = product.media[1]
+  assign sizes_attr = sizes | default: '(min-width: 1200px) 25vw, (min-width: 750px) 33vw, 50vw'
+  assign low_stock = false
+  if variant.inventory_management == 'shopify' and variant.inventory_quantity > 0 and variant.inventory_quantity <= settings.low_stock_threshold
+    assign low_stock = true
+  endif
+  assign loading = 'lazy'
+  if eager
+    assign loading = 'eager'
+  endif
+-%}
+<article class="card{% if is_kavo %} card--kavo{% endif %}{% unless product.available %} card--soldout{% endunless %}" data-reveal style="--d: {{ index | default: 0 | modulo: 4 | times: 80 }}ms">
+  <div class="card__media">
+    <a href="{{ product.url }}" class="card__link" aria-label="{{ product.title | escape }}" tabindex="-1">
+      {%- if img -%}
+        {{ img | image_url: width: 900 | image_tag: loading: loading, sizes: sizes_attr, widths: '300,450,600,750,900', class: 'card__img card__img--1', alt: product.title }}
+        {%- if settings.show_second_image and img2 -%}
+          {{ img2 | image_url: width: 900 | image_tag: loading: 'lazy', sizes: sizes_attr, widths: '300,450,600,750,900', class: 'card__img card__img--2', alt: '' }}
+        {%- endif -%}
+      {%- else -%}
+        <div class="card__placeholder">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+      {%- endif -%}
+    </a>
+
+    <div class="card__badges">
+      {%- if product.available == false -%}
+        <span class="badge badge--dark">{{ 'products.sold_out' | t }}</span>
+      {%- elsif variant.compare_at_price > variant.price -%}
+        {%- assign save = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price -%}
+        <span class="badge badge--accent">−{{ save }}%</span>
+      {%- endif -%}
+      {%- if product.tags contains 'New Arrival' -%}
+        <span class="badge">{{ 'products.new' | t }}</span>
+      {%- endif -%}
+      {%- if product.type == 'Kit' -%}
+        <span class="badge badge--gold">{{ 'products.set' | t }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if settings.enable_quick_add and product.available -%}
+      <div class="card__quick">
+        {%- if product.has_only_default_variant -%}
+          <button type="button" class="card__quick-btn" data-quick-add="{{ variant.id }}">
+            <span>{{ 'products.quick_add' | t }}</span>{% render 'icon', name: 'plus' %}
+          </button>
+        {%- elsif product.options.size == 1 and product.variants.size <= 8 -%}
+          <div class="card__sizes" role="group" aria-label="{{ product.options.first | escape }}">
+            {%- for v in product.variants -%}
+              <button type="button" class="card__size" data-quick-add="{{ v.id }}" {% unless v.available %}disabled{% endunless %}>{{ v.title }}</button>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <a class="card__quick-btn" href="{{ product.url }}"><span>{{ 'products.choose_options' | t }}</span>{% render 'icon', name: 'arrow' %}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="card__info">
+    {%- if settings.show_vendor -%}
+      {%- liquid
+        assign brand = product.vendor
+        if brand == 'SeoulGlowUAE'
+          assign t_down = product.title | downcase
+          if t_down contains 'medicube'
+            assign brand = 'Medicube'
+          elsif t_down contains 'skin1004'
+            assign brand = 'SKIN1004'
+          elsif t_down contains 'numbuzin'
+            assign brand = 'numbuzin'
+          elsif t_down contains 'althea'
+            assign brand = 'Dr. Althea'
+          elsif t_down contains 'anua'
+            assign brand = 'Anua'
+          elsif t_down contains 'joseon'
+            assign brand = 'Beauty of Joseon'
+          elsif t_down contains 'purito'
+            assign brand = 'Purito'
+          elsif t_down contains 'eqqualberry' or t_down contains 'bakuchiol'
+            assign brand = 'Eqqualberry'
+          elsif t_down contains 'ordinary'
+            assign brand = 'The Ordinary'
+          elsif product.type == 'Kit'
+            assign brand = 'Seoul Glow Edit'
+          else
+            assign brand = 'Seoul Glow'
+          endif
+        elsif brand == 'KAVO by Seoul Glow'
+          assign brand = 'KAVO'
+        endif
+      -%}
+      <p class="card__vendor">{{ brand }}</p>
+    {%- endif -%}
+    <h3 class="card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <div class="card__meta">
+      {% render 'price', product: product, use_from: true %}
+      {%- if low_stock -%}
+        <span class="card__stock">{{ 'products.only_left' | t: count: variant.inventory_quantity }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+</article>

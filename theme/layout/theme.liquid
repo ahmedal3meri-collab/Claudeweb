@@ -1,0 +1,121 @@
+<!doctype html>
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code == 'ar'
+    assign is_ar = true
+  endif
+  assign body_mode = 'mode-beauty'
+  if template.name == 'product' and product.tags contains 'kavo'
+    assign body_mode = 'mode-kavo'
+  elsif template.name == 'collection' and collection.handle contains 'kavo'
+    assign body_mode = 'mode-kavo'
+  endif
+-%}
+<html lang="{{ request.locale.iso_code }}" dir="{% if is_ar %}rtl{% else %}ltr{% endif %}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_bg }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@300;500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --c-bg: {{ settings.color_bg }};
+        --c-paper: {{ settings.color_paper }};
+        --c-ink: {{ settings.color_ink }};
+        --c-muted: {{ settings.color_muted }};
+        --c-accent: {{ settings.color_accent }};
+        --c-blush: {{ settings.color_blush }};
+        --c-celadon: {{ settings.color_celadon }};
+        --c-gold: {{ settings.color_gold }};
+        --c-dark: {{ settings.color_dark }};
+        --c-ink-rgb: {{ settings.color_ink.red }}, {{ settings.color_ink.green }}, {{ settings.color_ink.blue }};
+        --c-bg-rgb: {{ settings.color_bg.red }}, {{ settings.color_bg.green }}, {{ settings.color_bg.blue }};
+        --logo-w: {{ settings.logo_width }}px;
+      }
+    </style>
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name | handle }} {{ body_mode }}{% if settings.enable_reveal %} has-reveal{% endif %}{% if settings.enable_grain %} has-grain{% endif %}">
+    <a class="skip-link visually-hidden" href="#MainContent">{{ 'accessibility.skip_to_text' | t }}</a>
+
+    {%- if settings.show_preloader and template.name == 'index' -%}
+      <div class="preloader" data-preloader aria-hidden="true">
+        <div class="preloader__inner">
+          <span class="preloader__kr">{{ settings.logo_korean }}</span>
+          <span class="preloader__word">
+            {%- assign letters = settings.logo_text | split: '' -%}
+            {%- for l in letters -%}<i style="--i: {{ forloop.index0 }}">{% if l == ' ' %}&nbsp;{% else %}{{ l }}{% endif %}</i>{%- endfor -%}
+          </span>
+          <span class="preloader__line"></span>
+        </div>
+      </div>
+    {%- endif -%}
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" class="main" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {% section 'cart-drawer' %}
+    {% render 'search-drawer' %}
+
+    {%- if settings.whatsapp_number != blank -%}
+      <a class="wa-float" href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}?text={{ settings.whatsapp_message | url_encode }}" target="_blank" rel="noopener" aria-label="WhatsApp">
+        {% render 'icon', name: 'whatsapp' %}
+        <span>{{ 'general.whatsapp' | t }}</span>
+      </a>
+    {%- endif -%}
+
+    <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+    <script>
+      window.SG = {
+        routes: {
+          root: {{ routes.root_url | json }},
+          cart: {{ routes.cart_url | json }},
+          cartAdd: {{ routes.cart_add_url | json }},
+          cartChange: {{ routes.cart_change_url | json }},
+          search: {{ routes.predictive_search_url | json }}
+        },
+        strings: {
+          added: {{ 'cart.added' | t | json }},
+          soldOut: {{ 'products.sold_out' | t | json }},
+          addToCart: {{ 'products.add_to_cart' | t | json }},
+          unavailable: {{ 'products.unavailable' | t | json }},
+          error: {{ 'general.error' | t | json }}
+        }
+      };
+    </script>
+  </body>
+</html>

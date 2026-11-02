@@ -1,0 +1,39 @@
+<div class="announce" style="--speed: {{ section.settings.speed }}s">
+  <div class="announce__track" aria-label="{{ 'general.announcements' | t }}">
+    {%- for i in (1..2) -%}
+      <div class="announce__group" {% if forloop.last %}aria-hidden="true"{% endif %}>
+        {%- for block in section.blocks -%}
+          <span class="announce__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{%- endif -%}
+            {% render 'tx', en: block.settings.text, ar: block.settings.text_ar %}
+            {%- if block.settings.link != blank -%}</a>{%- endif -%}
+          </span>
+          <span class="announce__dot" aria-hidden="true">✦</span>
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement marquee",
+  "class": "section-announce",
+  "settings": [
+    { "type": "range", "id": "speed", "label": "Loop duration", "min": 10, "max": 80, "step": 5, "unit": "s", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text (English)", "default": "Free UAE delivery over 200 AED" },
+        { "type": "text", "id": "text_ar", "label": "Text (Arabic)" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "Announcement marquee", "blocks": [{ "type": "message" }] }]
+}
+{% endschema %}

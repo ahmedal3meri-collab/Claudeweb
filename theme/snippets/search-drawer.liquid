@@ -1,0 +1,19 @@
+<div class="drawer drawer--search" data-drawer="search" aria-hidden="true">
+  <div class="drawer__overlay" data-drawer-close></div>
+  <div class="drawer__panel drawer__panel--top" role="dialog" aria-modal="true" aria-label="{{ 'general.search' | t }}">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-form" data-predictive-search>
+      {% render 'icon', name: 'search' %}
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search_placeholder' | t }}" autocomplete="off" aria-label="{{ 'general.search' | t }}" data-search-input>
+      <input type="hidden" name="options[prefix]" value="last">
+      <button type="button" class="icon-btn" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </form>
+    <div class="search-suggest">
+      <p class="eyebrow">{{ 'general.popular' | t }}</p>
+      <div class="chips">
+        {%- assign pops = 'Glass skin,Centella,PDRN,Niacinamide,Sunscreen,Toner pads,KAVO' | split: ',' -%}
+        {%- for p in pops -%}<a class="chip" href="{{ routes.search_url }}?q={{ p | url_encode }}">{{ p }}</a>{%- endfor -%}
+      </div>
+    </div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>

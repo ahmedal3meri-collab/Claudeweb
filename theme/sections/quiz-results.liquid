@@ -1,0 +1,15 @@
+{%- comment -%} Rendered via Section Rendering API: /collections/<handle>?section_id=quiz-results {%- endcomment -%}
+<div class="quiz-results">
+  {%- if collection -%}
+    {%- assign shown = 0 -%}
+    {%- for product in collection.products -%}
+      {%- if product.available == false -%}{%- continue -%}{%- endif -%}
+      {%- if shown >= 4 -%}{%- break -%}{%- endif -%}
+      {%- assign shown = shown | plus: 1 -%}
+      <div class="quiz-results__item">{% render 'product-card', product: product, index: forloop.index0, sizes: '200px', eager: true %}</div>
+    {%- endfor -%}
+  {%- endif -%}
+</div>
+{% schema %}
+{ "name": "Quiz results", "settings": [] }
+{% endschema %}

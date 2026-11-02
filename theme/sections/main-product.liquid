@@ -1,0 +1,208 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign is_kavo = false
+  if product.tags contains 'kavo'
+    assign is_kavo = true
+  endif
+  assign low_stock = false
+  if current_variant.inventory_management == 'shopify' and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= settings.low_stock_threshold
+    assign low_stock = true
+  endif
+-%}
+<section class="pdp section-top" data-product data-section="{{ section.id }}">
+  <div class="container">
+    <nav class="crumbs" aria-label="breadcrumb">
+      <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span>/</span>
+      {%- if collection -%}<a href="{{ collection.url }}">{{ collection.title }}</a><span>/</span>{%- endif -%}
+      <span aria-current="page">{{ product.title | truncate: 40 }}</span>
+    </nav>
+  </div>
+  <div class="container pdp__grid">
+    <div class="pdp__gallery" data-gallery>
+      <div class="pdp__main">
+        {%- for media in product.media -%}
+          {%- if forloop.first -%}{%- assign ld = 'eager' -%}{%- else -%}{%- assign ld = 'lazy' -%}{%- endif -%}
+          <div class="pdp__slide{% if forloop.first %} is-active{% endif %}" data-media-id="{{ media.id }}">
+            {%- case media.media_type -%}
+              {%- when 'image' -%}
+                {{ media | image_url: width: 1800 | image_tag: loading: ld, sizes: '(min-width: 990px) 55vw, 100vw', widths: '600,900,1200,1500,1800', class: 'pdp__img', data-zoom: '' }}
+              {%- when 'video' -%}
+                {{ media | video_tag: controls: true, muted: true, playsinline: true, loop: true }}
+              {%- when 'external_video' -%}
+                {{ media | external_video_tag }}
+              {%- else -%}
+                {{ media | media_tag }}
+            {%- endcase -%}
+          </div>
+        {%- else -%}
+          <div class="pdp__slide is-active">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+        {%- endfor -%}
+        {%- if product.media.size > 1 -%}
+          <button type="button" class="round-btn pdp__arrow pdp__arrow--prev" data-gallery-prev aria-label="{{ 'general.previous' | t }}">{% render 'icon', name: 'arrow' %}</button>
+          <button type="button" class="round-btn pdp__arrow pdp__arrow--next" data-gallery-next aria-label="{{ 'general.next' | t }}">{% render 'icon', name: 'arrow' %}</button>
+        {%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="pdp__thumbs">
+          {%- for media in product.media -%}
+            <button type="button" class="pdp__thumb{% if forloop.first %} is-active{% endif %}" data-thumb="{{ media.id }}" aria-label="{{ 'products.media' | t: n: forloop.index }}">
+              {{ media.preview_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="pdp__info">
+      <div class="pdp__sticky">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {% render block %}
+            {%- when 'title' -%}
+              <div class="pdp__head" {{ block.shopify_attributes }}>
+                <p class="eyebrow">{% if is_kavo %}KAVO · {{ 'products.drop' | t }} 001{% else %}{{ product.type }}{% endif %}</p>
+                <h1 class="pdp__title">{{ product.title }}</h1>
+              </div>
+            {%- when 'price' -%}
+              <div class="pdp__price" {{ block.shopify_attributes }}>
+                {% render 'price', product: product, variant: current_variant %}
+                {%- if cart.taxes_included -%}<p class="small muted">{{ 'products.tax_included' | t }}</p>{%- endif -%}
+              </div>
+            {%- when 'perks' -%}
+              <ul class="pdp__perks" {{ block.shopify_attributes }}>
+                <li>{% render 'icon', name: 'shield' %} {{ 'trust.authentic' | t }}</li>
+                <li>{% render 'icon', name: 'truck' %} {{ 'trust.delivery' | t }}</li>
+                <li>{% render 'icon', name: 'cash' %} {{ 'trust.cod' | t }}</li>
+              </ul>
+            {%- when 'buy' -%}
+              <div class="pdp__buy" {{ block.shopify_attributes }}>
+                {%- form 'product', product, class: 'product-form', data-product-form: '', novalidate: 'novalidate' -%}
+                  <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+                  {%- unless product.has_only_default_variant -%}
+                    {%- for option in product.options_with_values -%}
+                      <fieldset class="opt" data-option-index="{{ forloop.index0 }}">
+                        <legend class="opt__label">{{ option.name }}: <b data-option-value>{{ option.selected_value }}</b>
+                          {%- assign oname = option.name | downcase -%}
+                          {%- if oname == 'size' or oname == 'المقاس' -%}<a href="/pages/size-guide" class="opt__guide" target="_blank">{{ 'products.size_guide' | t }}</a>{%- endif -%}
+                        </legend>
+                        <div class="opt__values">
+                          {%- for value in option.values -%}
+                            <label class="pill">
+                              <input type="radio" name="option-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
+                              <span>{{ value }}</span>
+                            </label>
+                          {%- endfor -%}
+                        </div>
+                      </fieldset>
+                    {%- endfor -%}
+                  {%- endunless -%}
+
+                  <p class="pdp__stock{% unless low_stock %} is-hidden{% endunless %}" data-low-stock>
+                    <span class="pulse"></span> <span data-low-stock-text>{{ 'products.only_left' | t: count: current_variant.inventory_quantity }}</span>
+                  </p>
+
+                  <div class="pdp__actions">
+                    <div class="qty">
+                      <button type="button" data-qty-step="-1" aria-label="{{ 'cart.decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
+                      <input type="number" name="quantity" value="1" min="1" aria-label="{{ 'products.quantity' | t }}">
+                      <button type="button" data-qty-step="1" aria-label="{{ 'cart.increase' | t }}">{% render 'icon', name: 'plus' %}</button>
+                    </div>
+                    <button type="submit" class="btn btn--dark btn--grow btn--shine" data-add-btn {% unless current_variant.available %}disabled{% endunless %}>
+                      <span data-add-text>{%- if current_variant.available -%}{{ 'products.add_to_cart' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}</span>
+                    </button>
+                  </div>
+                  {%- if block.settings.show_dynamic -%}
+                    <div class="pdp__dynamic">{{ form | payment_button }}</div>
+                  {%- endif -%}
+                {%- endform -%}
+                <script type="application/json" data-product-json>
+                  {
+                    "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "options": {{ v.options | json }}, "available": {{ v.available | json }}, "price": {{ v.price | money | json }}, "compare": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %}, "save": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price }}{% else %}0{% endif %}, "qty": {% if v.inventory_management == 'shopify' %}{{ v.inventory_quantity }}{% else %}null{% endif %}, "media": {% if v.featured_media %}{{ v.featured_media.id }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
+                    "lowStock": {{ settings.low_stock_threshold }},
+                    "onlyLeft": {{ 'products.only_left' | t: count: '__N__' | json }}
+                  }
+                </script>
+                {%- if settings.free_shipping_threshold > 0 -%}
+                  <p class="pdp__ship small">{% render 'icon', name: 'truck' %} {{ 'products.free_shipping_note' | t: amount: settings.free_shipping_threshold }}</p>
+                {%- endif -%}
+              </div>
+            {%- when 'description' -%}
+              <div class="pdp__acc" {{ block.shopify_attributes }}>
+                <details class="acc" open>
+                  <summary>{{ 'products.details' | t }} {% render 'icon', name: 'plus' %}</summary>
+                  <div class="acc__body rte" dir="auto">{{ product.description }}</div>
+                </details>
+              </div>
+            {%- when 'collapsible' -%}
+              <details class="acc" {{ block.shopify_attributes }}>
+                <summary>{% render 'tx', en: block.settings.heading, ar: block.settings.heading_ar %} {% render 'icon', name: 'plus' %}</summary>
+                <div class="acc__body rte">
+                  {% render 'tx', en: block.settings.content, ar: block.settings.content_ar %}
+                  {%- if block.settings.page != blank -%}{{ block.settings.page.content }}{%- endif -%}
+                </div>
+              </details>
+            {%- when 'share' -%}
+              <div class="pdp__share" {{ block.shopify_attributes }}>
+                <a href="https://wa.me/?text={{ product.title | append: ' ' | append: shop.url | append: product.url | url_encode }}" target="_blank" rel="noopener">{% render 'icon', name: 'whatsapp' %} {{ 'products.share_whatsapp' | t }}</a>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Sticky mobile add-to-cart {%- endcomment -%}
+  <div class="sticky-atc" data-sticky-atc>
+    <div class="sticky-atc__info">
+      {%- if product.featured_media -%}{{ product.featured_media | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+      <div><p class="sticky-atc__t">{{ product.title | truncate: 32 }}</p><p class="sticky-atc__p" data-sticky-price>{{ current_variant.price | money }}</p></div>
+    </div>
+    <button type="button" class="btn btn--dark" data-sticky-add {% unless current_variant.available %}disabled{% endunless %}>{{ 'products.add_to_cart' | t }}</button>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": {{ request.origin | append: product.url | json }},
+  {%- if product.featured_media -%}"image": [{{ product.featured_media | image_url: width: 1200 | prepend: 'https:' | json }}],{%- endif -%}
+  "description": {{ product.description | strip_html | truncate: 300 | json }},
+  "brand": { "@type": "Brand", "name": {{ product.vendor | json }} },
+  "offers": [
+    {%- for v in product.variants -%}
+    { "@type": "Offer", "sku": {{ v.sku | json }}, "availability": "http://schema.org/{% if v.available %}InStock{% else %}OutOfStock{% endif %}", "price": {{ v.price | divided_by: 100.0 | json }}, "priceCurrency": {{ cart.currency.iso_code | json }}, "url": {{ request.origin | append: v.url | json }} }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "class": "section-main-product",
+  "settings": [],
+  "blocks": [
+    { "type": "@app" },
+    { "type": "title", "name": "Title", "limit": 1 },
+    { "type": "price", "name": "Price", "limit": 1 },
+    { "type": "buy", "name": "Buy buttons", "limit": 1, "settings": [{ "type": "checkbox", "id": "show_dynamic", "label": "Show Buy it now button", "default": true }] },
+    { "type": "perks", "name": "Perks", "limit": 1 },
+    { "type": "description", "name": "Description", "limit": 1 },
+    {
+      "type": "collapsible",
+      "name": "Collapsible tab",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Delivery & returns" },
+        { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)" },
+        { "type": "richtext", "id": "content", "label": "Content" },
+        { "type": "richtext", "id": "content_ar", "label": "Content (Arabic)" },
+        { "type": "page", "id": "page", "label": "Or show a page" }
+      ]
+    },
+    { "type": "share", "name": "Share", "limit": 1 }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+{
+  "current": {
+    "logo_width": 140,
+    "logo_text": "SEOUL GLOW",
+    "logo_korean": "서울 글로우",
+    "show_preloader": true,
+    "color_bg": "#F7F2EC",
+    "color_paper": "#FFFDFA",
+    "color_ink": "#161313",
+    "color_muted": "#7C746C",
+    "color_accent": "#B9776C",
+    "color_blush": "#EBD3CA",
+    "color_celadon": "#AFC2B0",
+    "color_gold": "#B89A6A",
+    "color_dark": "#0F0E0D",
+    "free_shipping_threshold": 200,
+    "low_stock_threshold": 5,
+    "show_vendor": true,
+    "show_second_image": true,
+    "enable_quick_add": true,
+    "whatsapp_message": "Hi Seoul Glow! I need help choosing my routine ✨",
+    "enable_reveal": true,
+    "enable_grain": true,
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": { "upsell_collection": "best", "upsell_heading": "Complete your ritual", "upsell_heading_ar": "أكملي روتينك" }
+      }
+    }
+  },
+  "presets": {
+    "Default": {
+      "logo_text": "SEOUL GLOW",
+      "logo_korean": "서울 글로우"
+    }
+  }
+}

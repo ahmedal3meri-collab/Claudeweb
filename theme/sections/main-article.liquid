@@ -1,0 +1,16 @@
+<article class="article section-top">
+  <div class="container container--narrow">
+    <p class="eyebrow">{{ article.published_at | date: format: 'abbreviated_date' }} · {{ blog.title }}</p>
+    <h1 class="h1 page__title">{{ article.title }}</h1>
+  </div>
+  {%- if article.image -%}
+    <div class="container article__img" data-reveal>{{ article.image | image_url: width: 2000 | image_tag: loading: 'eager', sizes: '100vw', widths: '750,1200,1600,2000', alt: article.title }}</div>
+  {%- endif -%}
+  <div class="container container--narrow">
+    <div class="rte page__body" dir="auto">{{ article.content }}</div>
+    <a href="{{ blog.url }}" class="link-arrow">{{ 'general.back_to' | t: title: blog.title }} {% render 'icon', name: 'arrow' %}</a>
+  </div>
+</article>
+{% schema %}
+{ "name": "Article", "settings": [] }
+{% endschema %}

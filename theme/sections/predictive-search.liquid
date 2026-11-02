@@ -1,0 +1,22 @@
+{%- if predictive_search.performed -%}
+  <div class="ps">
+    {%- if predictive_search.resources.products.size > 0 -%}
+      <p class="eyebrow">{{ 'general.products' | t }}</p>
+      <ul class="ps__list">
+        {%- for product in predictive_search.resources.products limit: 6 -%}
+          <li>
+            <a href="{{ product.url }}" class="ps__item">
+              {%- if product.featured_media -%}{{ product.featured_media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+              <span><b>{{ product.title }}</b><small>{{ product.price | money }}</small></span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if predictive_search.resources.collections.size > 0 -%}
+      <p class="eyebrow">{{ 'general.collections' | t }}</p>
+      <div class="chips">{%- for c in predictive_search.resources.collections limit: 6 -%}<a class="chip" href="{{ c.url }}">{{ c.title }}</a>{%- endfor -%}</div>
+    {%- endif -%}
+    <a class="link-arrow" href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&options[prefix]=last">{{ 'general.view_all_results' | t: terms: predictive_search.terms }} {% render 'icon', name: 'arrow' %}</a>
+  </div>
+{%- endif -%}

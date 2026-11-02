@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "quiz": {
+      "type": "skin-quiz",
+      "settings": {
+        "col_oily": "oily-skin", "col_dry": "dry-skin", "col_combination": "combination", "col_sensitive": "sensitive-skin",
+        "col_acne": "acne", "col_glow": "glow", "col_spots": "dark-spots", "col_pores": "pores", "col_aging": "anti-aging", "col_hydration": "hydration"
+      }
+    }
+  },
+  "order": ["quiz"]
+}

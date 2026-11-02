@@ -1,0 +1,9 @@
+<section class="empty-state empty-state--404 section-top">
+  <p class="empty-state__kr">길을 잃었어요</p>
+  <p class="display">404</p>
+  <p class="h2">{{ 'general.404' | t }}</p>
+  <a href="{{ routes.all_products_collection_url }}" class="btn btn--dark">{{ 'collections.browse' | t }} {% render 'icon', name: 'arrow' %}</a>
+</section>
+{% schema %}
+{ "name": "404", "settings": [] }
+{% endschema %}

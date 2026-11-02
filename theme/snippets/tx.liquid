@@ -1,0 +1,2 @@
+{%- comment -%} Bilingual helper: prints `ar` on the Arabic storefront when filled, else `en`. {%- endcomment -%}
+{%- if request.locale.iso_code == 'ar' and ar != blank -%}{{ ar }}{%- else -%}{{ en }}{%- endif -%}

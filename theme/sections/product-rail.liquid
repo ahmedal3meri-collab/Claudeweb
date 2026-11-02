@@ -1,0 +1,77 @@
+<section class="rail section{% if section.settings.tone == 'blush' %} tone-blush{% elsif section.settings.tone == 'dark' %} tone-dark{% endif %}" data-tabs>
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="eyebrow">{% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+        <h2 class="h1">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
+      </div>
+      {%- if section.blocks.size > 1 -%}
+        <div class="tabs" role="tablist">
+          {%- for block in section.blocks -%}
+            <button type="button" role="tab" class="tab{% if forloop.first %} is-active{% endif %}" data-tab="{{ forloop.index0 }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>{% render 'tx', en: block.settings.label, ar: block.settings.label_ar %}</button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- for block in section.blocks -%}
+    {%- assign col = block.settings.collection -%}
+    <div class="rail__panel{% if forloop.first %} is-active{% endif %}" data-panel="{{ forloop.index0 }}" role="tabpanel">
+      <div class="rail__track container-bleed" data-rail>
+        {%- if col != blank and col.products_count > 0 -%}
+          {%- assign shown = 0 -%}
+          {%- for product in col.products -%}
+            {%- if section.settings.hide_soldout and product.available == false -%}{%- continue -%}{%- endif -%}
+            {%- if shown >= section.settings.limit -%}{%- break -%}{%- endif -%}
+            {%- assign shown = shown | plus: 1 -%}
+            <div class="rail__item">{% render 'product-card', product: product, index: forloop.index0 %}</div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <div class="rail__item"><div class="card"><div class="card__media">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div><div class="card__info"><p class="card__title">{{ 'products.placeholder' | t }}</p></div></div></div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <div class="container rail__foot">
+        <div class="rail__progress"><span data-rail-progress></span></div>
+        <div class="rail__nav">
+          <button type="button" class="round-btn" data-rail-prev aria-label="{{ 'general.previous' | t }}">{% render 'icon', name: 'arrow' %}</button>
+          <button type="button" class="round-btn" data-rail-next aria-label="{{ 'general.next' | t }}">{% render 'icon', name: 'arrow' %}</button>
+        </div>
+        {%- if col != blank -%}
+          <a href="{{ col.url }}" class="link-arrow">{{ 'general.view_all' | t }} {% render 'icon', name: 'arrow' %}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "Product rail",
+  "class": "section-rail",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Most loved in the UAE" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The bestsellers" },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)" },
+    { "type": "range", "id": "limit", "label": "Products per tab", "min": 4, "max": 16, "step": 1, "default": 10 },
+    { "type": "checkbox", "id": "hide_soldout", "label": "Hide sold-out products", "default": true },
+    { "type": "select", "id": "tone", "label": "Background", "default": "none", "options": [{ "value": "none", "label": "Default" }, { "value": "blush", "label": "Blush" }, { "value": "dark", "label": "Dark" }] }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Collection tab",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tab label", "default": "Bestsellers" },
+        { "type": "text", "id": "label_ar", "label": "Tab label (Arabic)" },
+        { "type": "collection", "id": "collection", "label": "Collection" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [{ "name": "Product rail", "blocks": [{ "type": "tab" }] }]
+}
+{% endschema %}

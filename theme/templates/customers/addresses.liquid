@@ -1,0 +1,24 @@
+<section class="page section-top"><div class="container container--narrow">
+  <p><a href="{{ routes.account_url }}" class="link-arrow">← {{ 'general.account' | t }}</a></p>
+  <h1 class="h1 page__title">{{ 'customer.addresses' | t }}</h1>
+  {%- paginate customer.addresses by 10 -%}
+    {%- for address in customer.addresses -%}
+      <div class="rte">{{ address | format_address }}{%- if address == customer.default_address -%}<p class="eyebrow">{{ 'customer.default' | t }}</p>{%- endif -%}</div>
+    {%- endfor -%}
+  {%- endpaginate -%}
+  <h2 class="h3">{{ 'customer.add_address' | t }}</h2>
+  {%- form 'customer_address', customer.new_address, class: 'form' -%}
+    <div class="form__row">
+      <label><span>{{ 'customer.first_name' | t }}</span><input type="text" name="address[first_name]" value="{{ form.first_name }}"></label>
+      <label><span>{{ 'customer.last_name' | t }}</span><input type="text" name="address[last_name]" value="{{ form.last_name }}"></label>
+    </div>
+    <label><span>{{ 'customer.address1' | t }}</span><input type="text" name="address[address1]" value="{{ form.address1 }}"></label>
+    <div class="form__row">
+      <label><span>{{ 'customer.city' | t }}</span><input type="text" name="address[city]" value="{{ form.city }}"></label>
+      <label><span>{{ 'contact.phone' | t }}</span><input type="tel" name="address[phone]" value="{{ form.phone }}"></label>
+    </div>
+    <input type="hidden" name="address[country]" value="United Arab Emirates">
+    <label class="check"><input type="checkbox" name="address[default]" value="1"> <span>{{ 'customer.set_default' | t }}</span></label>
+    <button type="submit" class="btn btn--dark">{{ 'customer.save' | t }}</button>
+  {%- endform -%}
+</div></section>
