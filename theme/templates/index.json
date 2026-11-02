@@ -402,16 +402,6 @@
       ],
       "settings": {}
     },
-    "lookbook": {
-      "type": "lookbook",
-      "settings": {
-        "collection": "kavo-by-seoulglow",
-        "limit": 12,
-        "lead_image": "shopify://shop_images/sg-cine-alley.png",
-        "lead_caption": "Euljiro, Seoul — Drop 001",
-        "lead_caption_ar": "أولجيرو، سيول — الإصدار ٠٠١"
-      }
-    },
     "quiz": {
       "type": "skin-quiz",
       "settings": {
@@ -541,6 +531,16 @@
       "settings": {
         "collection": "kits-bundles"
       }
+    },
+    "rack": {
+      "type": "kavo-rack",
+      "settings": {
+        "collection": "kavo-by-seoulglow",
+        "limit": 10,
+        "tone": "light",
+        "label": "KAVO Rack — swipe the drop",
+        "label_ar": "رف KAVO — اسحبي وتصفحي"
+      }
     }
   },
   "order": [
@@ -550,7 +550,7 @@
     "bestsellers",
     "concerns",
     "ritual",
-    "lookbook",
+    "rack",
     "quiz",
     "sets",
     "story",

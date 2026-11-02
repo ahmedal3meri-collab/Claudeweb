@@ -69,31 +69,6 @@
       ],
       "settings": {}
     },
-    "drop": {
-      "type": "product-rail",
-      "blocks": {
-        "t1": {
-          "type": "tab",
-          "settings": {
-            "label": "Drop 001",
-            "label_ar": "الإصدار ٠٠١",
-            "collection": "kavo-by-seoulglow"
-          }
-        }
-      },
-      "block_order": [
-        "t1"
-      ],
-      "settings": {
-        "eyebrow": "Shop the drop",
-        "eyebrow_ar": "تسوقي الإصدار",
-        "heading": "Drop 001",
-        "heading_ar": "الإصدار ٠٠١",
-        "limit": 12,
-        "hide_soldout": false,
-        "tone": "dark"
-      }
-    },
     "lookbook": {
       "type": "lookbook",
       "settings": {
@@ -222,12 +197,20 @@
     "alert": {
       "type": "drop-signup",
       "settings": {}
+    },
+    "rack": {
+      "type": "kavo-rack",
+      "settings": {
+        "collection": "kavo-by-seoulglow",
+        "limit": 10,
+        "tone": "light"
+      }
     }
   },
   "order": [
     "hero",
+    "rack",
     "cats",
-    "drop",
     "lookbook",
     "fit",
     "promise",

@@ -584,3 +584,111 @@
   /* ---------- Hero video safety ---------- */
   $$('.hero__video').forEach((v) => { v.muted = true; const p = v.play && v.play(); if (p && p.catch) p.catch(() => {}); });
 })();
+
+/* ---------- KAVO rack: drag, centre-select, swinging hangers ---------- */
+(() => {
+  const racks = document.querySelectorAll('[data-rack]');
+  if (!racks.length) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  racks.forEach((rack) => {
+    const track = rack.querySelector('[data-rack-track]');
+    const items = Array.from(rack.querySelectorAll('[data-rack-item]'));
+    if (!track || !items.length) return;
+    const hangers = items.map((it) => it.querySelector('[data-rack-hanger]'));
+    const data = items.map((it) => { try { return JSON.parse(it.querySelector('[data-rack-data]').textContent); } catch (e) { return null; } });
+    const $ = (s) => rack.querySelector(s);
+    const elTitle = $('[data-rack-title]'), elPrice = $('[data-rack-price]'), elCompare = $('[data-rack-compare]'), elIndex = $('[data-rack-index]');
+    const elLink = $('[data-rack-link]'), elAvail = $('[data-rack-avail]'), elSizes = $('[data-rack-sizes]');
+    let active = -1;
+    const elTotal = rack.querySelector('[data-rack-total]');
+    if (elTotal) elTotal.textContent = String(items.length).padStart(2, '0');
+
+    const setActive = (i) => {
+      if (i === active || !data[i]) return;
+      active = i;
+      items.forEach((it, k) => { it.classList.toggle('is-active', k === i); it.classList.toggle('is-near', Math.abs(k - i) === 1); });
+      const d = data[i];
+      elTitle.textContent = d.title;
+      elPrice.innerHTML = d.price;
+      elCompare.innerHTML = d.compare || '';
+      elIndex.textContent = String(i + 1).padStart(2, '0');
+      elLink.href = d.url;
+      elAvail.setAttribute('aria-expanded', 'false');
+      elSizes.hidden = true;
+      elSizes.innerHTML = d.variants.map((v) => `<button type="button" class="rack__size" data-quick-add="${v.id}" ${v.available ? '' : 'disabled'}>${v.title === 'Default Title' ? '+' : v.title}</button>`).join('');
+      impulse(i, 7);
+    };
+    elAvail.addEventListener('click', () => {
+      const open = elSizes.hidden;
+      elSizes.hidden = !open;
+      elAvail.setAttribute('aria-expanded', String(open));
+    });
+
+    // which item sits in the centre of the rail
+    const centreIndex = () => {
+      const r = track.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      let best = 0, bd = Infinity;
+      items.forEach((it, k) => { const b = it.getBoundingClientRect(); const d = Math.abs(b.left + b.width / 2 - cx); if (d < bd) { bd = d; best = k; } });
+      return best;
+    };
+    const centreOn = (i, smooth = true) => {
+      const it = items[i]; if (!it) return;
+      const r = track.getBoundingClientRect(), b = it.getBoundingClientRect();
+      track.scrollBy({ left: b.left + b.width / 2 - (r.left + r.width / 2), behavior: smooth ? 'smooth' : 'auto' });
+    };
+
+    // swing physics (spring per hanger, driven by scroll velocity)
+    const ang = items.map(() => 0), vel = items.map(() => 0);
+    let lastX = track.scrollLeft, running = false;
+    const impulse = (i, f) => { if (reduce || !hangers[i]) return; vel[i] += f; kick(); };
+    const tick = () => {
+      const x = track.scrollLeft;
+      const dx = x - lastX; lastX = x;
+      let moving = Math.abs(dx) > 0.2;
+      for (let k = 0; k < items.length; k++) {
+        vel[k] += (-Math.max(-60, Math.min(60, dx)) * 0.045) + (-ang[k] * 0.06);
+        vel[k] *= 0.86;
+        ang[k] += vel[k];
+        ang[k] = Math.max(-14, Math.min(14, ang[k]));
+        if (Math.abs(ang[k]) > 0.05 || Math.abs(vel[k]) > 0.05) moving = true;
+        if (hangers[k]) hangers[k].style.transform = `rotate(${ang[k].toFixed(2)}deg)`;
+      }
+      if (moving) requestAnimationFrame(tick); else running = false;
+    };
+    const kick = () => { if (reduce) return; if (!running) { running = true; requestAnimationFrame(tick); } };
+
+    let raf;
+    track.addEventListener('scroll', () => { kick(); cancelAnimationFrame(raf); raf = requestAnimationFrame(() => setActive(centreIndex())); }, { passive: true });
+
+    // click: centre it, or open it if already centred
+    let dragMoved = false;
+    items.forEach((it, k) => {
+      it.addEventListener('click', (e) => {
+        if (dragMoved) { e.preventDefault(); return; }
+        if (k === active) window.location.href = data[k].url; else centreOn(k);
+      });
+      it.addEventListener('mouseenter', () => impulse(k, k % 2 ? 3 : -3));
+    });
+
+    // mouse drag (touch uses native scroll)
+    if (window.matchMedia('(pointer: fine)').matches) {
+      let down = false, sx = 0, sl = 0;
+      track.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; dragMoved = false; sx = e.clientX; sl = track.scrollLeft; });
+      window.addEventListener('pointermove', (e) => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 4) { dragMoved = true; track.classList.add('is-dragging'); } track.scrollLeft = sl - dx; });
+      window.addEventListener('pointerup', () => { if (!down) return; down = false; track.classList.remove('is-dragging'); setTimeout(() => { dragMoved = false; }, 0); centreOn(centreIndex()); });
+    }
+    // keyboard
+    track.addEventListener('keydown', (e) => {
+      const rtl = document.documentElement.dir === 'rtl';
+      if (e.key === 'ArrowRight') { e.preventDefault(); centreOn(Math.min(items.length - 1, active + (rtl ? -1 : 1))); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); centreOn(Math.max(0, active + (rtl ? 1 : -1))); }
+      if (e.key === 'Enter' && data[active]) window.location.href = data[active].url;
+    });
+
+    // start in the middle of the rack so it feels full on both sides
+    const start = Math.floor(items.length / 2);
+    requestAnimationFrame(() => { centreOn(start, false); setActive(start); });
+    window.addEventListener('resize', () => centreOn(active, false));
+  });
+})();

@@ -1,0 +1,93 @@
+{%- liquid
+  assign col = section.settings.collection
+  assign tone = section.settings.tone
+-%}
+<section class="rack rack--{{ tone }}" data-rack style="--ticker: {{ section.settings.ticker_color }}; --ticker-ink: {{ section.settings.ticker_ink }};">
+  <div class="rack__top container">
+    <p class="rack__label">{% render 'tx', en: section.settings.label, ar: section.settings.label_ar %}</p>
+    <p class="rack__hint">{% render 'icon', name: 'drag' %} {{ 'general.drag' | t }}</p>
+  </div>
+
+  <div class="rack__stage">
+    <div class="rack__rod" aria-hidden="true"><span></span><span></span></div>
+    <div class="rack__track" data-rack-track tabindex="0" aria-label="{% render 'tx', en: section.settings.label, ar: section.settings.label_ar %}">
+      {%- if col != blank -%}
+        {%- assign shown = 0 -%}
+        {%- for product in col.products limit: 50 -%}
+          {%- if shown >= section.settings.limit -%}{%- break -%}{%- endif -%}
+          {%- liquid
+            assign rack_img = nil
+            for m in product.media
+              assign alt_d = m.alt | downcase
+              if alt_d contains 'kavo-rack'
+                assign rack_img = m
+                break
+              endif
+            endfor
+            if rack_img == nil and section.settings.only_hangers == false
+              assign rack_img = product.featured_media
+            endif
+          -%}
+          {%- if rack_img == nil -%}{%- continue -%}{%- endif -%}
+          {%- assign shown = shown | plus: 1 -%}
+          <button type="button" class="rack__item" data-rack-item="{{ forloop.index0 }}" aria-label="{{ product.title | escape }}">
+            <span class="rack__hanger" data-rack-hanger>
+              {%- if rack_img -%}{{ rack_img | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 18vw, 40vw', widths: '300,500,700', alt: product.title, draggable: 'false' }}{%- endif -%}
+            </span>
+            <script type="application/json" data-rack-data>
+              {
+                "title": {{ product.title | remove: 'KAVO — ' | json }},
+                "url": {{ product.url | json }},
+                "price": {{ product.price | money | json }},
+                "compare": {% if product.compare_at_price > product.price %}{{ product.compare_at_price | money | json }}{% else %}null{% endif %},
+                "available": {{ product.available | json }},
+                "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "title": {{ v.title | json }}, "available": {{ v.available | json }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+              }
+            </script>
+          </button>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="rack__info container" aria-live="polite">
+    <p class="rack__count"><span data-rack-index>01</span> / <span data-rack-total>00</span></p>
+    <h2 class="rack__title" data-rack-title></h2>
+    <p class="rack__price"><span data-rack-price></span> <s data-rack-compare></s></p>
+    <div class="rack__actions">
+      <button type="button" class="rack__avail" data-rack-avail aria-expanded="false">{{ 'kavo.see_availability' | t }}</button>
+      <a href="#" class="rack__view link-arrow" data-rack-link>{{ 'products.full_details' | t }} {% render 'icon', name: 'arrow' %}</a>
+    </div>
+    <div class="rack__sizes" data-rack-sizes hidden></div>
+  </div>
+
+  <div class="rack__ticker" aria-hidden="true">
+    <div class="rack__ticker-track">
+      {%- assign tick = section.settings.ticker | split: '|' -%}
+      {%- if request.locale.iso_code == 'ar' and section.settings.ticker_ar != blank -%}{%- assign tick = section.settings.ticker_ar | split: '|' -%}{%- endif -%}
+      {%- for i in (1..4) -%}
+        {%- for t in tick -%}<span>{{ t | strip }}</span><b>✦</b>{%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KAVO rack",
+  "class": "section-kavo-rack",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Pieces on the rack", "min": 4, "max": 24, "step": 1, "default": 10 },
+    { "type": "checkbox", "id": "only_hangers", "label": "Only show pieces with a hanger image (alt text contains kavo-rack)", "default": true },
+    { "type": "select", "id": "tone", "label": "Background", "default": "light", "options": [{ "value": "light", "label": "Gallery white" }, { "value": "dark", "label": "Night" }] },
+    { "type": "text", "id": "label", "label": "Label", "default": "KAVO Rack — Drop 001" },
+    { "type": "text", "id": "label_ar", "label": "Label (Arabic)", "default": "رف KAVO — الإصدار ٠٠١" },
+    { "type": "text", "id": "ticker", "label": "Ticker text (separate with |)", "default": "KAVO Drop 001 | Korean-cut | Limited pieces | Never restocked | Seoul → UAE" },
+    { "type": "text", "id": "ticker_ar", "label": "Ticker text (Arabic)", "default": "KAVO الإصدار ٠٠١ | قصّة كورية | قطع محدودة | لا تتكرر | من سيول للإمارات" },
+    { "type": "color", "id": "ticker_color", "label": "Ticker colour", "default": "#A6FF3B" },
+    { "type": "color", "id": "ticker_ink", "label": "Ticker text colour", "default": "#0B0A09" }
+  ],
+  "presets": [{ "name": "KAVO rack" }]
+}
+{% endschema %}
