@@ -1,0 +1,236 @@
+{
+  "sections": {
+    "hero": {
+      "type": "kavo-hero",
+      "settings": {
+        "image": "shopify://shop_images/sg-cine-alley.png",
+        "image_mobile": "shopify://shop_images/sg-cine-kavo.png",
+        "btn1_link": "/collections/kavo-by-seoulglow",
+        "btn2_link": "/pages/size-guide"
+      }
+    },
+    "cats": {
+      "type": "kavo-categories",
+      "blocks": {
+        "c1": {
+          "type": "category",
+          "settings": {
+            "collection": "kavo-tops",
+            "korean": "상의",
+            "title": "Tops & tees",
+            "title_ar": "بلايز وتيشيرتات",
+            "image": "shopify://shop_images/sg-cine-kavo.png"
+          }
+        },
+        "c2": {
+          "type": "category",
+          "settings": {
+            "collection": "kavo-bottoms",
+            "korean": "하의",
+            "title": "Bottoms",
+            "title_ar": "بناطيل"
+          }
+        },
+        "c3": {
+          "type": "category",
+          "settings": {
+            "collection": "kavo-outerwear",
+            "korean": "아우터",
+            "title": "Outerwear",
+            "title_ar": "جاكيتات ومعاطف",
+            "image": "shopify://shop_images/sg-campaign-not-your-usual-seoul.png"
+          }
+        },
+        "c4": {
+          "type": "category",
+          "settings": {
+            "collection": "kavo-dresses",
+            "korean": "원피스",
+            "title": "Dresses",
+            "title_ar": "فساتين"
+          }
+        },
+        "c5": {
+          "type": "category",
+          "settings": {
+            "collection": "kavo-accessories",
+            "korean": "액세서리",
+            "title": "Accessories",
+            "title_ar": "إكسسوارات"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "settings": {}
+    },
+    "drop": {
+      "type": "product-rail",
+      "blocks": {
+        "t1": {
+          "type": "tab",
+          "settings": {
+            "label": "Drop 001",
+            "label_ar": "الإصدار ٠٠١",
+            "collection": "kavo-by-seoulglow"
+          }
+        }
+      },
+      "block_order": [
+        "t1"
+      ],
+      "settings": {
+        "eyebrow": "Shop the drop",
+        "eyebrow_ar": "تسوقي الإصدار",
+        "heading": "Drop 001",
+        "heading_ar": "الإصدار ٠٠١",
+        "limit": 12,
+        "hide_soldout": false,
+        "tone": "dark"
+      }
+    },
+    "lookbook": {
+      "type": "lookbook",
+      "settings": {
+        "collection": "kavo-by-seoulglow",
+        "limit": 12,
+        "lead_image": "shopify://shop_images/sg-campaign-not-your-usual-seoul.png",
+        "lead_caption": "Euljiro, Seoul — Drop 001",
+        "lead_caption_ar": "أولجيرو، سيول — الإصدار ٠٠١",
+        "eyebrow": "The lookbook",
+        "eyebrow_ar": "اللوكبوك",
+        "drop": "Every look, styled in Seoul",
+        "drop_ar": "كل إطلالة، منسقة في سيول",
+        "cta": "Shop all looks",
+        "cta_ar": "تسوقي كل الإطلالات"
+      }
+    },
+    "fit": {
+      "type": "editorial",
+      "blocks": {
+        "p1": {
+          "type": "pillar",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Relaxed Korean cut",
+            "title_ar": "قصّة كورية مريحة",
+            "text": "Roomier than European sizing — size down for a closer fit.",
+            "text_ar": "أوسع من المقاسات الأوروبية — اختاري مقاس أصغر لقصّة أقرب للجسم."
+          }
+        },
+        "p2": {
+          "type": "pillar",
+          "settings": {
+            "icon": "leaf",
+            "title": "Breathable weights",
+            "title_ar": "أقمشة تتنفس",
+            "text": "Heavyweight cotton-blend handfeel that still works in the heat.",
+            "text_ar": "ملمس قطني فاخر يناسب الجو الحار."
+          }
+        },
+        "p3": {
+          "type": "pillar",
+          "settings": {
+            "icon": "return",
+            "title": "14-day returns",
+            "title_ar": "إرجاع خلال ١٤ يوم",
+            "text": "Unworn, unwashed, tags attached — we send the collection label.",
+            "text_ar": "بدون لبس أو غسيل ومع البطاقة — ونرسل لك بوليصة الاستلام."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/sg-cine-kavo.png",
+        "badge": "KAVO · KOREAN-CUT · LIMITED DROPS · ",
+        "flip": true,
+        "tone": "none",
+        "eyebrow": "The KAVO fit",
+        "eyebrow_ar": "مقاسات KAVO",
+        "heading": "Cut in Seoul, sized for you.",
+        "heading_ar": "قصّة من سيول، بمقاس يناسبك.",
+        "text": "<p>S to XL, cut in the relaxed Korean silhouette. Between sizes? Message us your usual size and height and we'll tell you which one we'd send.</p>",
+        "text_ar": "<p>من S إلى XL بقصّة كورية مريحة. محتارة بين مقاسين؟ أرسلي لنا مقاسك المعتاد وطولك ونقول لك أي مقاس نرسله.</p>",
+        "btn_label": "Open the size guide",
+        "btn_label_ar": "افتحي دليل المقاسات",
+        "btn_link": "/pages/size-guide"
+      }
+    },
+    "promise": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "1–3 day UAE delivery",
+            "title_ar": "توصيل ١–٣ أيام",
+            "text": "Free over 200 AED",
+            "text_ar": "مجاني فوق ٢٠٠ درهم"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "title": "14-day returns",
+            "title_ar": "إرجاع ١٤ يوم",
+            "text": "Unworn with tags",
+            "text_ar": "بدون لبس ومع البطاقة"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "icon": "cash",
+            "title": "Cash on delivery",
+            "title_ar": "الدفع عند الاستلام",
+            "text": "Pay at your door",
+            "text_ar": "ادفعي عند الاستلام"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Limited drops",
+            "title_ar": "إصدارات محدودة",
+            "text": "Never restocked the same way",
+            "text_ar": "لا تتكرر بنفس الشكل"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "tone": "dark"
+      }
+    },
+    "alert": {
+      "type": "drop-signup",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "cats",
+    "drop",
+    "lookbook",
+    "fit",
+    "promise",
+    "alert"
+  ]
+}

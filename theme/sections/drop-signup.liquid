@@ -1,0 +1,34 @@
+<section class="drop-signup section tone-dark">
+  <div class="container drop-signup__inner" data-reveal>
+    <span class="film-stamp drop-signup__stamp" aria-hidden="true">DROP 002</span>
+    <p class="eyebrow">{% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+    <h2 class="h1">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
+    <p class="muted">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>
+    {%- form 'customer', id: 'DropSignup', class: 'news-form drop-signup__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter,kavo-drop-alert">
+      {%- if form.posted_successfully? -%}
+        <p class="news-form__ok">{{ 'kavo.alert_ok' | t }}</p>
+      {%- else -%}
+        <div class="news-form__row">
+          <input type="email" name="contact[email]" required placeholder="{{ 'newsletter.placeholder' | t }}" aria-label="{{ 'newsletter.placeholder' | t }}" autocomplete="email">
+          <button type="submit" aria-label="{{ 'newsletter.subscribe' | t }}">{% render 'icon', name: 'arrow' %}</button>
+        </div>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Drop alert signup",
+  "class": "section-drop-signup",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Drop alerts" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)", "default": "تنبيهات الإصدارات" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Be first in line for Drop 002." },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "كوني أول من يعرف عن الإصدار ٠٠٢." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Limited pieces, no restocks. Join the list and we'll email you before the drop goes public." },
+    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)", "default": "قطع محدودة وبدون إعادة تعبئة. سجّلي ونرسل لك قبل ما ينطلق الإصدار للجميع." }
+  ],
+  "presets": [{ "name": "Drop alert signup" }]
+}
+{% endschema %}

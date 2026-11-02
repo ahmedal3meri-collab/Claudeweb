@@ -51,7 +51,7 @@
         "btn1_link": "/collections/seoulglow-beauty-shop",
         "btn2_label": "Discover KAVO",
         "btn2_label_ar": "اكتشفي KAVO",
-        "btn2_link": "/collections/kavo-by-seoulglow",
+        "btn2_link": "/pages/kavo",
         "stamp": "'26 11 02"
       }
     },
@@ -187,7 +187,7 @@
             "text_ar": "ملابس بقصّات كورية مختارة للإمارات. قصّات مريحة، أقمشة خفيفة، وإصدارات محدودة.",
             "cta": "Enter KAVO",
             "cta_ar": "ادخلي عالم KAVO",
-            "link": "/collections/kavo-by-seoulglow"
+            "link": "/pages/kavo"
           }
         }
       },

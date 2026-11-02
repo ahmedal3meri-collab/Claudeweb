@@ -23,6 +23,20 @@
     <h1 class="col-hero__title"><span class="line"><span class="line__in">{{ collection.title | remove: 'KAVO — ' }}</span></span></h1>
     {%- if collection.description != blank -%}<div class="col-hero__desc rte" dir="auto">{{ collection.description }}</div>{%- endif -%}
     <p class="col-hero__count">{{ 'collections.products_count' | t: count: collection.products_count }}</p>
+    {%- if is_kavo -%}
+      <nav class="kv-nav" aria-label="KAVO">
+        {%- assign kv_handles = 'kavo-by-seoulglow:all,kavo-tops:tops,kavo-bottoms:bottoms,kavo-outerwear:outerwear,kavo-dresses:dresses,kavo-accessories:accessories' | split: ',' -%}
+        {%- for pair in kv_handles -%}
+          {%- assign kv = pair | split: ':' -%}
+          {%- assign kc = collections[kv[0]] -%}
+          {%- if kc.products_count > 0 or kv[0] == collection.handle -%}
+            {%- assign kv_key = 'kavo.' | append: kv[1] -%}
+            <a href="{{ kc.url }}" class="kv-nav__pill{% if kv[0] == collection.handle %} is-active{% endif %}">{{ kv_key | t }} <sup>{{ kc.products_count }}</sup></a>
+          {%- endif -%}
+        {%- endfor -%}
+        <a href="/pages/kavo" class="kv-nav__pill kv-nav__pill--world">{{ 'kavo.world' | t }} {% render 'icon', name: 'arrow' %}</a>
+      </nav>
+    {%- endif -%}
   </div>
 </section>
 

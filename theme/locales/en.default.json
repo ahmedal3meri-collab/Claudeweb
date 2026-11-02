@@ -46,7 +46,9 @@
     "authentic": "100% authentic",
     "cod": "Cash on delivery",
     "delivery": "1–3 day UAE delivery",
-    "returns": "Easy returns"
+    "returns": "Easy returns",
+    "returns_14": "14-day returns",
+    "limited": "Limited drop"
   },
   "products": {
     "add_to_cart": "Add to bag",
@@ -174,5 +176,17 @@
     "title": "Your gift card",
     "expired": "This gift card is no longer active.",
     "shop": "Shop now"
+  },
+  "kavo": {
+    "all": "All",
+    "tops": "Tops",
+    "bottoms": "Bottoms",
+    "dresses": "Dresses",
+    "outerwear": "Outerwear",
+    "accessories": "Accessories",
+    "coming_drop": "Coming in Drop 002",
+    "alert_ok": "You're on the list — we'll email you before Drop 002.",
+    "fit_note": "Relaxed Korean cut — between sizes? Size down for a closer fit.",
+    "world": "KAVO World"
   }
 }

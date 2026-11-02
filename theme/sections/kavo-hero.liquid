@@ -1,0 +1,51 @@
+<section class="kv-hero" data-hero>
+  <div class="kv-hero__media" data-parallax="0.15">
+    {%- if section.settings.image != blank -%}
+      <picture>
+        {%- if section.settings.image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 900 }}">{%- endif -%}
+        {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '750,1100,1500,1900,2400', class: 'kv-hero__img' }}
+      </picture>
+    {%- endif -%}
+    <div class="kv-hero__shade"></div>
+    <div class="grain"></div>
+  </div>
+  <span class="film-stamp kv-hero__stamp" aria-hidden="true">{{ section.settings.stamp }}</span>
+  <div class="container kv-hero__inner">
+    <p class="eyebrow kv-hero__eyebrow">{% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+    <h1 class="kv-hero__word" aria-label="{{ section.settings.word }}">
+      {%- assign letters = section.settings.word | split: '' -%}
+      {%- for l in letters -%}<span style="--i: {{ forloop.index0 }}">{{ l }}</span>{%- endfor -%}
+    </h1>
+    <p class="kv-hero__drop">{% render 'tx', en: section.settings.drop, ar: section.settings.drop_ar %}</p>
+    <p class="kv-hero__text">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>
+    <div class="hero__ctas">
+      {%- if section.settings.btn1_link != blank -%}<a href="{{ section.settings.btn1_link }}" class="btn btn--light btn--shine" data-magnetic>{% render 'tx', en: section.settings.btn1, ar: section.settings.btn1_ar %} {% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+      {%- if section.settings.btn2_link != blank -%}<a href="{{ section.settings.btn2_link }}" class="btn btn--ghost" data-magnetic>{% render 'tx', en: section.settings.btn2, ar: section.settings.btn2_ar %}</a>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "KAVO hero",
+  "class": "section-kavo-hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Image (mobile)" },
+    { "type": "text", "id": "stamp", "label": "Film stamp", "default": "'26 11 02" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Korean-cut clothing · Curated for the UAE" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)", "default": "ملابس بقصّات كورية · مختارة للإمارات" },
+    { "type": "text", "id": "word", "label": "Wordmark", "default": "KAVO" },
+    { "type": "text", "id": "drop", "label": "Drop label", "default": "Drop 001 — Limited release" },
+    { "type": "text", "id": "drop_ar", "label": "Drop label (Arabic)", "default": "الإصدار ٠٠١ — كمية محدودة" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Relaxed silhouettes, breathable weights, a neutral palette. Released in small drops — never restocked the same way twice." },
+    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)", "default": "قصّات مريحة، أقمشة تتنفس، وألوان هادئة. تُطرح بإصدارات محدودة لا تتكرر بنفس الشكل." },
+    { "type": "text", "id": "btn1", "label": "Button 1", "default": "Shop Drop 001" },
+    { "type": "text", "id": "btn1_ar", "label": "Button 1 (Arabic)", "default": "تسوقي الإصدار ٠٠١" },
+    { "type": "url", "id": "btn1_link", "label": "Button 1 link", "default": "/collections/all" },
+    { "type": "text", "id": "btn2", "label": "Button 2", "default": "Size guide" },
+    { "type": "text", "id": "btn2_ar", "label": "Button 2 (Arabic)", "default": "دليل المقاسات" },
+    { "type": "url", "id": "btn2_link", "label": "Button 2 link" }
+  ],
+  "presets": [{ "name": "KAVO hero" }]
+}
+{% endschema %}

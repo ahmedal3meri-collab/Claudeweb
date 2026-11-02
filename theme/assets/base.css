@@ -1171,3 +1171,68 @@ html[lang="ar"] .world__title, html[lang="ar"] .page-hero__title, html[lang="ar"
 .hero .hero__eyebrow { color: #F6E4CC; text-shadow: 0 1px 12px rgba(0,0,0,.45); }
 .hero .hero__eyebrow::before { background: #F6E4CC; }
 @media (max-width: 749px) { .hero .hero__eyebrow { letter-spacing: .14em; font-size: 10px; } }
+
+/* =========================================================
+   v2.3 — KAVO World
+   ========================================================= */
+.kv-hero { position: relative; min-height: 92svh; display: flex; align-items: flex-end; overflow: hidden; background: #070605; color: var(--c-paper); }
+.kv-hero__media { position: absolute; inset: -6% 0 0; }
+.kv-hero__media picture, .kv-hero__img { width: 100%; height: 100%; object-fit: cover; }
+.kv-hero__img { animation: kenburns 30s var(--ease) infinite alternate; }
+.kv-hero__shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,5,4,.88) 0%, rgba(6,5,4,.4) 45%, rgba(6,5,4,.1) 75%); }
+.kv-hero__stamp { inset-inline-end: var(--gutter); top: calc(var(--header-h) + 30px); }
+.kv-hero__inner { position: relative; z-index: 2; padding-bottom: clamp(40px, 7vw, 90px); padding-top: 140px; }
+.kv-hero__eyebrow { color: #F6E4CC; }
+.kv-hero__word { font-family: var(--f-logo); font-weight: 800; text-transform: uppercase; letter-spacing: -0.05em; font-size: clamp(110px, 24vw, 360px); line-height: .78; margin: 0 0 14px; display: flex; direction: ltr; }
+html[dir="rtl"] .kv-hero__word { justify-content: flex-end; }
+.kv-hero__word span { display: inline-block; transform: translateY(100%); opacity: 0; transition: transform 1.3s var(--ease-out), opacity 1.3s var(--ease-out); transition-delay: calc(var(--i) * 90ms + 200ms); }
+.is-ready .kv-hero__word span { transform: none; opacity: 1; }
+.kv-hero__drop { font-size: 12px; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: #FF6A55; margin: 0 0 18px; }
+html[lang="ar"] .kv-hero__drop { letter-spacing: 0; font-size: 14px; }
+.kv-hero__text { max-width: 520px; font-size: clamp(15px, 1.3vw, 18px); opacity: .85; margin: 0 0 30px; }
+
+.kv-cats__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 990px) { .kv-cats__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; } }
+.kv-cat { position: relative; display: block; aspect-ratio: 3/4; border-radius: 10px; overflow: hidden; background: #1a1816; color: var(--c-paper); }
+.kv-cat:first-child { grid-column: span 2; aspect-ratio: auto; min-height: 320px; }
+@media (min-width: 990px) { .kv-cat:first-child { grid-column: auto; aspect-ratio: 3/4; min-height: 0; } }
+.kv-cat__media { position: absolute; inset: 0; }
+.kv-cat__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease-out), filter .8s; filter: grayscale(.2); }
+.kv-cat:hover .kv-cat__media img { transform: scale(1.06); filter: none; }
+.kv-cat::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,0) 60%); }
+.kv-cat.is-soon .kv-cat__media { background: repeating-linear-gradient(135deg, #1a1816 0 14px, #211e1b 14px 28px); }
+.kv-cat.is-soon .kv-cat__media img { filter: grayscale(1) brightness(.45); }
+.kv-cat__info { position: absolute; inset-inline: 16px; bottom: 16px; z-index: 2; display: grid; gap: 2px; }
+.kv-cat__kr { font-family: var(--f-kr); font-size: 12px; letter-spacing: .3em; opacity: .7; }
+.kv-cat__t { font-family: var(--f-display); font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; font-size: clamp(20px, 2vw, 28px); line-height: 1; }
+html[lang="ar"] .kv-cat__t { text-transform: none; letter-spacing: 0; line-height: 1.4; }
+.kv-cat__c { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; opacity: .85; margin-top: 4px; }
+.kv-cat__c .icon { width: 14px; height: 14px; }
+.kv-cat__c--soon { color: #FF8A2A; font-family: 'Courier New', monospace; font-weight: 700; letter-spacing: .08em; opacity: 1; }
+html[lang="ar"] .kv-cat__c--soon { font-family: var(--f-body); letter-spacing: 0; }
+
+.kv-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.kv-nav__pill { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.35); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--c-paper); transition: background .3s, color .3s; }
+html[lang="ar"] .kv-nav__pill { letter-spacing: 0; font-size: 13px; text-transform: none; }
+.kv-nav__pill sup { font-size: 10px; opacity: .65; }
+.kv-nav__pill:hover, .kv-nav__pill.is-active { background: var(--c-paper); color: var(--c-ink); }
+.kv-nav__pill--world { border-color: #FF6A55; color: #FF8A75; }
+.kv-nav__pill .icon { width: 14px; height: 14px; }
+
+.drop-signup__inner { position: relative; max-width: 760px; text-align: center; padding-block: 20px; }
+.drop-signup .eyebrow::before { display: none; }
+.drop-signup__form { margin: 26px auto 0; }
+.drop-signup__stamp { position: static; display: inline-block; margin-bottom: 18px; font-size: 14px; }
+
+.pdp__fit { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--c-muted); margin: 0 0 12px; }
+.pdp__fit .icon { width: 16px; height: 16px; color: #FF8A2A; flex: none; margin-top: 2px; }
+.opt__guide { font-size: 12px; text-decoration: underline; color: var(--c-muted); }
+.drawer--size .drawer__panel { width: min(560px, 100%); }
+.mode-kavo .drawer__panel { background: #141210; color: var(--c-paper); }
+.mode-kavo .rte th { background: var(--c-paper); color: var(--c-ink); }
+.mode-kavo .rte tbody tr:nth-child(even) td { background: rgba(255,255,255,.04); }
+.mode-kavo .drop-signup .news-form__row, .tone-dark .news-form__row { border-color: rgba(255,255,255,.5); }
+.mode-kavo .section-header .header { background: rgba(11,10,9,.85); color: var(--c-paper); }
+.template-page.mode-kavo .section-header { position: fixed; inset-inline: 0; top: var(--announce-h, 37px); }
+.template-page.mode-kavo .section-header.is-scrolled { top: 0; }
+.template-page.mode-kavo .section-header .header:not(.is-solid) { background: transparent; border-color: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }

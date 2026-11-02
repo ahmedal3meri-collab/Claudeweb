@@ -9,6 +9,8 @@
     assign body_mode = 'mode-kavo'
   elsif template.name == 'collection' and collection.handle contains 'kavo'
     assign body_mode = 'mode-kavo'
+  elsif template.name == 'page' and template.suffix == 'kavo'
+    assign body_mode = 'mode-kavo'
   endif
 -%}
 <html lang="{{ request.locale.iso_code }}" dir="{% if is_ar %}rtl{% else %}ltr{% endif %}" class="no-js">
