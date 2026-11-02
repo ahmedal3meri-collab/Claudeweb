@@ -5,13 +5,48 @@
     "announcement": {
       "type": "announcement-bar",
       "blocks": {
-        "m1": { "type": "message", "settings": { "text": "Free UAE delivery on orders over 200 AED", "text_ar": "توصيل مجاني داخل الإمارات للطلبات فوق ٢٠٠ درهم", "link": "/pages/shipping-returns" } },
-        "m2": { "type": "message", "settings": { "text": "100% authentic — sourced from authorised Korean channels", "text_ar": "منتجات أصلية ١٠٠٪ من موزعين كوريين معتمدين", "link": "/pages/about" } },
-        "m3": { "type": "message", "settings": { "text": "Cash on delivery available", "text_ar": "الدفع عند الاستلام متوفر", "link": "" } },
-        "m4": { "type": "message", "settings": { "text": "KAVO Drop 001 — now live", "text_ar": "إصدار KAVO ٠٠١ متوفر الآن", "link": "/collections/kavo-by-seoulglow" } }
+        "m1": {
+          "type": "message",
+          "settings": {
+            "text": "Free UAE delivery on orders over 200 AED",
+            "text_ar": "توصيل مجاني داخل الإمارات للطلبات فوق ٢٠٠ درهم",
+            "link": "/pages/shipping-returns"
+          }
+        },
+        "m2": {
+          "type": "message",
+          "settings": {
+            "text": "100% authentic — sourced from authorised Korean channels",
+            "text_ar": "منتجات أصلية ١٠٠٪ من موزعين كوريين معتمدين",
+            "link": "/pages/about"
+          }
+        },
+        "m3": {
+          "type": "message",
+          "settings": {
+            "text": "Cash on delivery available",
+            "text_ar": "الدفع عند الاستلام متوفر",
+            "link": ""
+          }
+        },
+        "m4": {
+          "type": "message",
+          "settings": {
+            "text": "KAVO Drop 001 — now live",
+            "text_ar": "إصدار KAVO ٠٠١ متوفر الآن",
+            "link": "/collections/kavo-by-seoulglow"
+          }
+        }
       },
-      "block_order": ["m1", "m2", "m3", "m4"],
-      "settings": { "speed": 45 }
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4"
+      ],
+      "settings": {
+        "speed": 45
+      }
     },
     "header": {
       "type": "header",
@@ -21,9 +56,13 @@
         "mega_image": "shopify://shop_images/sg-maison-ritual.png",
         "mega_caption": "The Glass Skin Edit",
         "mega_image_fashion": "shopify://shop_images/sg-maison-kavo-editorial.png",
-        "mega_caption_fashion": "KAVO — Drop 001"
+        "mega_caption_fashion": "KAVO — Drop 001",
+        "menu_ar": "seoulglow-maison-ar"
       }
     }
   },
-  "order": ["announcement", "header"]
+  "order": [
+    "announcement",
+    "header"
+  ]
 }

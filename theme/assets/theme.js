@@ -122,6 +122,7 @@
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({ items: [{ id: Number(id), quantity: Number(qty) || 1 }] })
       });
+      document.dispatchEvent(new CustomEvent('sg:added'));
       await refreshCart(true);
       toast(SG.strings.added || 'Added to bag');
     } catch (err) {
@@ -314,7 +315,9 @@
   });
 
   /* ---------- Product page ---------- */
-  $$('[data-product]').forEach((root) => {
+  const initProduct = (root) => {
+    if (root.dataset.init) return;
+    root.dataset.init = '1';
     const form = $('[data-product-form]', root);
     const jsonEl = $('[data-product-json]', root);
     const data = jsonEl ? JSON.parse(jsonEl.textContent) : null;
@@ -394,9 +397,11 @@
         if (low && stockText) stockText.textContent = data.onlyLeft.replace('__N__', variant.qty);
       }
       if (variant.media) showMedia(variant.media);
-      const url = new URL(window.location.href);
-      url.searchParams.set('variant', variant.id);
-      window.history.replaceState({}, '', url.toString());
+      if (!root.hasAttribute('data-quickview')) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('variant', variant.id);
+        window.history.replaceState({}, '', url.toString());
+      }
     };
     if (form) {
       form.addEventListener('change', (e) => { if (e.target.name && e.target.name.startsWith('option-')) update(); });
@@ -417,7 +422,8 @@
       const io = new IntersectionObserver(([en]) => sticky.classList.toggle('is-visible', !en.isIntersecting && en.boundingClientRect.top < 0), { threshold: 0 });
       io.observe(addBtn);
     }
-  });
+  };
+  $$('[data-product]').forEach(initProduct);
 
   /* ---------- Recommendations (lazy) ---------- */
   $$('[data-recs]').forEach((sec) => {
@@ -473,6 +479,106 @@
         } catch (e) { out.innerHTML = ''; }
       }, 220);
     });
+  }
+
+  /* ---------- Quick view ---------- */
+  const qv = $('[data-quickview-modal]');
+  const qvBody = qv ? $('[data-quickview-body]', qv) : null;
+  const closeQV = () => { if (!qv) return; qv.classList.remove('is-open'); qv.setAttribute('aria-hidden', 'true'); if (!activeDrawer) document.body.classList.remove('is-locked'); };
+  document.addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-quickview]');
+    if (b && qv && !b.closest('[data-quickview-modal]')) {
+      e.preventDefault();
+      qvBody.innerHTML = '<div class="loader"></div>';
+      qv.classList.add('is-open'); qv.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('is-locked');
+      try {
+        const res = await fetch(b.getAttribute('data-quickview') + (b.getAttribute('data-quickview').includes('?') ? '&' : '?') + 'section_id=quick-view');
+        const tmp = document.createElement('div');
+        tmp.innerHTML = await res.text();
+        const node = $('[data-product]', tmp);
+        qvBody.innerHTML = '';
+        if (node) { qvBody.appendChild(node); initProduct(node); }
+      } catch (err) { qvBody.innerHTML = ''; closeQV(); }
+      return;
+    }
+    if (e.target.closest('[data-quickview-close]')) { e.preventDefault(); closeQV(); }
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeQV(); });
+  document.addEventListener('sg:added', closeQV);
+
+  /* ---------- Delivery estimate (Dubai time, 4pm cutoff, no Friday dispatch) ---------- */
+  $$('[data-eta]').forEach((el) => {
+    const lang = document.documentElement.lang === 'ar' ? 'ar-AE' : 'en-GB';
+    const cutoff = Number(el.getAttribute('data-cutoff') || 16);
+    const minD = Number(el.getAttribute('data-min') || 1), maxD = Number(el.getAttribute('data-max') || 2);
+    const dubaiNow = () => { const n = new Date(); return new Date(n.getTime() + (n.getTimezoneOffset() + 240) * 60000); };
+    const isFri = (d) => d.getDay() === 5;
+    const addWorking = (d, n) => { const x = new Date(d); let k = 0; while (k < n) { x.setDate(x.getDate() + 1); if (!isFri(x)) k++; } return x; };
+    const render = () => {
+      const now = dubaiNow();
+      let dispatch = new Date(now);
+      const today = !isFri(now) && now.getHours() < cutoff;
+      if (!today) { do { dispatch.setDate(dispatch.getDate() + 1); } while (isFri(dispatch)); }
+      const fmt = new Intl.DateTimeFormat(lang, { weekday: 'short', day: 'numeric', month: 'short' });
+      const a = fmt.format(addWorking(dispatch, minD)), b = fmt.format(addWorking(dispatch, maxD));
+      let lead = '';
+      if (today) {
+        const left = new Date(now); left.setHours(cutoff, 0, 0, 0);
+        const mins = Math.max(0, Math.round((left - now) / 60000));
+        const h = Math.floor(mins / 60), m = mins % 60;
+        lead = (el.getAttribute('data-today') || '').replace('__T__', `<b>${h ? h + (lang.startsWith('ar') ? 'س ' : 'h ') : ''}${m}${lang.startsWith('ar') ? 'د' : 'm'}</b>`);
+      } else {
+        lead = el.getAttribute('data-next') || '';
+      }
+      el.innerHTML = `${lead} <span>${(el.getAttribute('data-arrives') || '').replace('__A__', `<b>${a}</b>`).replace('__B__', `<b>${b}</b>`)}</span>`;
+    };
+    render();
+    setInterval(render, 60000);
+  });
+
+  /* ---------- Recently viewed ---------- */
+  const RV_KEY = 'sg-recent';
+  const readRV = () => { try { return JSON.parse(localStorage.getItem(RV_KEY) || '[]'); } catch (e) { return []; } };
+  const cur = document.querySelector('[data-product-url]');
+  if (cur) {
+    const url = cur.getAttribute('data-product-url');
+    const list = [url].concat(readRV().filter((u) => u !== url)).slice(0, 12);
+    try { localStorage.setItem(RV_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+  $$('[data-recently-viewed]').forEach(async (sec) => {
+    const exclude = cur ? cur.getAttribute('data-product-url') : '';
+    const urls = readRV().filter((u) => u !== exclude).slice(0, Number(sec.getAttribute('data-limit') || 8));
+    if (!urls.length) return;
+    const track = $('[data-rail]', sec);
+    const cards = await Promise.all(urls.map((u) => fetch(`${u}?section_id=quick-card`).then((r) => (r.ok ? r.text() : '')).catch(() => '')));
+    cards.forEach((html) => {
+      if (!html) return;
+      const tmp = document.createElement('div'); tmp.innerHTML = html;
+      const card = $('.card', tmp);
+      if (card) { const item = document.createElement('div'); item.className = 'rail__item'; card.classList.add('is-in'); item.appendChild(card); track.appendChild(item); }
+    });
+    if (track.children.length) { sec.hidden = false; initRail(track); track.dispatchEvent(new Event('scroll')); }
+  });
+
+  /* ---------- Welcome popup ---------- */
+  const pop = $('[data-popup]');
+  if (pop) {
+    const KEY = 'sg-popup';
+    const show = () => { pop.classList.add('is-open'); pop.setAttribute('aria-hidden', 'false'); };
+    const hide = () => { pop.classList.remove('is-open'); pop.setAttribute('aria-hidden', 'true'); try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} };
+    let last = 0; try { last = Number(localStorage.getItem(KEY) || 0); } catch (e) {}
+    const days = Number(pop.getAttribute('data-days') || 7);
+    if (pop.hasAttribute('data-posted')) show();
+    else if (Date.now() - last > days * 864e5) {
+      let fired = false;
+      const fire = () => { if (fired || document.body.classList.contains('is-locked')) return; fired = true; show(); };
+      setTimeout(fire, Number(pop.getAttribute('data-delay') || 12) * 1000);
+      document.addEventListener('mouseout', (e) => { if (!e.relatedTarget && e.clientY < 10) fire(); });
+    }
+    $$('[data-popup-close]', pop).forEach((b) => b.addEventListener('click', hide));
+    const copy = $('[data-copy]', pop);
+    if (copy) copy.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(copy.getAttribute('data-copy')); toast(copy.getAttribute('data-copied') || '✓'); });
   }
 
   /* ---------- Hero video safety ---------- */

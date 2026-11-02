@@ -1,0 +1,49 @@
+{%- comment -%} Ingredient + skin-type chips derived from product tags. {%- endcomment -%}
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code == 'ar'
+    assign is_ar = true
+  endif
+  assign ingredients = 'Centella:سنتيلا,PDRN:PDRN,Niacinamide:نياسيناميد,Retinol:ريتينول,Bakuchiol:باكوتشيول,Glutathione:جلوتاثيون,Hyaluronic Acid:هيالورونيك,Kojic Acid:حمض الكوجيك,Peptide:ببتيد,NAD+:NAD+,Azelaic Acid:حمض الأزيليك,Succinic Acid:حمض السكسينيك,AHA:AHA,BHA:BHA,Glycolic Acid:حمض الجليكوليك,Lactic Acid:حمض اللاكتيك,Probiotic:بروبيوتيك,Rice:الأرز,Heartleaf:هارتليف,Collagen:كولاجين,TXA:TXA,Antioxidant:مضاد أكسدة' | split: ','
+  assign types = 'All Skin Types:كل أنواع البشرة,Oily:دهنية,Dry:جافة,Combination:مختلطة,Sensitive:حساسة,Normal:عادية' | split: ','
+  assign found_i = ''
+  assign found_t = ''
+  for pair in ingredients
+    assign kv = pair | split: ':'
+    if product.tags contains kv[0]
+      if is_ar
+        assign found_i = found_i | append: kv[1] | append: '|'
+      else
+        assign found_i = found_i | append: kv[0] | append: '|'
+      endif
+    endif
+  endfor
+  for pair in types
+    assign kv = pair | split: ':'
+    if product.tags contains kv[0]
+      if is_ar
+        assign found_t = found_t | append: kv[1] | append: '|'
+      else
+        assign found_t = found_t | append: kv[0] | append: '|'
+      endif
+    endif
+  endfor
+  assign list_i = found_i | split: '|'
+  assign list_t = found_t | split: '|'
+-%}
+{%- if list_i.size > 0 or list_t.size > 0 -%}
+  <div class="skin-tags">
+    {%- if list_i.size > 0 -%}
+      <div class="skin-tags__row">
+        <span class="skin-tags__label">{{ 'products.key_ingredients' | t }}</span>
+        {%- for i in list_i limit: 4 -%}<span class="skin-tag skin-tag--ing">{% render 'icon', name: 'leaf' %}{{ i }}</span>{%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if list_t.size > 0 -%}
+      <div class="skin-tags__row">
+        <span class="skin-tags__label">{{ 'products.suits' | t }}</span>
+        {%- for i in list_t -%}<span class="skin-tag">{{ i }}</span>{%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

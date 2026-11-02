@@ -1,0 +1,75 @@
+{%- assign col = section.settings.collection -%}
+<section class="sets section tone-paper">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="eyebrow">{% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+        <h2 class="h1">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
+      </div>
+      <p class="section-head__aside muted">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>
+    </div>
+    {%- if col != blank -%}
+      {%- assign hero_set = blank -%}
+      {%- for p in col.products -%}{%- if p.available -%}{%- assign hero_set = p -%}{%- break -%}{%- endif -%}{%- endfor -%}
+      <div class="sets__grid">
+        {%- if hero_set != blank -%}
+          {%- assign v = hero_set.selected_or_first_available_variant -%}
+          <article class="set-hero" data-reveal>
+            <a href="{{ hero_set.url }}" class="set-hero__media">
+              {%- if hero_set.featured_media -%}{{ hero_set.featured_media | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600,900,1200,1400', alt: hero_set.title }}{%- endif -%}
+              {%- if v.compare_at_price > v.price -%}
+                <span class="set-hero__save"><small>{{ 'products.you_save' | t }}</small>{{ v.compare_at_price | minus: v.price | money_without_trailing_zeros }}</span>
+              {%- endif -%}
+            </a>
+            <div class="set-hero__copy">
+              <p class="eyebrow">{{ 'products.set_of_the_month' | t }}</p>
+              <h3 class="h2"><a href="{{ hero_set.url }}">{{ hero_set.title }}</a></h3>
+              <p class="muted" dir="auto">{{ hero_set.description | strip_html | truncate: 170 }}</p>
+              {% render 'price', product: hero_set %}
+              <div class="set-hero__ctas">
+                {%- if hero_set.has_only_default_variant -%}
+                  <button type="button" class="btn btn--dark btn--shine" data-quick-add="{{ v.id }}">{{ 'products.add_to_cart' | t }} {% render 'icon', name: 'plus' %}</button>
+                {%- endif -%}
+                <a href="{{ hero_set.url }}" class="link-arrow">{{ 'products.full_details' | t }} {% render 'icon', name: 'arrow' %}</a>
+              </div>
+            </div>
+          </article>
+        {%- endif -%}
+        <div class="sets__list">
+          {%- assign shown = 0 -%}
+          {%- for p in col.products -%}
+            {%- if p.id == hero_set.id or p.available == false -%}{%- continue -%}{%- endif -%}
+            {%- if shown >= 4 -%}{%- break -%}{%- endif -%}
+            {%- assign shown = shown | plus: 1 -%}
+            {%- assign pv = p.selected_or_first_available_variant -%}
+            <a href="{{ p.url }}" class="set-row" data-reveal style="--d: {{ forloop.index0 | times: 80 }}ms">
+              <span class="set-row__img">{%- if p.featured_media -%}{{ p.featured_media | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+              <span class="set-row__info">
+                <span class="set-row__t">{{ p.title }}</span>
+                {% render 'price', product: p %}
+              </span>
+              {%- if pv.compare_at_price > pv.price -%}<span class="set-row__save">−{{ pv.compare_at_price | minus: pv.price | money_without_trailing_zeros }}</span>{%- endif -%}
+            </a>
+          {%- endfor -%}
+          <a href="{{ col.url }}" class="link-arrow">{{ 'general.view_all' | t }} {% render 'icon', name: 'arrow' %}</a>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Sets spotlight",
+  "class": "section-sets",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Sets collection" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Curated rituals · 세트" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)", "default": "روتينات مختارة" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Better together." },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "معاً أجمل." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Pairs we've matched for results — priced lower than buying separately." },
+    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)", "default": "منتجات اخترناها لتعمل معاً — بسعر أقل من شرائها منفصلة." }
+  ],
+  "presets": [{ "name": "Sets spotlight" }]
+}
+{% endschema %}

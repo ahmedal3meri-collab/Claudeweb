@@ -1,0 +1,63 @@
+{%- liquid
+  assign posted = false
+-%}
+{%- if section.settings.enabled -%}
+{%- form 'customer', id: 'PopupNews', class: 'popup__form' -%}
+  {%- if form.posted_successfully? -%}{%- assign posted = true -%}{%- endif -%}
+  <div class="popup" data-popup data-delay="{{ section.settings.delay }}" data-days="{{ section.settings.days }}" {% if posted %}data-posted{% endif %} aria-hidden="true">
+    <div class="popup__overlay" data-popup-close></div>
+    <div class="popup__panel" role="dialog" aria-modal="true" aria-label="{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}">
+      <button type="button" class="icon-btn popup__close" data-popup-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+      <div class="popup__media">
+        {%- if section.settings.image != blank -%}{{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 380px, 100vw', widths: '450,700,900', alt: '' }}{%- endif -%}
+        <span class="popup__kr">{{ section.settings.korean }}</span>
+      </div>
+      <div class="popup__copy">
+        {%- if posted -%}
+          <p class="eyebrow">{{ 'newsletter.success' | t }}</p>
+          {%- if section.settings.code != blank -%}
+            <p class="h2">{% render 'tx', en: section.settings.success_heading, ar: section.settings.success_heading_ar %}</p>
+            <button type="button" class="popup__code" data-copy="{{ section.settings.code | escape }}" data-copied="{{ 'general.copied' | t | escape }}">{{ section.settings.code }} <small>{{ 'general.copy' | t }}</small></button>
+          {%- else -%}
+            <p class="h2">{{ 'newsletter.success' | t }}</p>
+          {%- endif -%}
+          <button type="button" class="btn btn--dark" data-popup-close>{{ 'cart.continue' | t }}</button>
+        {%- else -%}
+          <p class="eyebrow">{% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+          <p class="h2">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</p>
+          <p class="muted">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>
+          <input type="hidden" name="contact[tags]" value="newsletter,popup">
+          <input type="email" name="contact[email]" required placeholder="{{ 'newsletter.placeholder' | t }}" aria-label="{{ 'newsletter.placeholder' | t }}" autocomplete="email">
+          {%- if form.errors -%}<p class="news-form__err">{{ form.errors.messages.email }}</p>{%- endif -%}
+          <button type="submit" class="btn btn--dark btn--full">{% render 'tx', en: section.settings.button, ar: section.settings.button_ar %}</button>
+          <button type="button" class="popup__no" data-popup-close>{{ 'general.no_thanks' | t }}</button>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endform -%}
+{%- endif -%}
+{% schema %}
+{
+  "name": "Welcome popup",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Enable", "default": true },
+    { "type": "range", "id": "delay", "label": "Show after", "min": 3, "max": 60, "step": 1, "unit": "s", "default": 14 },
+    { "type": "range", "id": "days", "label": "Don't show again for", "min": 1, "max": 30, "step": 1, "unit": "d", "default": 7 },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "korean", "label": "Korean word", "default": "환영해요" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Welcome to Seoul Glow" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)", "default": "أهلاً بكِ في سيول جلو" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Join the Glow List" },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "انضمي لقائمة التوهّج" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Be first to know about new K-beauty arrivals, restocks and KAVO drops." },
+    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)", "default": "كوني أول من يعرف عن المنتجات الكورية الجديدة وعودة المخزون وإصدارات KAVO." },
+    { "type": "text", "id": "button", "label": "Button", "default": "Join now" },
+    { "type": "text", "id": "button_ar", "label": "Button (Arabic)", "default": "اشتركي الآن" },
+    { "type": "header", "content": "Optional welcome code" },
+    { "type": "text", "id": "code", "label": "Discount code shown after signup", "info": "Create the code first in Shopify → Discounts. Leave empty for no code." },
+    { "type": "text", "id": "success_heading", "label": "Heading after signup (with code)", "default": "Your welcome gift" },
+    { "type": "text", "id": "success_heading_ar", "label": "Heading after signup (Arabic)", "default": "هديتك الترحيبية" }
+  ]
+}
+{% endschema %}

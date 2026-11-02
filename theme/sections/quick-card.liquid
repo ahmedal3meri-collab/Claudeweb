@@ -1,0 +1,5 @@
+{%- comment -%} Section Rendering helper: /products/<handle>?section_id=quick-card {%- endcomment -%}
+{%- if product -%}{% render 'product-card', product: product, sizes: '300px', eager: true %}{%- endif -%}
+{% schema %}
+{ "name": "Quick card", "settings": [] }
+{% endschema %}

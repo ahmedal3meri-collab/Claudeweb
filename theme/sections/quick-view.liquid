@@ -1,0 +1,62 @@
+{%- comment -%} Section Rendering helper: /products/<handle>?section_id=quick-view {%- endcomment -%}
+{%- if product -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+<div class="qv{% if product.tags contains 'kavo' %} qv--kavo{% endif %}" data-product data-quickview>
+  <div class="qv__gallery">
+    <div class="pdp__main">
+      {%- for media in product.media limit: 6 -%}
+        <div class="pdp__slide{% if forloop.first %} is-active{% endif %}" data-media-id="{{ media.id }}">
+          {{ media.preview_image | image_url: width: 1000 | image_tag: loading: 'eager', sizes: '(min-width: 750px) 45vw, 100vw', widths: '500,750,1000', alt: product.title }}
+        </div>
+      {%- endfor -%}
+      {%- if product.media.size > 1 -%}
+        <button type="button" class="round-btn pdp__arrow pdp__arrow--prev" data-gallery-prev aria-label="{{ 'general.previous' | t }}">{% render 'icon', name: 'arrow' %}</button>
+        <button type="button" class="round-btn pdp__arrow pdp__arrow--next" data-gallery-next aria-label="{{ 'general.next' | t }}">{% render 'icon', name: 'arrow' %}</button>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="qv__info">
+    <p class="eyebrow">{% if product.tags contains 'kavo' %}KAVO{% else %}{{ product.type }}{% endif %}</p>
+    <h2 class="qv__title">{{ product.title }}</h2>
+    <div class="pdp__price">{% render 'price', product: product, variant: current_variant %}</div>
+    {% render 'skin-tags', product: product %}
+    {%- form 'product', product, class: 'product-form', data-product-form: '', novalidate: 'novalidate' -%}
+      <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+      {%- unless product.has_only_default_variant -%}
+        {%- for option in product.options_with_values -%}
+          <fieldset class="opt" data-option-index="{{ forloop.index0 }}">
+            <legend class="opt__label">{{ option.name }}: <b data-option-value>{{ option.selected_value }}</b></legend>
+            <div class="opt__values">
+              {%- for value in option.values -%}
+                <label class="pill"><input type="radio" name="option-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}><span>{{ value }}</span></label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- endfor -%}
+      {%- endunless -%}
+      <p class="pdp__stock is-hidden" data-low-stock><span class="pulse"></span> <span data-low-stock-text></span></p>
+      <div class="pdp__actions">
+        <div class="qty">
+          <button type="button" data-qty-step="-1" aria-label="{{ 'cart.decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
+          <input type="number" name="quantity" value="1" min="1" aria-label="{{ 'products.quantity' | t }}">
+          <button type="button" data-qty-step="1" aria-label="{{ 'cart.increase' | t }}">{% render 'icon', name: 'plus' %}</button>
+        </div>
+        <button type="submit" class="btn btn--dark btn--grow" data-add-btn {% unless current_variant.available %}disabled{% endunless %}>
+          <span data-add-text>{%- if current_variant.available -%}{{ 'products.add_to_cart' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}</span>
+        </button>
+      </div>
+    {%- endform -%}
+    <script type="application/json" data-product-json>
+      {
+        "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "options": {{ v.options | json }}, "available": {{ v.available | json }}, "price": {{ v.price | money | json }}, "compare": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %}, "save": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price }}{% else %}0{% endif %}, "qty": {% if v.inventory_management == 'shopify' %}{{ v.inventory_quantity }}{% else %}null{% endif %}, "media": {% if v.featured_media %}{{ v.featured_media.id }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
+        "lowStock": {{ settings.low_stock_threshold }},
+        "onlyLeft": {{ 'products.only_left' | t: count: '__N__' | json }}
+      }
+    </script>
+    <a href="{{ product.url }}" class="link-arrow">{{ 'products.full_details' | t }} {% render 'icon', name: 'arrow' %}</a>
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+{ "name": "Quick view", "settings": [] }
+{% endschema %}

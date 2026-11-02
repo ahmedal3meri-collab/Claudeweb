@@ -47,6 +47,10 @@
       {%- endif -%}
     </div>
 
+    <button type="button" class="card__qv" data-quickview="{{ product.url }}" aria-label="{{ 'products.quick_view' | t }}: {{ product.title | escape }}">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+
     {%- if settings.enable_quick_add and product.available -%}
       <div class="card__quick">
         {%- if product.has_only_default_variant -%}

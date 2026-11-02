@@ -1,5 +1,7 @@
 {
-  "accessibility": { "skip_to_text": "انتقلي إلى المحتوى" },
+  "accessibility": {
+    "skip_to_text": "انتقلي إلى المحتوى"
+  },
   "general": {
     "404": "هذه الصفحة غير موجودة. لنجد توهّجك من جديد.",
     "page": "صفحة {{ page }}",
@@ -13,7 +15,14 @@
     "collections": "المجموعات",
     "view_all": "عرض الكل",
     "view_all_results": "كل النتائج لـ «{{ terms }}»",
-    "results_count": { "zero": "لا توجد نتائج لـ «{{ terms }}»", "one": "نتيجة واحدة لـ «{{ terms }}»", "two": "نتيجتان لـ «{{ terms }}»", "few": "{{ count }} نتائج لـ «{{ terms }}»", "many": "{{ count }} نتيجة لـ «{{ terms }}»", "other": "{{ count }} نتيجة لـ «{{ terms }}»" },
+    "results_count": {
+      "zero": "لا توجد نتائج لـ «{{ terms }}»",
+      "one": "نتيجة واحدة لـ «{{ terms }}»",
+      "two": "نتيجتان لـ «{{ terms }}»",
+      "few": "{{ count }} نتائج لـ «{{ terms }}»",
+      "many": "{{ count }} نتيجة لـ «{{ terms }}»",
+      "other": "{{ count }} نتيجة لـ «{{ terms }}»"
+    },
     "account": "حسابي",
     "language": "تغيير اللغة",
     "announcements": "إعلانات",
@@ -27,9 +36,16 @@
     "whatsapp": "تواصلي معنا",
     "password": "كلمة المرور",
     "password_enter": "الدخول بكلمة المرور",
-    "back_to": "العودة إلى {{ title }}"
+    "back_to": "العودة إلى {{ title }}",
+    "copy": "نسخ",
+    "copied": "تم نسخ الكود ✓",
+    "no_thanks": "لا، شكراً"
   },
-  "newsletter": { "placeholder": "بريدك الإلكتروني", "subscribe": "اشتراك", "success": "أهلاً بكِ في قائمة التوهّج ✦" },
+  "newsletter": {
+    "placeholder": "بريدك الإلكتروني",
+    "subscribe": "اشتراك",
+    "success": "أهلاً بكِ في قائمة التوهّج ✦"
+  },
   "trust": {
     "authentic": "أصلي ١٠٠٪",
     "cod": "الدفع عند الاستلام",
@@ -46,7 +62,14 @@
     "new": "جديد",
     "set": "طقم",
     "drop": "إصدار",
-    "only_left": { "zero": "نفدت الكمية", "one": "باقي قطعة واحدة فقط", "two": "باقي قطعتان فقط", "few": "باقي {{ count }} قطع فقط", "many": "باقي {{ count }} قطعة فقط", "other": "باقي {{ count }} قطعة فقط" },
+    "only_left": {
+      "zero": "نفدت الكمية",
+      "one": "باقي قطعة واحدة فقط",
+      "two": "باقي قطعتان فقط",
+      "few": "باقي {{ count }} قطع فقط",
+      "many": "باقي {{ count }} قطعة فقط",
+      "other": "باقي {{ count }} قطعة فقط"
+    },
     "quantity": "الكمية",
     "details": "التفاصيل",
     "size_guide": "دليل المقاسات",
@@ -54,11 +77,27 @@
     "tax_included": "شامل الضريبة.",
     "free_shipping_note": "توصيل مجاني داخل الإمارات للطلبات فوق {{ amount }} درهم",
     "media": "صورة {{ n }}",
-    "placeholder": "منتج"
+    "placeholder": "منتج",
+    "key_ingredients": "المكونات الأساسية",
+    "suits": "يناسب",
+    "eta_today": "اطلبي خلال {{ time }} ليُشحن اليوم —",
+    "eta_next": "يُشحن يوم العمل التالي —",
+    "eta_arrives": "يصل دبي والشارقة بين __A__ و __B__",
+    "full_details": "كل التفاصيل",
+    "quick_view": "عرض سريع",
+    "you_save": "توفرين",
+    "set_of_the_month": "طقم الشهر"
   },
   "collections": {
     "all": "كل المجموعات",
-    "products_count": { "zero": "لا توجد منتجات", "one": "منتج واحد", "two": "منتجان", "few": "{{ count }} منتجات", "many": "{{ count }} منتجاً", "other": "{{ count }} منتج" },
+    "products_count": {
+      "zero": "لا توجد منتجات",
+      "one": "منتج واحد",
+      "two": "منتجان",
+      "few": "{{ count }} منتجات",
+      "many": "{{ count }} منتجاً",
+      "other": "{{ count }} منتج"
+    },
     "sort": "ترتيب",
     "clear": "مسح الكل",
     "layout": "شكل العرض",
@@ -110,12 +149,42 @@
     "see_all": "شاهدي المجموعة كاملة",
     "restart": "ابدئي من جديد"
   },
-  "contact": { "name": "الاسم", "email": "البريد الإلكتروني", "phone": "رقم الهاتف", "message": "رسالتك", "send": "إرسال", "success": "شكراً لكِ — سنرد خلال يوم." },
-  "customer": {
-    "login": "تسجيل الدخول", "sign_in": "دخول", "create": "إنشاء حساب", "forgot": "نسيتِ كلمة المرور؟", "reset": "إعادة تعيين كلمة المرور", "recover_sent": "أرسلنا لكِ رابط إعادة التعيين.",
-    "first_name": "الاسم الأول", "last_name": "اسم العائلة", "hello": "أهلاً {{ name }}", "logout": "تسجيل الخروج", "orders": "الطلبات", "addresses": "العناوين", "date": "التاريخ", "status": "الحالة",
-    "no_orders": "لا توجد طلبات بعد.", "default": "افتراضي", "add_address": "إضافة عنوان جديد", "address1": "العنوان", "city": "المدينة / الإمارة", "set_default": "تعيين كافتراضي",
-    "save": "حفظ", "activate": "تفعيل الحساب", "confirm_password": "تأكيد كلمة المرور"
+  "contact": {
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "message": "رسالتك",
+    "send": "إرسال",
+    "success": "شكراً لكِ — سنرد خلال يوم."
   },
-  "gift_card": { "title": "بطاقة الهدية", "expired": "هذه البطاقة غير فعّالة.", "shop": "تسوقي الآن" }
+  "customer": {
+    "login": "تسجيل الدخول",
+    "sign_in": "دخول",
+    "create": "إنشاء حساب",
+    "forgot": "نسيتِ كلمة المرور؟",
+    "reset": "إعادة تعيين كلمة المرور",
+    "recover_sent": "أرسلنا لكِ رابط إعادة التعيين.",
+    "first_name": "الاسم الأول",
+    "last_name": "اسم العائلة",
+    "hello": "أهلاً {{ name }}",
+    "logout": "تسجيل الخروج",
+    "orders": "الطلبات",
+    "addresses": "العناوين",
+    "date": "التاريخ",
+    "status": "الحالة",
+    "no_orders": "لا توجد طلبات بعد.",
+    "default": "افتراضي",
+    "add_address": "إضافة عنوان جديد",
+    "address1": "العنوان",
+    "city": "المدينة / الإمارة",
+    "set_default": "تعيين كافتراضي",
+    "save": "حفظ",
+    "activate": "تفعيل الحساب",
+    "confirm_password": "تأكيد كلمة المرور"
+  },
+  "gift_card": {
+    "title": "بطاقة الهدية",
+    "expired": "هذه البطاقة غير فعّالة.",
+    "shop": "تسوقي الآن"
+  }
 }

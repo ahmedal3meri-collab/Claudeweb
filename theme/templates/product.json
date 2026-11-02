@@ -3,29 +3,127 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "title": { "type": "title" },
-        "price": { "type": "price" },
-        "buy": { "type": "buy", "settings": { "show_dynamic": true } },
-        "perks": { "type": "perks" },
-        "description": { "type": "description" },
-        "shipping": { "type": "collapsible", "settings": { "heading": "Delivery & returns", "heading_ar": "التوصيل والإرجاع", "content": "<p><strong>Dubai & Sharjah:</strong> 1–2 working days · <strong>Abu Dhabi, Ajman, UAQ:</strong> 2–3 days · <strong>RAK & Fujairah:</strong> 2–4 days.</p><p>Free delivery over 200 AED, otherwise 20 AED. Cash on delivery available (10 AED handling).</p><p>Unopened skincare returnable within 7 days; KAVO clothing within 14 days, unworn with tags. Damaged or wrong item? Send a photo within 48h for a full replacement or refund.</p>", "content_ar": "<p><strong>دبي والشارقة:</strong> ١–٢ يوم عمل · <strong>أبوظبي وعجمان وأم القيوين:</strong> ٢–٣ أيام · <strong>رأس الخيمة والفجيرة:</strong> ٢–٤ أيام.</p><p>توصيل مجاني فوق ٢٠٠ درهم، وإلا ٢٠ درهم. الدفع عند الاستلام متوفر (١٠ دراهم رسوم).</p><p>منتجات العناية غير المفتوحة قابلة للإرجاع خلال ٧ أيام، وملابس KAVO خلال ١٤ يوماً بشرط عدم الاستخدام ووجود البطاقة. وصلك منتج تالف أو خاطئ؟ أرسلي صورة خلال ٤٨ ساعة ونستبدله أو نرجع المبلغ كاملاً.</p>" } },
-        "authentic": { "type": "collapsible", "settings": { "heading": "Authenticity promise", "heading_ar": "ضمان الأصالة", "content": "<p>Every Seoul Glow product is sourced from authorised Korean channels and stored in the UAE. If anything ever looks wrong, message us — we answer ourselves, within a day.</p>", "content_ar": "<p>كل منتجات سيول جلو من قنوات كورية معتمدة ومخزنة في الإمارات. إذا شككتِ بأي شيء راسلينا — نرد عليكِ بأنفسنا خلال يوم.</p>" } },
-        "share": { "type": "share" }
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price"
+        },
+        "buy": {
+          "type": "buy",
+          "settings": {
+            "show_dynamic": true
+          }
+        },
+        "perks": {
+          "type": "perks"
+        },
+        "description": {
+          "type": "description"
+        },
+        "shipping": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Delivery & returns",
+            "heading_ar": "التوصيل والإرجاع",
+            "content": "<p><strong>Dubai & Sharjah:</strong> 1–2 working days · <strong>Abu Dhabi, Ajman, UAQ:</strong> 2–3 days · <strong>RAK & Fujairah:</strong> 2–4 days.</p><p>Free delivery over 200 AED, otherwise 20 AED. Cash on delivery available (10 AED handling).</p><p>Unopened skincare returnable within 7 days; KAVO clothing within 14 days, unworn with tags. Damaged or wrong item? Send a photo within 48h for a full replacement or refund.</p>",
+            "content_ar": "<p><strong>دبي والشارقة:</strong> ١–٢ يوم عمل · <strong>أبوظبي وعجمان وأم القيوين:</strong> ٢–٣ أيام · <strong>رأس الخيمة والفجيرة:</strong> ٢–٤ أيام.</p><p>توصيل مجاني فوق ٢٠٠ درهم، وإلا ٢٠ درهم. الدفع عند الاستلام متوفر (١٠ دراهم رسوم).</p><p>منتجات العناية غير المفتوحة قابلة للإرجاع خلال ٧ أيام، وملابس KAVO خلال ١٤ يوماً بشرط عدم الاستخدام ووجود البطاقة. وصلك منتج تالف أو خاطئ؟ أرسلي صورة خلال ٤٨ ساعة ونستبدله أو نرجع المبلغ كاملاً.</p>"
+          }
+        },
+        "authentic": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Authenticity promise",
+            "heading_ar": "ضمان الأصالة",
+            "content": "<p>Every Seoul Glow product is sourced from authorised Korean channels and stored in the UAE. If anything ever looks wrong, message us — we answer ourselves, within a day.</p>",
+            "content_ar": "<p>كل منتجات سيول جلو من قنوات كورية معتمدة ومخزنة في الإمارات. إذا شككتِ بأي شيء راسلينا — نرد عليكِ بأنفسنا خلال يوم.</p>"
+          }
+        },
+        "share": {
+          "type": "share"
+        },
+        "skin_tags": {
+          "type": "skin_tags"
+        },
+        "eta": {
+          "type": "eta",
+          "settings": {
+            "cutoff": 16
+          }
+        }
       },
-      "block_order": ["title", "price", "buy", "perks", "description", "shipping", "authentic", "share"],
+      "block_order": [
+        "title",
+        "price",
+        "skin_tags",
+        "buy",
+        "eta",
+        "perks",
+        "description",
+        "shipping",
+        "authentic",
+        "share"
+      ],
       "settings": {}
     },
-    "recs": { "type": "product-recommendations", "settings": { "limit": 8 } },
+    "recs": {
+      "type": "product-recommendations",
+      "settings": {
+        "limit": 8
+      }
+    },
     "trust": {
       "type": "trust-bar",
       "blocks": {
-        "t1": { "type": "item", "settings": { "icon": "truck", "title": "Free delivery over 200 AED", "title_ar": "توصيل مجاني فوق ٢٠٠ درهم", "text": "1–3 working days across the UAE", "text_ar": "١–٣ أيام عمل لكل الإمارات" } },
-        "t2": { "type": "item", "settings": { "icon": "shield", "title": "100% authentic", "title_ar": "أصلي ١٠٠٪", "text": "Authorised Korean channels only", "text_ar": "من قنوات كورية معتمدة فقط" } },
-        "t3": { "type": "item", "settings": { "icon": "cash", "title": "Cash on delivery", "title_ar": "الدفع عند الاستلام", "text": "Pay when it reaches your door", "text_ar": "ادفعي عند وصول الطلب" } }
+        "t1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free delivery over 200 AED",
+            "title_ar": "توصيل مجاني فوق ٢٠٠ درهم",
+            "text": "1–3 working days across the UAE",
+            "text_ar": "١–٣ أيام عمل لكل الإمارات"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "100% authentic",
+            "title_ar": "أصلي ١٠٠٪",
+            "text": "Authorised Korean channels only",
+            "text_ar": "من قنوات كورية معتمدة فقط"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "icon": "cash",
+            "title": "Cash on delivery",
+            "title_ar": "الدفع عند الاستلام",
+            "text": "Pay when it reaches your door",
+            "text_ar": "ادفعي عند وصول الطلب"
+          }
+        }
       },
-      "block_order": ["t1", "t2", "t3"],
-      "settings": { "tone": "none" }
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "tone": "none"
+      }
+    },
+    "recent": {
+      "type": "recently-viewed",
+      "settings": {}
     }
   },
-  "order": ["main", "recs", "trust"]
+  "order": [
+    "main",
+    "recs",
+    "recent",
+    "trust"
+  ]
 }

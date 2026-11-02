@@ -9,7 +9,7 @@
     assign low_stock = true
   endif
 -%}
-<section class="pdp section-top" data-product data-section="{{ section.id }}">
+<section class="pdp section-top" data-product data-section="{{ section.id }}" data-product-url="{{ product.url }}">
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
       <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span>/</span>
@@ -142,6 +142,16 @@
                   {%- if block.settings.page != blank -%}{{ block.settings.page.content }}{%- endif -%}
                 </div>
               </details>
+            {%- when 'skin_tags' -%}
+              <div {{ block.shopify_attributes }}>{% render 'skin-tags', product: product %}</div>
+            {%- when 'eta' -%}
+              <div class="eta" {{ block.shopify_attributes }}>
+                <span class="eta__icon">{% render 'icon', name: 'truck' %}</span>
+                <p data-eta data-cutoff="{{ block.settings.cutoff }}" data-min="1" data-max="2"
+                  data-today="{{ 'products.eta_today' | t: time: '__T__' | escape }}"
+                  data-next="{{ 'products.eta_next' | t | escape }}"
+                  data-arrives="{{ 'products.eta_arrives' | t: a: '__A__', b: '__B__' | escape }}">{{ 'trust.delivery' | t }}</p>
+              </div>
             {%- when 'share' -%}
               <div class="pdp__share" {{ block.shopify_attributes }}>
                 <a href="https://wa.me/?text={{ product.title | append: ' ' | append: shop.url | append: product.url | url_encode }}" target="_blank" rel="noopener">{% render 'icon', name: 'whatsapp' %} {{ 'products.share_whatsapp' | t }}</a>
@@ -202,6 +212,8 @@
         { "type": "page", "id": "page", "label": "Or show a page" }
       ]
     },
+    { "type": "skin_tags", "name": "Ingredients & skin type", "limit": 1 },
+    { "type": "eta", "name": "Delivery estimate", "limit": 1, "settings": [{ "type": "range", "id": "cutoff", "label": "Same-day dispatch cutoff (Dubai time)", "min": 10, "max": 22, "step": 1, "unit": "h", "default": 16 }] },
     { "type": "share", "name": "Share", "limit": 1 }
   ]
 }

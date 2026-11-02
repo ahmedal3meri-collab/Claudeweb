@@ -36,6 +36,7 @@
     {% endif %}
 
     {% render 'meta-tags' %}
+    {% render 'structured-data' %}
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@300;500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 
@@ -96,6 +97,14 @@
         <span>{{ 'general.whatsapp' | t }}</span>
       </a>
     {%- endif -%}
+
+    <div class="qv-modal" data-quickview-modal aria-hidden="true">
+      <div class="qv-modal__overlay" data-quickview-close></div>
+      <div class="qv-modal__panel" role="dialog" aria-modal="true" aria-label="{{ 'products.quick_view' | t }}">
+        <button type="button" class="icon-btn qv-modal__close" data-quickview-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+        <div data-quickview-body></div>
+      </div>
+    </div>
 
     <div class="toast" data-toast role="status" aria-live="polite"></div>
 
