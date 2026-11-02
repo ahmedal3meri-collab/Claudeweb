@@ -128,12 +128,7 @@
                 {%- endif -%}
               </div>
             {%- when 'description' -%}
-              <div class="pdp__acc" {{ block.shopify_attributes }}>
-                <details class="acc" open>
-                  <summary>{{ 'products.details' | t }} {% render 'icon', name: 'plus' %}</summary>
-                  <div class="acc__body rte" dir="auto">{{ product.description }}</div>
-                </details>
-              </div>
+              <div class="pdp__acc" {{ block.shopify_attributes }}>{% render 'product-description', product: product %}</div>
             {%- when 'collapsible' -%}
               <details class="acc" {{ block.shopify_attributes }}>
                 <summary>{% render 'tx', en: block.settings.heading, ar: block.settings.heading_ar %} {% render 'icon', name: 'plus' %}</summary>

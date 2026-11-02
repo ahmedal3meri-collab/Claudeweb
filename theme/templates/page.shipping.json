@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "hero": { "type": "page-hero", "settings": { "image": "shopify://shop_images/sg-maison-ritual.png", "eyebrow": "Delivery · 배송", "eyebrow_ar": "التوصيل", "heading": "Shipping & returns", "heading_ar": "الشحن والإرجاع", "text": "Shipped from inside the UAE. Clear rules, no surprises.", "text_ar": "نشحن من داخل الإمارات. قواعد واضحة وبدون مفاجآت." } },
+    "trust": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "truck", "title": "Dubai & Sharjah", "title_ar": "دبي والشارقة", "text": "1–2 working days", "text_ar": "١–٢ يوم عمل" } },
+        "t2": { "type": "item", "settings": { "icon": "sparkle", "title": "Free over 200 AED", "title_ar": "مجاني فوق ٢٠٠ درهم", "text": "Otherwise 20 AED flat", "text_ar": "وإلا ٢٠ درهم" } },
+        "t3": { "type": "item", "settings": { "icon": "cash", "title": "Cash on delivery", "title_ar": "الدفع عند الاستلام", "text": "10 AED handling fee", "text_ar": "رسوم ١٠ دراهم" } },
+        "t4": { "type": "item", "settings": { "icon": "return", "title": "48h damage promise", "title_ar": "ضمان ٤٨ ساعة", "text": "Full replacement or refund", "text_ar": "استبدال أو استرداد كامل" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": { "tone": "none" }
+    },
+    "body": { "type": "main-page-body", "settings": {} }
+  },
+  "order": ["hero", "trust", "body"]
+}

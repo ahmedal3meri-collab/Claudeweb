@@ -1,0 +1,29 @@
+{%- comment -%}
+  Cleans legacy inline-styled <details> descriptions into theme accordions.
+  Drops the generic delivery block (the theme shows real delivery info).
+{%- endcomment -%}
+{%- liquid
+  assign plus = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>'
+  assign d = product.description
+  assign d = d | replace: '<details style="background:#efede8;padding:14px;border-radius:12px;margin-bottom:12px;">', '<details class="acc" dir="auto">'
+  assign d = d | replace: '<details style="background:#efede8;padding:14px;border-radius:12px;">', '<details class="acc" dir="auto">'
+  assign d = d | replace: '<summary style="cursor:pointer;font-weight:bold;">', '<summary>'
+  assign d = d | replace: '<p style="margin-top:10px;">', '<div class="acc__body rte"><p>'
+  assign d = d | replace: '</p></details>', '</p></div></details>'
+  assign close_summary = plus | prepend: ' ' | append: '</summary>'
+  assign d = d | replace: '</summary>', close_summary
+  assign d = d | replace: '✨ الوصف', 'الوصف' | replace: '💖 المميزات', 'المميزات' | replace: '🧪 طريقة الاستخدام', 'طريقة الاستخدام' | replace: '🌿 المكونات', 'المكونات' | replace: '👩 مناسب لـ', 'مناسب لـ'
+  assign d = d | replace: '✔ ', '<span class="tick">✓</span> '
+  if d contains '<details class="acc" dir="auto"><summary>🚚'
+    assign d = d | split: '<details class="acc" dir="auto"><summary>🚚' | first
+  endif
+  assign d = d | replace_first: '<details class="acc" dir="auto">', '<details class="acc" dir="auto" open>'
+-%}
+{%- if product.description contains '<details' -%}
+  <div class="pdp__desc">{{ d }}</div>
+{%- else -%}
+  <details class="acc" open>
+    <summary>{{ 'products.details' | t }} {{ plus }}</summary>
+    <div class="acc__body rte" dir="auto">{{ product.description }}</div>
+  </details>
+{%- endif -%}

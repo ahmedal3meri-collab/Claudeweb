@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "hero": { "type": "page-hero", "settings": { "image": "shopify://shop_images/sg-maison-kavo-dark.png", "eyebrow": "KAVO · 사이즈", "eyebrow_ar": "KAVO · المقاسات", "heading": "Size guide", "heading_ar": "دليل المقاسات", "text": "Relaxed Korean cut — roomier than European sizing.", "text_ar": "قصّة كورية مريحة — أوسع من المقاسات الأوروبية." } },
+    "body": { "type": "main-page-body", "settings": {} }
+  },
+  "order": ["hero", "body"]
+}

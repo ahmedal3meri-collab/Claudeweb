@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "hero": { "type": "page-hero", "settings": { "image": "shopify://shop_images/sg-maison-hero-desktop.png", "eyebrow": "Our story · 이야기", "eyebrow_ar": "قصتنا", "heading": "Quiet glow, loud craft.", "heading_ar": "توهّج هادئ، إتقان واضح.", "text": "Korean skincare that works — authentic, held in the UAE, at your door in days, not weeks.", "text_ar": "عناية كورية فعّالة — أصلية، مخزّنة في الإمارات، وتصلك خلال أيام لا أسابيع." } },
+    "body": { "type": "main-page-body", "settings": {} },
+    "story": {
+      "type": "editorial",
+      "blocks": {
+        "p1": { "type": "pillar", "settings": { "icon": "shield", "title": "Authorised sourcing", "title_ar": "مصادر معتمدة", "text": "Every product from authorised Korean channels.", "text_ar": "كل منتج من قنوات كورية معتمدة." } },
+        "p2": { "type": "pillar", "settings": { "icon": "truck", "title": "Held in the UAE", "title_ar": "مخزّن في الإمارات", "text": "1–3 day delivery, no customs waits.", "text_ar": "توصيل خلال ١–٣ أيام بدون جمارك." } },
+        "p3": { "type": "pillar", "settings": { "icon": "leaf", "title": "Edited for the climate", "title_ar": "مختار لمناخنا", "text": "Formulas that make sense in 40°C and AC.", "text_ar": "تركيبات مناسبة لحرارة ٤٠ درجة والمكيّف." } }
+      },
+      "block_order": ["p1", "p2", "p3"],
+      "settings": { "image": "shopify://shop_images/sg-maison-kavo-editorial.png", "badge": "KAVO · KOREAN-CUT · LIMITED DROPS · ", "flip": true, "tone": "paper", "eyebrow": "KAVO — the wardrobe side", "eyebrow_ar": "KAVO — جانب الأزياء", "heading": "Korean-cut, made for the UAE.", "heading_ar": "قصّات كورية، مختارة للإمارات.", "text": "<p>Relaxed silhouettes, breathable weights and a neutral palette — released in limited drops rather than endless seasons.</p>", "text_ar": "<p>قصّات مريحة وأقمشة خفيفة وألوان هادئة — تُطرح بإصدارات محدودة.</p>", "btn_label": "Discover KAVO", "btn_label_ar": "اكتشفي KAVO", "btn_link": "/collections/kavo-by-seoulglow" }
+    },
+    "trust": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "truck", "title": "Free delivery over 200 AED", "title_ar": "توصيل مجاني فوق ٢٠٠ درهم", "text": "1–3 working days across the UAE", "text_ar": "١–٣ أيام عمل لكل الإمارات" } },
+        "t2": { "type": "item", "settings": { "icon": "shield", "title": "100% authentic", "title_ar": "أصلي ١٠٠٪", "text": "Authorised Korean channels only", "text_ar": "من قنوات كورية معتمدة فقط" } },
+        "t3": { "type": "item", "settings": { "icon": "cash", "title": "Cash on delivery", "title_ar": "الدفع عند الاستلام", "text": "Pay when it reaches your door", "text_ar": "ادفعي عند وصول الطلب" } },
+        "t4": { "type": "item", "settings": { "icon": "return", "title": "Damaged? Replaced.", "title_ar": "تالف؟ نستبدله", "text": "Photo within 48h — full refund or replacement", "text_ar": "صورة خلال ٤٨ ساعة — استبدال أو استرداد كامل" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": { "tone": "none" }
+    }
+  },
+  "order": ["hero", "body", "story", "trust"]
+}

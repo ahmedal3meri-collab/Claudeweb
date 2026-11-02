@@ -1,0 +1,30 @@
+<section class="page-hero{% if section.settings.image != blank %} has-media{% endif %}">
+  {%- if section.settings.image != blank -%}
+    <div class="page-hero__media" data-parallax="0.12">
+      {{ section.settings.image | image_url: width: 2200 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '750,1100,1500,2200', alt: '' }}
+      <div class="hero__shade"></div>
+    </div>
+  {%- endif -%}
+  <div class="container page-hero__inner">
+    <nav class="crumbs"><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span>/</span><span>{{ page.title }}</span></nav>
+    <p class="eyebrow">{% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+    <h1 class="page-hero__title"><span class="line"><span class="line__in">{%- if section.settings.heading != blank -%}{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}{%- else -%}{{ page.title }}{%- endif -%}</span></span></h1>
+    {%- if section.settings.text != blank -%}<p class="page-hero__text">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Page hero",
+  "class": "section-page-hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Seoul Glow · 서울" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)" },
+    { "type": "text", "id": "heading", "label": "Heading (empty = page title)" },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)" }
+  ],
+  "presets": [{ "name": "Page hero" }]
+}
+{% endschema %}

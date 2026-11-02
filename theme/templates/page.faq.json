@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "hero": { "type": "page-hero", "settings": { "eyebrow": "Help · 도움말", "eyebrow_ar": "المساعدة", "heading": "Frequently asked", "heading_ar": "الأسئلة الشائعة", "text": "Authenticity, delivery, routines and KAVO sizing — answered honestly.", "text_ar": "الأصالة، التوصيل، الروتين، ومقاسات KAVO — بإجابات واضحة وصادقة." } },
+    "faq": { "type": "main-faq", "settings": {} }
+  },
+  "order": ["hero", "faq"]
+}

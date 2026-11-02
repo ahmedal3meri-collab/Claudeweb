@@ -36,11 +36,29 @@
             "text_ar": "إصدار KAVO ٠٠١ متوفر الآن",
             "link": "/collections/kavo-by-seoulglow"
           }
+        },
+        "m5": {
+          "type": "message",
+          "settings": {
+            "text": "15% off orders over 200 AED — code KBEAUTY15",
+            "text_ar": "خصم ١٥٪ للطلبات فوق ٢٠٠ درهم — كود KBEAUTY15",
+            "link": "/collections/best"
+          }
+        },
+        "m6": {
+          "type": "message",
+          "settings": {
+            "text": "20% off orders over 350 AED — code GLOW20",
+            "text_ar": "خصم ٢٠٪ للطلبات فوق ٣٥٠ درهم — كود GLOW20",
+            "link": "/collections/kits-bundles"
+          }
         }
       },
       "block_order": [
         "m1",
+        "m5",
         "m2",
+        "m6",
         "m3",
         "m4"
       ],

@@ -1,0 +1,60 @@
+{%- liquid
+  assign plus = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>'
+  assign parts = page.content | split: '<h3>'
+-%}
+<section class="faq section">
+  <div class="container faq__grid">
+    <aside class="faq__aside" data-reveal>
+      <p class="eyebrow">{% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+      <h2 class="h2">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
+      <p class="muted">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>
+      <div class="faq__ctas">
+        {%- if settings.whatsapp_number != blank -%}
+          <a class="btn btn--dark" href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">{% render 'icon', name: 'whatsapp' %} {{ 'general.whatsapp' | t }}</a>
+        {%- endif -%}
+        <a class="btn btn--ghost-dark" href="/pages/contact">{{ 'contact.send' | t }}</a>
+      </div>
+    </aside>
+    <div class="faq__list" dir="auto">
+      {%- if parts.size > 1 -%}
+        {%- if parts[0] != blank -%}<div class="rte">{{ parts[0] }}</div>{%- endif -%}
+        {%- for part in parts offset: 1 -%}
+          {%- assign qa = part | split: '</h3>' -%}
+          <details class="acc" data-reveal style="--d: {{ forloop.index0 | times: 40 }}ms"{% if forloop.first %} open{% endif %}>
+            <summary>{{ qa[0] | strip_html }} {{ plus }}</summary>
+            <div class="acc__body rte">{{ qa[1] }}</div>
+          </details>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="rte">{{ page.content }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- if parts.size > 1 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for part in parts offset: 1 -%}
+      {%- assign qa = part | split: '</h3>' -%}
+      { "@type": "Question", "name": {{ qa[0] | strip_html | strip | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ qa[1] | strip_html | strip | json }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Questions · 질문" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)", "default": "أسئلة شائعة" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Still wondering?" },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "عندك سؤال؟" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "We are a small team and we answer our own messages — expect a human reply within a day." },
+    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)", "default": "فريقنا صغير ونرد على رسائلك بأنفسنا — توقعي رداً حقيقياً خلال يوم." }
+  ]
+}
+{% endschema %}

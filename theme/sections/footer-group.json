@@ -39,7 +39,18 @@
         "delay": 14,
         "days": 7,
         "image": "shopify://shop_images/sg-maison-hero-mobile.png",
-        "korean": "환영해요"
+        "korean": "환영해요",
+        "code": "WELCOME10",
+        "eyebrow": "Welcome to Seoul Glow",
+        "eyebrow_ar": "أهلاً بكِ في سيول جلو",
+        "heading": "10% off your first order",
+        "heading_ar": "خصم ١٠٪ على أول طلب",
+        "text": "Join the Glow List for your welcome code — plus first access to new K-beauty arrivals and KAVO drops.",
+        "text_ar": "انضمي لقائمة التوهّج واحصلي على كود الترحيب — وكوني أول من يعرف عن المنتجات الجديدة وإصدارات KAVO.",
+        "button": "Reveal my 10%",
+        "button_ar": "اكشفي خصمي",
+        "success_heading": "Your 10% welcome code",
+        "success_heading_ar": "كود خصمك الترحيبي ١٠٪"
       }
     }
   },
