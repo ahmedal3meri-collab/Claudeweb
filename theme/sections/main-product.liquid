@@ -22,7 +22,9 @@
       <div class="pdp__main">
         {%- for media in product.media -%}
           {%- if forloop.first -%}{%- assign ld = 'eager' -%}{%- else -%}{%- assign ld = 'lazy' -%}{%- endif -%}
-          <div class="pdp__slide{% if forloop.first %} is-active{% endif %}" data-media-id="{{ media.id }}">
+          {%- assign fitc = '' -%}
+          {%- if media.media_type == 'image' and is_kavo == false -%}{%- capture fitc -%}{% render 'fit', img: media.preview_image %}{%- endcapture -%}{%- endif -%}
+          <div class="pdp__slide{% if forloop.first %} is-active{% endif %}{% if fitc != blank %} is-fit{% endif %}" data-media-id="{{ media.id }}"{% if fitc != blank %} style="--fit-bg: url('{{ media.preview_image | image_url: width: 100 }}')"{% endif %}>
             {%- case media.media_type -%}
               {%- when 'image' -%}
                 {{ media | image_url: width: 1800 | image_tag: loading: ld, sizes: '(min-width: 990px) 55vw, 100vw', widths: '600,900,1200,1500,1800', class: 'pdp__img', data-zoom: '' }}

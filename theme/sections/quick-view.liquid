@@ -5,7 +5,9 @@
   <div class="qv__gallery">
     <div class="pdp__main">
       {%- for media in product.media limit: 6 -%}
-        <div class="pdp__slide{% if forloop.first %} is-active{% endif %}" data-media-id="{{ media.id }}">
+        {%- assign fitc = '' -%}
+        {%- unless product.tags contains 'kavo' -%}{%- capture fitc -%}{% render 'fit', img: media.preview_image %}{%- endcapture -%}{%- endunless -%}
+        <div class="pdp__slide{% if forloop.first %} is-active{% endif %}{% if fitc != blank %} is-fit{% endif %}" data-media-id="{{ media.id }}"{% if fitc != blank %} style="--fit-bg: url('{{ media.preview_image | image_url: width: 100 }}')"{% endif %}>
           {{ media.preview_image | image_url: width: 1000 | image_tag: loading: 'eager', sizes: '(min-width: 750px) 45vw, 100vw', widths: '500,750,1000', alt: product.title }}
         </div>
       {%- endfor -%}

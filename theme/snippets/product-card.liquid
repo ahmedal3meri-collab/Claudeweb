@@ -20,12 +20,25 @@
   endif
 -%}
 <article class="card{% if is_kavo %} card--kavo{% endif %}{% unless product.available %} card--soldout{% endunless %}"{% if product.tags contains 'next-drop' %} data-drop-variants="{{ product.variants | map: 'id' | join: ',' }}"{% endif %} data-reveal style="--d: {{ index | default: 0 | modulo: 4 | times: 80 }}ms">
-  <div class="card__media">
+  {%- liquid
+    assign fit1 = ''
+    assign fit2 = ''
+    unless is_kavo
+      capture fit1
+        render 'fit', img: img
+      endcapture
+      capture fit2
+        render 'fit', img: img2
+      endcapture
+    endunless
+  -%}
+  <div class="card__media{% if fit1 != blank %} is-fit{% endif %}"{% if fit1 != blank %} style="--fit-bg: url('{{ img | image_url: width: 80 }}')"{% endif %}>
     <a href="{{ product.url }}" class="card__link" aria-label="{{ product.title | escape }}" tabindex="-1">
       {%- if img -%}
         {{ img | image_url: width: 900 | image_tag: loading: loading, sizes: sizes_attr, widths: '300,450,600,750,900', class: 'card__img card__img--1', alt: product.title }}
         {%- if settings.show_second_image and img2 -%}
-          {{ img2 | image_url: width: 900 | image_tag: loading: 'lazy', sizes: sizes_attr, widths: '300,450,600,750,900', class: 'card__img card__img--2', alt: '' }}
+          {%- if fit2 != blank -%}{%- assign img2_class = 'card__img card__img--2 is-fit-img' -%}{%- else -%}{%- assign img2_class = 'card__img card__img--2' -%}{%- endif -%}
+          {{ img2 | image_url: width: 900 | image_tag: loading: 'lazy', sizes: sizes_attr, widths: '300,450,600,750,900', class: img2_class, alt: '' }}
         {%- endif -%}
       {%- else -%}
         <div class="card__placeholder">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
@@ -38,7 +51,7 @@
       {%- elsif product.available == false -%}
         <span class="badge badge--dark">{{ 'products.sold_out' | t }}</span>
       {%- elsif variant.compare_at_price > variant.price -%}
-        {%- assign save = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price -%}
+        {%- assign save = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price | floor -%}
         <span class="badge badge--accent">−{{ save }}%</span>
       {%- endif -%}
       {%- if product.tags contains 'New Arrival' -%}

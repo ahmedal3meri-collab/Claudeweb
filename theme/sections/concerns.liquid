@@ -27,7 +27,7 @@
         endif
       -%}
       <a href="{% if col != blank %}{{ col.url }}{% else %}#{% endif %}" class="concern" {{ block.shopify_attributes }} data-reveal style="--d: {{ forloop.index0 | times: 70 }}ms">
-        <div class="concern__arch">
+        <div class="concern__arch{% if img != blank %} is-fit{% endif %}"{% if img != blank %} style="--fit-bg: url('{{ img | image_url: width: 80 }}')"{% endif %}>
           {%- if img != blank -%}{{ img | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '240px', widths: '300,450,600', alt: '' }}{%- endif -%}
           <span class="concern__kr">{{ block.settings.korean }}</span>
         </div>

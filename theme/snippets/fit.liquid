@@ -1,0 +1,6 @@
+{%- comment -%}
+  Classifies an image for a square frame. Outputs `is-fit` when the image is not (near) square,
+  so it is shown whole (contain) over a blurred copy of itself instead of being cropped or boxed.
+  Usage: {%- capture fitc -%}{% render 'fit', img: image %}{%- endcapture -%}
+{%- endcomment -%}
+{%- if img -%}{%- assign r = img.aspect_ratio | default: 1 | times: 1.0 -%}{%- if r < 0.92 or r > 1.08 -%}is-fit{%- endif -%}{%- endif -%}

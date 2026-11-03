@@ -17,7 +17,7 @@
   <span class="price__now">{{ price | money }}</span>
   {%- if on_sale -%}
     <s class="price__was">{{ compare | money }}</s>
-    {%- assign save = compare | minus: price | times: 100 | divided_by: compare -%}
+    {%- assign save = compare | minus: price | times: 100 | divided_by: compare | floor -%}
     <span class="price__save">−{{ save }}%</span>
   {%- endif -%}
 </div>

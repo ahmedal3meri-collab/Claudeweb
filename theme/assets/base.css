@@ -1529,3 +1529,43 @@ html[lang="ar"] .bteaser__title { text-transform: none; letter-spacing: 0; line-
   .bteaser__text { margin-inline: auto; }
   .bteaser__title { margin-inline: auto; }
 }
+
+/* =========================================================
+   v2.6 — Clean product frames
+   One rule everywhere: square frame, image edge-to-edge.
+   Non-square photos (.is-fit) are shown whole over a blurred
+   copy of themselves — no crops, no boxes inside boxes.
+   ========================================================= */
+.is-fit { isolation: isolate; }
+.is-fit::before { content: ''; position: absolute; inset: -14%; z-index: -1; background: var(--fit-bg) center / cover no-repeat; filter: blur(26px) saturate(1.15); opacity: .92; pointer-events: none; }
+.is-fit img, img.is-fit-img { object-fit: contain !important; padding: 0 !important; mix-blend-mode: normal !important; }
+img.is-fit-img { background: #fff; }
+
+/* product cards */
+.card:not(.card--kavo) .card__media { aspect-ratio: 1; background: #fff; border: 1px solid rgba(var(--c-ink-rgb), .06); }
+.card:not(.card--kavo) .card__img { object-fit: cover; padding: 0; mix-blend-mode: normal; }
+.card:not(.card--kavo):hover .card__img--1 { transform: scale(1.04); }
+.card--kavo .card__media { aspect-ratio: 3 / 4; }
+
+/* product page + quick view */
+.mode-beauty .pdp__main, .qv:not(.qv--kavo) .pdp__main { aspect-ratio: 1; background: #fff; border: 1px solid rgba(var(--c-ink-rgb), .06); }
+.mode-beauty .pdp__slide img, .qv:not(.qv--kavo) .pdp__slide img { object-fit: cover; padding: 0; mix-blend-mode: normal; }
+.pdp__slide.is-fit { overflow: hidden; }
+.pdp__thumb { aspect-ratio: 1; background: #fff; }
+.pdp__thumb img { object-fit: cover; }
+
+/* sets, concerns, ritual, collection tiles */
+.set-hero__media { background: #fff; }
+.set-hero__media img, .concern__arch img, .col-tile__img img { padding: 0; mix-blend-mode: normal; object-fit: cover; }
+.concern__arch, .col-tile__img { background: #fff; }
+.col-tile__img { position: relative; }
+@media (min-width: 990px) { .ritual__img img { padding: 0; mix-blend-mode: normal; object-fit: cover; } .ritual__img { overflow: hidden; } }
+.set-row__img { background: #fff; border: 1px solid rgba(var(--c-ink-rgb), .06); }
+.set-row__img img { padding: 0; mix-blend-mode: normal; object-fit: cover; }
+
+/* small thumbnails: square, filled, same radius */
+.cart-line__img { aspect-ratio: 1; background: #fff; border: 1px solid rgba(var(--c-ink-rgb), .06); }
+.cart-line__img img { object-fit: cover; }
+.upsell__item img { object-fit: cover; mix-blend-mode: normal; background: #fff; border: 1px solid rgba(var(--c-ink-rgb), .06); }
+.ps__item img, .sticky-atc__info img { background: #fff; }
+.smap__products img { background: #fff; border: 1px solid rgba(var(--c-ink-rgb), .06); }

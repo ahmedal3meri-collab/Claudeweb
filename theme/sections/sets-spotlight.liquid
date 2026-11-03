@@ -15,7 +15,7 @@
         {%- if hero_set != blank -%}
           {%- assign v = hero_set.selected_or_first_available_variant -%}
           <article class="set-hero" data-reveal>
-            <a href="{{ hero_set.url }}" class="set-hero__media">
+            <a href="{{ hero_set.url }}" class="set-hero__media{% if hero_set.featured_media %} is-fit{% endif %}"{% if hero_set.featured_media %} style="--fit-bg: url('{{ hero_set.featured_media | image_url: width: 100 }}')"{% endif %}>
               {%- if hero_set.featured_media -%}{{ hero_set.featured_media | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600,900,1200,1400', alt: hero_set.title }}{%- endif -%}
               {%- if v.compare_at_price > v.price -%}
                 <span class="set-hero__save"><small>{{ 'products.you_save' | t }}</small>{{ v.compare_at_price | minus: v.price | money_without_trailing_zeros }}</span>

@@ -7,7 +7,7 @@
         {%- assign img = collection.featured_image -%}
         {%- if img == blank -%}{%- for p in collection.products -%}{%- if p.featured_media -%}{%- assign img = p.featured_media -%}{%- break -%}{%- endif -%}{%- endfor -%}{%- endif -%}
         <a href="{{ collection.url }}" class="col-tile" data-reveal style="--d: {{ forloop.index0 | modulo: 4 | times: 70 }}ms">
-          <div class="col-tile__img">{%- if img -%}{{ img | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 50vw', widths: '350,500,700', alt: '' }}{%- endif -%}</div>
+          <div class="col-tile__img{% if img %} is-fit{% endif %}"{% if img %} style="--fit-bg: url('{{ img | image_url: width: 80 }}')"{% endif %}>{%- if img -%}{{ img | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 50vw', widths: '350,500,700', alt: '' }}{%- endif -%}</div>
           <p class="col-tile__t">{{ collection.title }}</p>
           <p class="col-tile__c">{{ 'collections.products_count' | t: count: collection.products_count }}</p>
         </a>
