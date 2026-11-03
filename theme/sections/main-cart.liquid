@@ -13,7 +13,7 @@
     endif
   endif
 -%}
-<section class="cart-page section-top">
+<section class="cart-page section-top{% if section.settings.receipt %} is-receipt{% endif %}">
   <div class="container">
     <div class="section-head"><div><p class="eyebrow">장바구니</p><h1 class="h1">{{ 'cart.title' | t }}</h1></div></div>
     {%- if cart.item_count == 0 -%}
@@ -25,6 +25,7 @@
     {%- else -%}
       <form action="{{ routes.cart_url }}" method="post" class="cart-page__grid">
         <div>
+          {%- if section.settings.receipt -%}{% render 'receipt', part: 'head' %}{%- endif -%}
           <ul class="cart-lines cart-lines--page">
             {%- for item in cart.items -%}
               <li class="cart-line">
@@ -55,6 +56,7 @@
           <p class="small muted">{{ 'cart.taxes_note' | t }}</p>
           <button type="submit" name="checkout" class="btn btn--dark btn--full btn--shine">{{ 'cart.checkout' | t }} {% render 'icon', name: 'arrow' %}</button>
           {%- if additional_checkout_buttons -%}<div class="cart-summary__dyn">{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}
+          {%- if section.settings.receipt -%}{% render 'receipt', part: 'foot' %}{%- endif -%}
           <ul class="pdp__perks">
             <li>{% render 'icon', name: 'cash' %} {{ 'trust.cod' | t }}</li>
             <li>{% render 'icon', name: 'shield' %} {{ 'trust.authentic' | t }}</li>
@@ -66,5 +68,5 @@
   </div>
 </section>
 {% schema %}
-{ "name": "Cart", "settings": [] }
+{ "name": "Cart", "settings": [{ "type": "checkbox", "id": "receipt", "label": "Korean receipt style", "default": true }] }
 {% endschema %}

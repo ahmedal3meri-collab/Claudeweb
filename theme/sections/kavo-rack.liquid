@@ -30,7 +30,8 @@
           -%}
           {%- if rack_img == nil -%}{%- continue -%}{%- endif -%}
           {%- assign shown = shown | plus: 1 -%}
-          <button type="button" class="rack__item" data-rack-item="{{ forloop.index0 }}" aria-label="{{ product.title | escape }}">
+          <button type="button" class="rack__item" data-rack-item="{{ forloop.index0 }}"{% if product.tags contains 'next-drop' %} data-drop-variants="{{ product.variants | map: 'id' | join: ',' }}"{% endif %} aria-label="{{ product.title | escape }}">
+            {%- if product.tags contains 'next-drop' -%}<span class="rack__lock" aria-hidden="true">☾ NIGHT DROP</span>{%- endif -%}
             <span class="rack__hanger" data-rack-hanger>
               {%- if rack_img -%}{{ rack_img | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 18vw, 40vw', widths: '300,500,700', alt: product.title, draggable: 'false' }}{%- endif -%}
             </span>

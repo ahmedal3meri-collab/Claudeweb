@@ -1,0 +1,17 @@
+{%- comment -%} Korean convenience-store receipt chrome for the cart. part: 'head' | 'foot' {%- endcomment -%}
+{%- if part == 'head' -%}
+  <div class="receipt-head" aria-hidden="true">
+    <p class="receipt-head__brand">{{ settings.logo_text | default: shop.name }}</p>
+    <p class="receipt-head__kr">{{ settings.logo_korean | default: '서울 글로우' }} · 영수증</p>
+    <p class="receipt-head__meta" dir="ltr"><span>{{ 'receipt.title' | t }}</span><span>{{ 'now' | date: '%Y.%m.%d' }}</span></p>
+    <p class="receipt-head__meta" dir="ltr"><span>DUBAI · UAE</span><span>{{ 'receipt.items' | t }}: {{ cart.item_count }}</span></p>
+  </div>
+{%- else -%}
+  <div class="receipt-foot" aria-hidden="true">
+    <div class="receipt-foot__barcode"></div>
+    <p class="receipt-foot__num" dir="ltr">SG {{ 'now' | date: '%y%m%d' }} {{ cart.item_count | prepend: '000' | slice: -3, 3 }} {{ cart.total_price | modulo: 100000 | prepend: '00000' | slice: -5, 5 }}</p>
+    <p class="receipt-foot__thanks">{{ 'receipt.thanks' | t }}</p>
+    <p class="receipt-foot__cashier">{{ 'receipt.cashier' | t }}</p>
+    <span class="receipt-foot__stamp">SEOUL<br>GLOW<br><small>PAID</small></span>
+  </div>
+{%- endif -%}

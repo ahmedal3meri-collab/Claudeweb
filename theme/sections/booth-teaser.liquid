@@ -1,0 +1,44 @@
+<section class="bteaser">
+  <div class="container bteaser__grid">
+    <div class="bteaser__strip" aria-hidden="true" data-reveal>
+      <p class="bteaser__brand">SEOUL GLOW</p>
+      <div class="bteaser__frames">
+        {%- assign imgs = 'image_1,image_2,image_3,image_4' | split: ',' -%}
+        {%- for k in imgs -%}
+          <span class="bteaser__f" style="--r: {% cycle '-2deg', '1.5deg', '2deg', '-1deg' %}">
+            {%- assign im = section.settings[k] -%}
+            {%- if im != blank -%}{{ im | image_url: width: 400 | image_tag: loading: 'lazy', alt: '', sizes: '160px' }}{%- endif -%}
+          </span>
+        {%- endfor -%}
+      </div>
+      <p class="bteaser__tag">#SEOULGLOWBOOTH</p>
+    </div>
+    <div class="bteaser__copy" data-reveal style="--d: 120ms">
+      <p class="eyebrow bteaser__eyebrow">찰칵 · 인생네컷</p>
+      <h2 class="bteaser__title">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
+      <p class="bteaser__text">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>
+      <a class="btn bteaser__btn" href="{{ section.settings.link | default: '/pages/photo-booth' }}">{% render 'tx', en: section.settings.button, ar: section.settings.button_ar %} {% render 'icon', name: 'arrow' %}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Photo booth teaser",
+  "class": "section-booth-teaser",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Step into the Seoul photo booth." },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "ادخلي كشك صور سيول." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Four flash shots, a film filter and a Seoul Glow frame for your story — share it and unlock 10% off." },
+    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)", "default": "أربع لقطات بالفلاش، فلتر فيلم، وإطار Seoul Glow للستوري — شاركيها واكسبي خصم ١٠٪." },
+    { "type": "text", "id": "button", "label": "Button", "default": "Open the booth" },
+    { "type": "text", "id": "button_ar", "label": "Button (Arabic)", "default": "افتحي الكشك" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "image_picker", "id": "image_1", "label": "Frame 1" },
+    { "type": "image_picker", "id": "image_2", "label": "Frame 2" },
+    { "type": "image_picker", "id": "image_3", "label": "Frame 3" },
+    { "type": "image_picker", "id": "image_4", "label": "Frame 4" }
+  ],
+  "presets": [{ "name": "Photo booth teaser" }]
+}
+{% endschema %}

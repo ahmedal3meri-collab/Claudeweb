@@ -40,7 +40,7 @@
     {% render 'meta-tags' %}
     {% render 'sg-seo-schema' %}
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Serif+KR:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Serif+KR:wght@300;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
       :root {
@@ -124,7 +124,15 @@
           soldOut: {{ 'products.sold_out' | t | json }},
           addToCart: {{ 'products.add_to_cart' | t | json }},
           unavailable: {{ 'products.unavailable' | t | json }},
-          error: {{ 'general.error' | t | json }}
+          error: {{ 'general.error' | t | json }},
+          dropLocked: {{ 'kavo.drop_locked' | t | json }},
+          dropLive: {{ 'kavo.drop_live' | t | json }}
+        },
+        drop: {
+          weekday: {{ settings.drop_weekday | default: 4 | plus: 0 }},
+          hour: {{ settings.drop_hour | default: 21 | plus: 0 }},
+          at: {{ settings.drop_datetime | strip | json }},
+          live: {{ settings.drop_live_hours | default: 24 | plus: 0 }}
         }
       };
     </script>

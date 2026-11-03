@@ -15,7 +15,7 @@
 -%}
 <div class="drawer drawer--cart" data-drawer="cart" aria-hidden="true" data-cart-drawer data-count="{{ cart.item_count }}">
   <div class="drawer__overlay" data-drawer-close></div>
-  <div class="drawer__panel drawer__panel--end" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}">
+  <div class="drawer__panel drawer__panel--end{% if section.settings.receipt %} is-receipt{% endif %}" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}">
     <div class="drawer__head">
       <h2 class="drawer__title">{{ 'cart.title' | t }} <sup>{{ cart.item_count }}</sup></h2>
       <button class="icon-btn" type="button" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
@@ -44,6 +44,7 @@
           <a href="{{ routes.all_products_collection_url }}" class="btn btn--dark">{{ 'cart.continue' | t }}</a>
         </div>
       {%- else -%}
+        {%- if section.settings.receipt -%}{% render 'receipt', part: 'head' %}{%- endif -%}
         <ul class="cart-lines">
           {%- for item in cart.items -%}
             <li class="cart-line" data-line="{{ forloop.index }}">
@@ -90,6 +91,7 @@
             </div>
           </div>
         {%- endif -%}
+        {%- if section.settings.receipt -%}{% render 'receipt', part: 'foot' %}{%- endif -%}
       {%- endif -%}
     </div>
 
@@ -116,6 +118,7 @@
 {
   "name": "Cart drawer",
   "settings": [
+    { "type": "checkbox", "id": "receipt", "label": "Korean receipt style", "default": true },
     { "type": "collection", "id": "upsell_collection", "label": "“Complete your ritual” collection" },
     { "type": "text", "id": "upsell_heading", "label": "Upsell heading", "default": "Complete your ritual" },
     { "type": "text", "id": "upsell_heading_ar", "label": "Upsell heading (Arabic)", "default": "أكملي روتينك" }

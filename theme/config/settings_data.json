@@ -16,6 +16,10 @@
     "free_shipping_threshold": 500,
     "reduced_shipping_threshold": 200,
     "reduced_shipping_fee": 10,
+    "drop_weekday": "4",
+    "drop_hour": 21,
+    "drop_live_hours": 24,
+    "drop_name": "Drop 002",
     "low_stock_threshold": 5,
     "show_vendor": true,
     "show_second_image": true,
@@ -28,6 +32,7 @@
         "type": "cart-drawer",
         "settings": {
           "upsell_collection": "best",
+          "receipt": true,
           "upsell_heading": "Complete your ritual",
           "upsell_heading_ar": "أكملي روتينك"
         }

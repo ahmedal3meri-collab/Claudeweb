@@ -541,6 +541,136 @@
         "label": "KAVO Rack — swipe the drop",
         "label_ar": "رف KAVO — اسحبي وتصفحي"
       }
+    },
+    "districts": {
+      "type": "seoul-map",
+      "blocks": {
+        "d_hongdae": {
+          "type": "district",
+          "settings": {
+            "name": "Hongdae",
+            "name_ar": "هونغداي",
+            "name_kr": "홍대",
+            "x": 24,
+            "y": 34,
+            "color": "#A6FF3B",
+            "image": "shopify://shop_images/sg-district-hongdae.png",
+            "collection": "kavo-by-seoulglow",
+            "vibe": "Street · loud · after midnight",
+            "vibe_ar": "شارع · جرأة · بعد نص الليل",
+            "mood": "Indie gigs, graffiti alleys and oversized fits. KAVO's home turf — Korean streetwear cut for UAE nights.",
+            "mood_ar": "حفلات صغيرة، أزقّة غرافيتي، وقصّات واسعة. هذا بيت KAVO — ستايل الشارع الكوري بقصّة تناسب ليالي الإمارات."
+          }
+        },
+        "d_myeongdong": {
+          "type": "district",
+          "settings": {
+            "name": "Myeongdong",
+            "name_ar": "ميونغدونغ",
+            "name_kr": "명동",
+            "x": 50,
+            "y": 27,
+            "color": "#FF6A3D",
+            "image": "shopify://shop_images/sg-district-myeongdong.png",
+            "collection": "best",
+            "vibe": "Neon · crowds · the bestsellers",
+            "vibe_ar": "نيون · زحمة · الأكثر مبيعاً",
+            "mood": "The original K-beauty high street. These are the bestsellers every Seoul girl walks out with.",
+            "mood_ar": "الشارع الأصلي للجمال الكوري. هذي المنتجات اللي تطلع فيها كل بنت من سيول."
+          }
+        },
+        "d_itaewon": {
+          "type": "district",
+          "settings": {
+            "name": "Itaewon",
+            "name_ar": "إيتايون",
+            "name_kr": "이태원",
+            "x": 53,
+            "y": 49,
+            "color": "#FF2D55",
+            "image": "shopify://shop_images/sg-district-itaewon.png",
+            "collection": "cream",
+            "vibe": "Night · red lights · repair",
+            "vibe_ar": "ليل · أضواء حمراء · ترميم",
+            "mood": "After-dark repair. Rich creams and overnight formulas for skin that stayed out late.",
+            "mood_ar": "ترميم بعد السهر. كريمات غنية وتركيبات ليلية لبشرة سهرت معك."
+          }
+        },
+        "d_seongsu": {
+          "type": "district",
+          "settings": {
+            "name": "Seongsu",
+            "name_ar": "سونغسو",
+            "name_kr": "성수",
+            "x": 76,
+            "y": 41,
+            "color": "#E8E2D4",
+            "image": "shopify://shop_images/sg-district-seongsu.png",
+            "collection": "sensitive-skin",
+            "vibe": "Concrete cafés · quiet · gentle",
+            "vibe_ar": "مقاهي إسمنت · هدوء · لطافة",
+            "mood": "Seoul's Brooklyn — red-brick factories, minimal labels. Gentle, fragrance-light formulas for sensitive skin.",
+            "mood_ar": "بروكلين سيول — مصانع طوب أحمر وبراندات بسيطة. تركيبات لطيفة للبشرة الحساسة."
+          }
+        },
+        "d_gangnam": {
+          "type": "district",
+          "settings": {
+            "name": "Gangnam",
+            "name_ar": "غانغنام",
+            "name_kr": "강남",
+            "x": 68,
+            "y": 80,
+            "color": "#D9B26A",
+            "image": "shopify://shop_images/sg-district-gangnam.png",
+            "collection": "anti-aging",
+            "vibe": "Clinic · glass towers · results",
+            "vibe_ar": "عيادات · أبراج زجاج · نتائج",
+            "mood": "Clinic-grade glow from the Apgujeong derm chairs. Peptides, retinal and firming serums that work.",
+            "mood_ar": "لمعة بمستوى العيادات من شارع أبغوجونغ. ببتيدات وريتينال وسيرومات شد تعطي نتيجة."
+          }
+        }
+      },
+      "block_order": [
+        "d_hongdae",
+        "d_myeongdong",
+        "d_itaewon",
+        "d_seongsu",
+        "d_gangnam"
+      ],
+      "settings": {
+        "eyebrow": "Shop by district",
+        "eyebrow_ar": "تسوّقي حسب الحي",
+        "heading": "Pick a neighbourhood. Wear its mood.",
+        "heading_ar": "اختاري حيّ من سيول، والبسي جوّه."
+      }
+    },
+    "night_drop": {
+      "type": "night-drop",
+      "settings": {
+        "size": "compact",
+        "heading": "The rack opens after dark.",
+        "heading_ar": "الرف يفتح بعد الغروب.",
+        "image": "shopify://shop_images/sg-cine-alley.png",
+        "collection": "kavo-by-seoulglow",
+        "accent": "#A6FF3B"
+      }
+    },
+    "booth": {
+      "type": "booth-teaser",
+      "settings": {
+        "heading": "Step into the Seoul photo booth.",
+        "heading_ar": "ادخلي كشك صور سيول.",
+        "text": "Four flash shots, a film filter and a Seoul Glow frame for your story — share it and unlock 10% off.",
+        "text_ar": "أربع لقطات بالفلاش، فلتر فيلم، وإطار Seoul Glow للستوري — شاركيها واكسبي خصم ١٠٪.",
+        "button": "Open the booth",
+        "button_ar": "افتحي الكشك",
+        "link": "/pages/photo-booth",
+        "image_1": "shopify://shop_images/sg-district-hongdae.png",
+        "image_2": "shopify://shop_images/sg-cine-portrait.png",
+        "image_3": "shopify://shop_images/sg-district-myeongdong.png",
+        "image_4": "shopify://shop_images/sg-district-seongsu.png"
+      }
     }
   },
   "order": [
@@ -549,9 +679,12 @@
     "worlds",
     "bestsellers",
     "concerns",
+    "districts",
     "ritual",
+    "night_drop",
     "rack",
     "quiz",
+    "booth",
     "sets",
     "story",
     "trust"

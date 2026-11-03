@@ -1,3 +1,31 @@
+/* KAVO Night Drop timing (UAE time, UTC+4, no DST). Shared by the countdown, rack, cards and PDP. */
+window.SGDrop = (() => {
+  const OFF = 4 * 3600e3, DAY = 864e5, WEEK = 7 * DAY;
+  const cfg = () => (window.SG && window.SG.drop) || { weekday: 4, hour: 21, at: '', live: 24 };
+  const info = (now = Date.now()) => {
+    const c = cfg(); const liveMs = Math.max(1, Number(c.live) || 24) * 3600e3;
+    const m = String(c.at || '').match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{1,2}):(\d{2})/);
+    if (m) {
+      const t = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]) - OFF;
+      if (now < t) return { state: 'next', at: t };
+      if (now < t + liveMs) return { state: 'live', at: t, ends: t + liveMs };
+    }
+    const d = new Date(now + OFF);
+    const todayAt = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), Number(c.hour) || 0) - OFF;
+    let next = todayAt + ((Number(c.weekday) - d.getUTCDay() + 7) % 7) * DAY;
+    if (next <= now) next += WEEK;
+    const prev = next - WEEK;
+    if (now < prev + liveMs) return { state: 'live', at: prev, ends: prev + liveMs };
+    return { state: 'next', at: next };
+  };
+  let set = null;
+  const lockedIds = () => {
+    if (!set) { set = new Set(); document.querySelectorAll('[data-drop-variants]').forEach((el) => el.getAttribute('data-drop-variants').split(',').forEach((v) => v && set.add(v.trim()))); }
+    return set;
+  };
+  return { info, isLive: () => info().state === 'live', locked: (id) => info().state === 'next' && lockedIds().has(String(id)), reset: () => { set = null; } };
+})();
+
 /* SEOUL GLOW MAISON — theme.js (no dependencies) */
 (() => {
   'use strict';
@@ -115,6 +143,7 @@
     } catch (e) { /* noop */ }
   };
   const addToCart = async (id, qty = 1, btn) => {
+    if (window.SGDrop && window.SGDrop.locked(id)) { toast(SG.strings.dropLocked || 'Locked until the drop'); return; }
     if (btn) btn.classList.add('is-loading');
     try {
       await fetchJSON(SG.routes.cartAdd + '.js', {
@@ -570,7 +599,7 @@
     let last = 0; try { last = Number(localStorage.getItem(KEY) || 0); } catch (e) {}
     const days = Number(pop.getAttribute('data-days') || 7);
     if (pop.hasAttribute('data-posted')) show();
-    else if (Date.now() - last > days * 864e5) {
+    else if (!document.querySelector('[data-booth]') && Date.now() - last > days * 864e5) {
       let fired = false;
       const fire = () => { if (fired || document.body.classList.contains('is-locked')) return; fired = true; show(); };
       setTimeout(fire, Number(pop.getAttribute('data-delay') || 12) * 1000);
@@ -690,5 +719,60 @@
     const start = Math.floor(items.length / 2);
     requestAnimationFrame(() => { centreOn(start, false); setActive(start); });
     window.addEventListener('resize', () => centreOn(active, false));
+  });
+})();
+
+
+/* =========================================================
+   Night Drop countdown + locks · Seoul district map
+   ========================================================= */
+(() => {
+  const D = window.SGDrop; if (!D) return;
+  const pad = (n) => String(Math.max(0, n)).padStart(2, '0');
+  const split = (ms) => { const t = Math.max(0, Math.floor(ms / 1000)); return { d: Math.floor(t / 86400), h: Math.floor(t / 3600) % 24, m: Math.floor(t / 60) % 60, s: t % 60 }; };
+  const drops = Array.from(document.querySelectorAll('[data-night-drop]'));
+  const pdp = document.querySelector('[data-drop-pdp]');
+  const pdpBtn = pdp ? pdp.closest('form').querySelector('[data-add-btn]') : null;
+  const lockEls = () => document.querySelectorAll('[data-drop-variants]');
+  let lastState = null;
+  const tick = () => {
+    const i = D.info(); const left = split(i.state === 'next' ? i.at - Date.now() : 0);
+    drops.forEach((sec) => {
+      ['d', 'h', 'm', 's'].forEach((k) => { const el = sec.querySelector(`[data-nd="${k}"]`); if (el && el.textContent !== pad(left[k])) { el.textContent = pad(left[k]); el.classList.remove('nd-flip'); void el.offsetWidth; el.classList.add('nd-flip'); } });
+      if (i.state !== lastState) {
+        const live = i.state === 'live';
+        sec.classList.toggle('is-live', live);
+        const lbl = sec.querySelector('[data-nd-state-label]'); if (lbl) lbl.textContent = live ? lbl.dataset.live : lbl.dataset.next;
+        const clock = sec.querySelector('[data-nd-clock]'); if (clock) clock.hidden = live;
+        const word = sec.querySelector('[data-nd-live]'); if (word) word.hidden = !live;
+        sec.querySelectorAll('[data-nd-when]').forEach((el) => { el.hidden = el.dataset.ndWhen !== i.state; });
+      }
+    });
+    if (i.state !== lastState) {
+      const locked = i.state === 'next';
+      lockEls().forEach((el) => el.classList.toggle('is-drop-locked', locked));
+      if (pdp) { pdp.hidden = !locked; if (pdpBtn) pdpBtn.classList.toggle('is-drop-locked', locked); }
+      lastState = i.state;
+    }
+    if (pdp && i.state === 'next') {
+      const l = pdp.querySelector('[data-drop-left]');
+      if (l) l.textContent = (left.d ? left.d + 'd ' : '') + pad(left.h) + ':' + pad(left.m) + ':' + pad(left.s);
+    }
+  };
+  if (drops.length || lockEls().length) { tick(); setInterval(tick, 1000); }
+
+  // Seoul district map
+  document.querySelectorAll('[data-seoul-map]').forEach((map) => {
+    const pins = Array.from(map.querySelectorAll('[data-smap-pin]'));
+    const panels = Array.from(map.querySelectorAll('[data-smap-panel]'));
+    const show = (k, focus) => {
+      pins.forEach((p, j) => { const on = j === k; p.classList.toggle('is-on', on); p.setAttribute('aria-pressed', String(on)); });
+      panels.forEach((p, j) => {
+        if (j === k) { p.hidden = false; p.classList.remove('is-in'); void p.offsetWidth; p.classList.add('is-in'); }
+        else p.hidden = true;
+      });
+      if (focus && window.matchMedia('(max-width: 989px)').matches) panels[k].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
+    pins.forEach((p, k) => p.addEventListener('click', () => show(k, true)));
   });
 })();

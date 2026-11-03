@@ -1,0 +1,110 @@
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code == 'ar'
+    assign is_ar = true
+  endif
+-%}
+<section class="smap section" data-seoul-map>
+  <div class="container">
+    <div class="smap__head" data-reveal>
+      <p class="eyebrow">서울 지도 · {% render 'tx', en: section.settings.eyebrow, ar: section.settings.eyebrow_ar %}</p>
+      <h2 class="h1 smap__title">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
+    </div>
+
+    <div class="smap__grid">
+      <div class="smap__mapwrap" dir="ltr">
+        <div class="smap__map">
+          <svg class="smap__svg" viewBox="0 0 400 300" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <pattern id="smapGrid" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="currentColor" stroke-opacity=".07" stroke-width="1"/></pattern>
+            </defs>
+            <rect width="400" height="300" fill="url(#smapGrid)"/>
+            <path class="smap__mountain" d="M150 40 C170 20 200 22 220 38 C236 50 250 46 262 40" fill="none"/>
+            <path class="smap__road" d="M20 120 L380 110 M200 10 L196 290 M60 260 L330 60 M40 60 L360 250" fill="none"/>
+            <path class="smap__river" d="M-10 196 C40 178 92 210 150 190 S236 160 288 178 S356 212 410 188" fill="none"/>
+            <text class="smap__river-l" x="58" y="226">한강 · HAN RIVER</text>
+            <g class="smap__namsan"><circle cx="196" cy="128" r="3"/><path d="M196 128 V112" /><text x="204" y="118">남산</text></g>
+          </svg>
+          {%- for block in section.blocks -%}
+            <button type="button" class="smap__pin{% if forloop.first %} is-on{% endif %}" style="--x: {{ block.settings.x }}%; --y: {{ block.settings.y }}%; --c: {{ block.settings.color }};" data-smap-pin="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>
+              <span class="smap__pin-dot" aria-hidden="true"></span>
+              <span class="smap__pin-l"><b>{{ block.settings.name_kr }}</b><i>{% if is_ar and block.settings.name_ar != blank %}{{ block.settings.name_ar }}{% else %}{{ block.settings.name }}{% endif %}</i></span>
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="smap__panels">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign dname = block.settings.name
+            if is_ar and block.settings.name_ar != blank
+              assign dname = block.settings.name_ar
+            endif
+            assign col = block.settings.collection
+          -%}
+          <article class="smap__panel" data-smap-panel="{{ forloop.index0 }}" style="--c: {{ block.settings.color }};" {% unless forloop.first %}hidden{% endunless %}>
+            <div class="smap__media">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 40vw, 92vw', widths: '500,800,1100', alt: dname }}
+              {%- endif -%}
+              <span class="smap__stamp" dir="ltr">{{ block.settings.name_kr }} · {{ block.settings.name | upcase }}</span>
+            </div>
+            <div class="smap__body">
+              <p class="smap__kicker">{% render 'tx', en: block.settings.vibe, ar: block.settings.vibe_ar %}</p>
+              <h3 class="smap__name">{{ dname }}</h3>
+              <p class="smap__mood">{% render 'tx', en: block.settings.mood, ar: block.settings.mood_ar %}</p>
+              {%- if col != blank -%}
+                <ul class="smap__products">
+                  {%- for p in col.products limit: 3 -%}
+                    <li><a href="{{ p.url }}">
+                      {%- if p.featured_media -%}{{ p.featured_media | image_url: width: 240 | image_tag: loading: 'lazy', alt: p.title }}{%- endif -%}
+                      <span class="smap__p-t">{{ p.title | truncate: 34 }}</span>
+                      <span class="smap__p-p">{{ p.price | money }}</span>
+                    </a></li>
+                  {%- endfor -%}
+                </ul>
+                <a class="link-arrow smap__cta" href="{{ col.url }}">{{ 'districts.shop' | t: name: dname }} {% render 'icon', name: 'arrow' %}</a>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop by Seoul district",
+  "class": "section-seoul-map",
+  "max_blocks": 7,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by district" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow (Arabic)", "default": "تسوّقي حسب الحي" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pick a neighbourhood. Wear its mood." },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "اختاري حيّ من سيول، والبسي جوّه." }
+  ],
+  "blocks": [
+    {
+      "type": "district",
+      "name": "District",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Hongdae" },
+        { "type": "text", "id": "name_ar", "label": "Name (Arabic)", "default": "هونغداي" },
+        { "type": "text", "id": "name_kr", "label": "Name (Korean)", "default": "홍대" },
+        { "type": "range", "id": "x", "label": "Map position X", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 24 },
+        { "type": "range", "id": "y", "label": "Map position Y", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 36 },
+        { "type": "color", "id": "color", "label": "Pin colour", "default": "#A6FF3B" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "vibe", "label": "Vibe line", "default": "Street · loud · after midnight" },
+        { "type": "text", "id": "vibe_ar", "label": "Vibe line (Arabic)" },
+        { "type": "textarea", "id": "mood", "label": "Mood text" },
+        { "type": "textarea", "id": "mood_ar", "label": "Mood text (Arabic)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Shop by Seoul district", "blocks": [{ "type": "district" }] }]
+}
+{% endschema %}

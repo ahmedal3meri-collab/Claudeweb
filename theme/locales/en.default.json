@@ -189,6 +189,39 @@
     "alert_ok": "You're on the list — we'll email you before Drop 002.",
     "fit_note": "Relaxed Korean cut — between sizes? Size down for a closer fit.",
     "world": "KAVO World",
-    "see_availability": "See availability"
+    "see_availability": "See availability",
+    "drop_next": "Next drop",
+    "drop_live": "Live now",
+    "drop_locked": "Locked until the drop",
+    "drop_days": "Days",
+    "drop_hours": "Hrs",
+    "drop_mins": "Min",
+    "drop_secs": "Sec",
+    "drop_remind": "Remind me",
+    "drop_shop": "Shop the drop",
+    "drop_time_note": "Every {{ day }} · {{ hour }}:00 UAE time"
+  },
+  "booth": {
+    "start": "Start the booth",
+    "retake": "Retake",
+    "download": "Save photo",
+    "share": "Share",
+    "upload": "No camera? Upload 4 photos",
+    "denied": "Camera is blocked — allow access in your browser settings, or upload photos instead.",
+    "privacy": "Your photos never leave your phone.",
+    "shot": "Shot",
+    "code_title": "Your booth reward",
+    "copy": "Copy code",
+    "copied": "Copied ✦",
+    "filter": "Film"
+  },
+  "districts": {
+    "shop": "Shop {{ name }}"
+  },
+  "receipt": {
+    "title": "Receipt",
+    "items": "Items",
+    "thanks": "Thank you · 감사합니다",
+    "cashier": "Cashier: Seoul Glow"
   }
 }

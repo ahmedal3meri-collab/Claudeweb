@@ -1,0 +1,95 @@
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code == 'ar'
+    assign is_ar = true
+  endif
+  assign days_en = 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday' | split: ','
+  assign days_ar = 'الأحد,الإثنين,الثلاثاء,الأربعاء,الخميس,الجمعة,السبت' | split: ','
+  assign di = settings.drop_weekday | default: 4 | plus: 0
+  if is_ar
+    assign day_name = days_ar[di]
+  else
+    assign day_name = days_en[di]
+  endif
+  assign hr = settings.drop_hour | default: 21 | plus: 0
+  assign hr12 = hr | modulo: 12
+  if hr12 == 0
+    assign hr12 = 12
+  endif
+  if is_ar
+    assign hour_label = hr
+  elsif hr >= 12
+    assign hour_label = hr12 | append: 'PM · '
+    assign hour_label = hour_label | append: hr
+  else
+    assign hour_label = hr12 | append: 'AM · '
+    assign hour_label = hour_label | append: hr
+  endif
+  assign drop_name = section.settings.drop_name | default: settings.drop_name
+-%}
+<section class="ndrop ndrop--{{ section.settings.size }}" data-night-drop style="--nd-accent: {{ section.settings.accent }};">
+  <div class="ndrop__bg" aria-hidden="true">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2000 | image_tag: loading: 'lazy', sizes: '100vw', widths: '800,1200,1600,2000', alt: '' }}
+    {%- endif -%}
+  </div>
+  <div class="ndrop__moon" aria-hidden="true"></div>
+  <div class="container ndrop__inner">
+    <div class="ndrop__head">
+      <p class="ndrop__eyebrow"><span class="ndrop__dot" aria-hidden="true"></span> <span data-nd-state-label data-next="{{ 'kavo.drop_next' | t | escape }}" data-live="{{ 'kavo.drop_live' | t | escape }}">{{ 'kavo.drop_next' | t }}</span> · <span dir="ltr">{{ drop_name }}</span></p>
+      <h2 class="ndrop__title">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
+      <p class="ndrop__note">{{ 'kavo.drop_time_note' | t: day: day_name, hour: hour_label }}</p>
+    </div>
+
+    <div class="ndrop__clock" data-nd-clock dir="ltr" role="timer" aria-live="off">
+      <div class="ndrop__unit"><b data-nd="d">00</b><span>{{ 'kavo.drop_days' | t }}</span></div>
+      <i aria-hidden="true">:</i>
+      <div class="ndrop__unit"><b data-nd="h">00</b><span>{{ 'kavo.drop_hours' | t }}</span></div>
+      <i aria-hidden="true">:</i>
+      <div class="ndrop__unit"><b data-nd="m">00</b><span>{{ 'kavo.drop_mins' | t }}</span></div>
+      <i aria-hidden="true">:</i>
+      <div class="ndrop__unit"><b data-nd="s">00</b><span>{{ 'kavo.drop_secs' | t }}</span></div>
+    </div>
+    <p class="ndrop__live-word" data-nd-live hidden>LIVE · 지금</p>
+
+    <div class="ndrop__actions">
+      <div data-nd-when="next">
+        {%- form 'customer', id: 'NightDrop', class: 'news-form ndrop__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter,kavo-drop-alert">
+          {%- if form.posted_successfully? -%}
+            <p class="news-form__ok">{{ 'kavo.alert_ok' | t }}</p>
+          {%- else -%}
+            <div class="news-form__row">
+              <input type="email" name="contact[email]" required placeholder="{{ 'newsletter.placeholder' | t }}" aria-label="{{ 'newsletter.placeholder' | t }}" autocomplete="email">
+              <button type="submit" class="ndrop__remind">{{ 'kavo.drop_remind' | t }}</button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+      <div data-nd-when="live" hidden>
+        <a class="btn ndrop__shop" href="{% if section.settings.collection != blank %}{{ section.settings.collection.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}">{{ 'kavo.drop_shop' | t }} {% render 'icon', name: 'arrow' %}</a>
+      </div>
+    </div>
+  </div>
+  <div class="ndrop__ticker" aria-hidden="true"><div>
+    {%- for i in (1..8) -%}<span>NIGHT DROP</span><b>☾</b><span dir="ltr">{{ drop_name }}</span><b>✦</b><span>야간 드롭</span><b>☾</b>{%- endfor -%}
+  </div></div>
+</section>
+
+{% schema %}
+{
+  "name": "KAVO Night Drop",
+  "class": "section-night-drop",
+  "settings": [
+    { "type": "paragraph", "content": "Schedule is set in Theme settings → KAVO Night Drop." },
+    { "type": "select", "id": "size", "label": "Size", "default": "full", "options": [{ "value": "full", "label": "Full" }, { "value": "compact", "label": "Compact band" }] },
+    { "type": "text", "id": "drop_name", "label": "Drop name (optional override)" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The rack opens after dark." },
+    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "الرف يفتح بعد الغروب." },
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "collection", "id": "collection", "label": "Drop collection" },
+    { "type": "color", "id": "accent", "label": "Accent", "default": "#A6FF3B" }
+  ],
+  "presets": [{ "name": "KAVO Night Drop" }]
+}
+{% endschema %}

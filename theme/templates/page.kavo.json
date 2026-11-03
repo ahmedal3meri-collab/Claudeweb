@@ -205,11 +205,23 @@
         "limit": 21,
         "tone": "light"
       }
+    },
+    "night_drop": {
+      "type": "night-drop",
+      "settings": {
+        "size": "full",
+        "heading": "The rack opens after dark.",
+        "heading_ar": "الرف يفتح بعد الغروب.",
+        "image": "shopify://shop_images/sg-district-hongdae.png",
+        "collection": "kavo-by-seoulglow",
+        "accent": "#A6FF3B"
+      }
     }
   },
   "order": [
     "hero",
     "rack",
+    "night_drop",
     "cats",
     "lookbook",
     "fit",

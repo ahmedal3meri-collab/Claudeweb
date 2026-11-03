@@ -109,6 +109,9 @@
                     <span class="pulse"></span> <span data-low-stock-text>{{ 'products.only_left' | t: count: current_variant.inventory_quantity }}</span>
                   </p>
 
+                  {%- if product.tags contains 'next-drop' -%}
+                    <p class="pdp__droplock" data-drop-variants="{{ product.variants | map: 'id' | join: ',' }}" data-drop-pdp>☾ <span>{{ 'kavo.drop_locked' | t }}</span> <b data-drop-left dir="ltr"></b></p>
+                  {%- endif -%}
                   <div class="pdp__actions">
                     <div class="qty">
                       <button type="button" data-qty-step="-1" aria-label="{{ 'cart.decrease' | t }}">{% render 'icon', name: 'minus' %}</button>

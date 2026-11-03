@@ -1,4 +1,4 @@
 {
-  "sections": { "main": { "type": "main-cart", "settings": {} } },
+  "sections": { "main": { "type": "main-cart", "settings": { "receipt": true } } },
   "order": ["main"]
 }

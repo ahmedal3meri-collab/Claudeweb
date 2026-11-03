@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "booth": {
+      "type": "photo-booth",
+      "settings": {
+        "code": "SEOULSNAP",
+        "reward": "10% off your next order",
+        "reward_ar": "خصم ١٠٪ على طلبك الجاي"
+      }
+    }
+  },
+  "order": [
+    "booth"
+  ]
+}

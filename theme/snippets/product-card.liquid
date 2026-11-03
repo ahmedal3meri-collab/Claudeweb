@@ -19,7 +19,7 @@
     assign loading = 'eager'
   endif
 -%}
-<article class="card{% if is_kavo %} card--kavo{% endif %}{% unless product.available %} card--soldout{% endunless %}" data-reveal style="--d: {{ index | default: 0 | modulo: 4 | times: 80 }}ms">
+<article class="card{% if is_kavo %} card--kavo{% endif %}{% unless product.available %} card--soldout{% endunless %}"{% if product.tags contains 'next-drop' %} data-drop-variants="{{ product.variants | map: 'id' | join: ',' }}"{% endif %} data-reveal style="--d: {{ index | default: 0 | modulo: 4 | times: 80 }}ms">
   <div class="card__media">
     <a href="{{ product.url }}" class="card__link" aria-label="{{ product.title | escape }}" tabindex="-1">
       {%- if img -%}
@@ -33,7 +33,9 @@
     </a>
 
     <div class="card__badges">
-      {%- if product.available == false -%}
+      {%- if product.tags contains 'next-drop' -%}
+        <span class="badge badge--drop">☾ Night drop</span>
+      {%- elsif product.available == false -%}
         <span class="badge badge--dark">{{ 'products.sold_out' | t }}</span>
       {%- elsif variant.compare_at_price > variant.price -%}
         {%- assign save = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price -%}
