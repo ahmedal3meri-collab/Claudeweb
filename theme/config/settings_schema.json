@@ -120,7 +120,28 @@
         "max": 1000,
         "step": 10,
         "unit": "AED",
+        "default": 500
+      },
+      {
+        "type": "range",
+        "id": "reduced_shipping_threshold",
+        "label": "Reduced delivery threshold",
+        "info": "Orders above this pay the reduced delivery fee. Set 0 to hide this tier.",
+        "min": 0,
+        "max": 1000,
+        "step": 10,
+        "unit": "AED",
         "default": 200
+      },
+      {
+        "type": "range",
+        "id": "reduced_shipping_fee",
+        "label": "Reduced delivery fee",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "AED",
+        "default": 10
       },
       {
         "type": "range",

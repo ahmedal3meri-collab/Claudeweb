@@ -109,6 +109,7 @@
     "checkout": "Checkout",
     "update": "Update bag",
     "note": "Order note or gift message",
+    "reduced_shipping_remaining_html": "Add <b>{{ amount }}</b> to pay only {{ fee }} AED delivery",
     "free_shipping_remaining_html": "You're <b>{{ amount }}</b> away from free delivery",
     "free_shipping_unlocked": "You've unlocked free UAE delivery"
   },

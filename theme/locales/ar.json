@@ -121,6 +121,7 @@
     "checkout": "إتمام الطلب",
     "update": "تحديث السلة",
     "note": "ملاحظة أو رسالة هدية",
+    "reduced_shipping_remaining_html": "أضيفي <b>{{ amount }}</b> وادفعي توصيل {{ fee }} دراهم بس",
     "free_shipping_remaining_html": "باقي <b>{{ amount }}</b> للتوصيل المجاني",
     "free_shipping_unlocked": "مبروك! حصلتِ على توصيل مجاني"
   },
