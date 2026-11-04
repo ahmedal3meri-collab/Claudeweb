@@ -1569,3 +1569,29 @@ img.is-fit-img { background: #fff; }
 .upsell__item img { object-fit: cover; mix-blend-mode: normal; background: #fff; border: 1px solid rgba(var(--c-ink-rgb), .06); }
 .ps__item img, .sticky-atc__info img { background: #fff; }
 .smap__products img { background: #fff; border: 1px solid rgba(var(--c-ink-rgb), .06); }
+
+/* =========================================================
+   v2.7 — Cut-out product studio
+   All product photos are now transparent PNG cut-outs:
+   show them whole, centred, on one soft studio backdrop.
+   ========================================================= */
+:root { --studio: radial-gradient(120% 90% at 50% 30%, #FFFFFF 0%, #F6F1EA 58%, #ECE4D9 100%); --studio-shadow: drop-shadow(0 18px 22px rgba(20,17,16,.16)) drop-shadow(0 3px 5px rgba(20,17,16,.10)); }
+.is-fit::before { display: none; }
+.card:not(.card--kavo) .card__media,
+.mode-beauty .pdp__main, .qv:not(.qv--kavo) .pdp__main,
+.set-hero__media, .concern__arch, .col-tile__img, .ritual__frame,
+.cart-line__img, .set-row__img, .smap__products img, .upsell__item img, .ps__item img, .sticky-atc__info img, .pdp__thumb { background: var(--studio); }
+.card:not(.card--kavo) .card__img,
+.mode-beauty .pdp__slide img, .qv:not(.qv--kavo) .pdp__slide img,
+.set-hero__media img, .concern__arch img, .col-tile__img img, .ritual__img img,
+.cart-line__img img, .set-row__img img, .smap__products img, .upsell__item img, .ps__item img, .sticky-atc__info img, .pdp__thumb img { object-fit: contain !important; mix-blend-mode: normal !important; }
+.card:not(.card--kavo) .card__img { padding: 9% !important; filter: var(--studio-shadow); }
+.card:not(.card--kavo) .card__img--2 { background: transparent; }
+.mode-beauty .pdp__slide img, .qv:not(.qv--kavo) .pdp__slide img { padding: 8% !important; filter: var(--studio-shadow); }
+.set-hero__media img { padding: 10% !important; filter: var(--studio-shadow); }
+.concern__arch img { padding: 16% 12% 20% !important; filter: var(--studio-shadow); }
+.col-tile__img img { padding: 14% !important; filter: var(--studio-shadow); }
+@media (min-width: 990px) { .ritual__img img { padding: 14% !important; filter: var(--studio-shadow); } }
+.cart-line__img img, .set-row__img img, .pdp__thumb img { padding: 8% !important; }
+.smap__products img, .upsell__item img, .ps__item img, .sticky-atc__info img { padding: 6% !important; }
+img.is-fit-img { background: transparent; }
