@@ -403,3 +403,6 @@ body.ed .footer__big { display: none; }
 .ed-head { grid-template-areas: "title more"; padding-top: 24px; }
 /* story without image: statement + principles side by side */
 @media (min-width: 990px) { .ed-story__grid:not(:has(.ed-story__img)) { grid-template-columns: 1fr; max-width: 820px; margin-inline-start: auto; } }
+/* tables in page content never push the page sideways */
+body.ed .rte table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+body.ed .rte th, body.ed .rte td { padding: 8px 12px; border-bottom: 1px solid var(--ed-line); white-space: nowrap; text-align: start; }
