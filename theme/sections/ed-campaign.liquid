@@ -8,7 +8,7 @@
     </figure>
     <div class="ed-camp__side">
       <div class="ed-camp__copy" data-reveal style="--d: 120ms">
-        <p class="ed-kicker">{% render 'tx', en: section.settings.kicker, ar: section.settings.kicker_ar %}</p>
+        {%- if section.settings.kicker != blank -%}<p class="ed-kicker">{% render 'tx', en: section.settings.kicker, ar: section.settings.kicker_ar %}</p>{%- endif -%}
         <h2 class="ed-h2">{% render 'ed-em', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
         <p class="ed-body">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>
         {%- if section.settings.link != blank -%}

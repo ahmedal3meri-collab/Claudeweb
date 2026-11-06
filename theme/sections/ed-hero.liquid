@@ -18,7 +18,7 @@
     {%- endif -%}
   </div>
   <div class="ed-hero__inner ed-wrap">
-    <p class="ed-kicker ed-hero__kicker" data-reveal>{% render 'tx', en: section.settings.kicker, ar: section.settings.kicker_ar %}</p>
+    {%- if section.settings.kicker != blank -%}<p class="ed-kicker ed-hero__kicker" data-reveal>{% render 'tx', en: section.settings.kicker, ar: section.settings.kicker_ar %}</p>{%- endif -%}
     <h1 class="ed-hero__title" data-reveal style="--d: 80ms">{% render 'ed-em', en: section.settings.heading, ar: section.settings.heading_ar %}</h1>
     <p class="ed-hero__sub" data-reveal style="--d: 160ms">{% render 'tx', en: section.settings.subheading, ar: section.settings.subheading_ar %}</p>
     <div class="ed-hero__ctas" data-reveal style="--d: 240ms">

@@ -390,3 +390,14 @@ body.ed .card__title { font-size: 14px; color: var(--c-ink); }
 
 /* Trust bar on small screens */
 @media (max-width: 559px) { body.ed .trust__grid { grid-template-columns: 1fr; gap: 18px; } }
+
+/* v1.2 — less clutter */
+@media (min-width: 990px) {
+  .ed-camp__grid { align-items: stretch; }
+  .ed-camp__a { aspect-ratio: auto; height: 100%; min-height: 620px; }
+  .ed-camp__side { align-self: center; }
+}
+@media (min-width: 750px) { .ed-dual__item:nth-child(2) { margin-top: 0; } }
+.ed-dual__cap .ed-num { display: none; }
+body.ed .footer__big { display: none; }
+.ed-head { grid-template-areas: "title more"; padding-top: 24px; }
