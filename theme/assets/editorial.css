@@ -401,3 +401,5 @@ body.ed .card__title { font-size: 14px; color: var(--c-ink); }
 .ed-dual__cap .ed-num { display: none; }
 body.ed .footer__big { display: none; }
 .ed-head { grid-template-areas: "title more"; padding-top: 24px; }
+/* story without image: statement + principles side by side */
+@media (min-width: 990px) { .ed-story__grid:not(:has(.ed-story__img)) { grid-template-columns: 1fr; max-width: 820px; margin-inline-start: auto; } }

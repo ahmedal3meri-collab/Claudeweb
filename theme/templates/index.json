@@ -3,7 +3,7 @@
     "hero": {
       "type": "ed-hero",
       "settings": {
-        "image": "shopify://shop_images/sg-cine-store.png",
+        "image": "shopify://shop_images/sg-cine-alley.png",
         "image_mobile": "shopify://shop_images/sg-cine-hero-mobile.png",
         "overlay": 30,
         "align": "start",
@@ -176,7 +176,7 @@
         "kicker_ar": "عن سيول جلو",
         "statement": "A concept store for the Seoul we love — *quiet* design, honest skincare and clothes made for real life.",
         "statement_ar": "متجر مفاهيمي لسيول التي نحبها — تصميم *هادئ*، عناية صادقة، وملابس للحياة الحقيقية.",
-        "image": "shopify://shop_images/sg-cine-alley.png",
+        "image": "",
         "button": "Our story",
         "button_ar": "قصتنا",
         "link": "shopify://pages/about"
