@@ -51,6 +51,33 @@
     ]
   },
   {
+    "name": "Editorial design",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Seoul Editorial Concept Store layer. Turn off to return instantly to the previous look."
+      },
+      {
+        "type": "checkbox",
+        "id": "editorial_mode",
+        "label": "Enable editorial design",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "ed_accent",
+        "label": "Accent (celadon)",
+        "default": "#5F7466"
+      },
+      {
+        "type": "checkbox",
+        "id": "ed_serif",
+        "label": "Serif italic accents in headings",
+        "default": true
+      }
+    ]
+  },
+  {
     "name": "Colors",
     "settings": [
       {
@@ -207,14 +234,77 @@
   {
     "name": "KAVO Night Drop",
     "settings": [
-      { "type": "paragraph", "content": "Weekly drop countdown (UAE time). Products tagged next-drop are locked until the drop goes live." },
-      { "type": "select", "id": "drop_weekday", "label": "Drop day", "default": "4", "options": [
-        { "value": "0", "label": "Sunday" }, { "value": "1", "label": "Monday" }, { "value": "2", "label": "Tuesday" }, { "value": "3", "label": "Wednesday" },
-        { "value": "4", "label": "Thursday" }, { "value": "5", "label": "Friday" }, { "value": "6", "label": "Saturday" } ] },
-      { "type": "range", "id": "drop_hour", "label": "Drop hour (24h, UAE)", "min": 0, "max": 23, "step": 1, "default": 21 },
-      { "type": "text", "id": "drop_datetime", "label": "One-off drop date (optional)", "info": "Overrides the weekly schedule while in the future. Format: 2026-11-20T21:00" },
-      { "type": "range", "id": "drop_live_hours", "label": "Show 'Live now' for", "min": 1, "max": 72, "step": 1, "unit": "h", "default": 24 },
-      { "type": "text", "id": "drop_name", "label": "Drop name", "default": "Drop 002" }
+      {
+        "type": "paragraph",
+        "content": "Weekly drop countdown (UAE time). Products tagged next-drop are locked until the drop goes live."
+      },
+      {
+        "type": "select",
+        "id": "drop_weekday",
+        "label": "Drop day",
+        "default": "4",
+        "options": [
+          {
+            "value": "0",
+            "label": "Sunday"
+          },
+          {
+            "value": "1",
+            "label": "Monday"
+          },
+          {
+            "value": "2",
+            "label": "Tuesday"
+          },
+          {
+            "value": "3",
+            "label": "Wednesday"
+          },
+          {
+            "value": "4",
+            "label": "Thursday"
+          },
+          {
+            "value": "5",
+            "label": "Friday"
+          },
+          {
+            "value": "6",
+            "label": "Saturday"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "drop_hour",
+        "label": "Drop hour (24h, UAE)",
+        "min": 0,
+        "max": 23,
+        "step": 1,
+        "default": 21
+      },
+      {
+        "type": "text",
+        "id": "drop_datetime",
+        "label": "One-off drop date (optional)",
+        "info": "Overrides the weekly schedule while in the future. Format: 2026-11-20T21:00"
+      },
+      {
+        "type": "range",
+        "id": "drop_live_hours",
+        "label": "Show 'Live now' for",
+        "min": 1,
+        "max": 72,
+        "step": 1,
+        "unit": "h",
+        "default": 24
+      },
+      {
+        "type": "text",
+        "id": "drop_name",
+        "label": "Drop name",
+        "default": "Drop 002"
+      }
     ]
   },
   {

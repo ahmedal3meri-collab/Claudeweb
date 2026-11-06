@@ -40,7 +40,7 @@
     {% render 'meta-tags' %}
     {% render 'sg-seo-schema' %}
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Serif+KR:wght@300;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Serif+KR:wght@300;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
       :root {
@@ -60,13 +60,17 @@
     </style>
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {%- if settings.editorial_mode -%}
+      <style>:root{--ed-accent: {{ settings.ed_accent }};}</style>
+      {{ 'editorial.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
 
     {{ content_for_header }}
   </head>
 
-  <body class="template-{{ template.name | handle }} {{ body_mode }}{% if settings.enable_reveal %} has-reveal{% endif %}{% if settings.enable_grain %} has-grain{% endif %}">
+  <body class="template-{{ template.name | handle }} {{ body_mode }}{% if settings.enable_reveal %} has-reveal{% endif %}{% if settings.enable_grain %} has-grain{% endif %}{% if settings.editorial_mode %} ed{% if settings.ed_serif %} ed-serif{% endif %}{% endif %}">
     <a class="skip-link visually-hidden" href="#MainContent">{{ 'accessibility.skip_to_text' | t }}</a>
 
     {%- if settings.show_preloader and template.name == 'index' -%}

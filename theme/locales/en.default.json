@@ -35,7 +35,8 @@
     "back_to": "Back to {{ title }}",
     "copy": "Copy",
     "copied": "Code copied ✓",
-    "no_thanks": "No thanks"
+    "no_thanks": "No thanks",
+    "shop_the_look": "Shop the look"
   },
   "newsletter": {
     "placeholder": "Your email address",
@@ -80,7 +81,20 @@
     "full_details": "Full details",
     "quick_view": "Quick view",
     "you_save": "You save",
-    "set_of_the_month": "Set of the month"
+    "set_of_the_month": "Set of the month",
+    "spec_material": "Material",
+    "spec_fit": "Fit",
+    "spec_model": "Model",
+    "spec_care": "Care",
+    "spec_active": "Key ingredients",
+    "spec_benefits": "Benefits",
+    "spec_skin": "Skin type",
+    "spec_size": "Size",
+    "spec_usage": "How to use",
+    "spec_inci": "Full ingredients",
+    "spec_safety": "Good to know",
+    "spec_routine": "Complete the routine",
+    "colours_count": "{{ count }} colours"
   },
   "collections": {
     "all": "All collections",

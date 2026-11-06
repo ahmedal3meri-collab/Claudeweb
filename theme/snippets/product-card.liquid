@@ -121,6 +121,7 @@
       <p class="card__vendor">{{ brand }}</p>
     {%- endif -%}
     <h3 class="card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    {%- if settings.editorial_mode -%}{% render 'ed-swatches', product: product %}{%- endif -%}
     <div class="card__meta">
       {% render 'price', product: product, use_from: true %}
       {%- if low_stock -%}

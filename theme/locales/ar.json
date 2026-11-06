@@ -39,7 +39,8 @@
     "back_to": "العودة إلى {{ title }}",
     "copy": "نسخ",
     "copied": "تم نسخ الكود ✓",
-    "no_thanks": "لا، شكراً"
+    "no_thanks": "لا، شكراً",
+    "shop_the_look": "تسوّقي الإطلالة"
   },
   "newsletter": {
     "placeholder": "بريدك الإلكتروني",
@@ -88,7 +89,20 @@
     "full_details": "كل التفاصيل",
     "quick_view": "عرض سريع",
     "you_save": "توفرين",
-    "set_of_the_month": "طقم الشهر"
+    "set_of_the_month": "طقم الشهر",
+    "spec_material": "الخامة",
+    "spec_fit": "القصّة",
+    "spec_model": "العارضة",
+    "spec_care": "العناية",
+    "spec_active": "المكونات الأساسية",
+    "spec_benefits": "الفوائد",
+    "spec_skin": "نوع البشرة",
+    "spec_size": "الحجم",
+    "spec_usage": "طريقة الاستخدام",
+    "spec_inci": "المكونات الكاملة",
+    "spec_safety": "معلومات مهمة",
+    "spec_routine": "أكملي الروتين",
+    "colours_count": "{{ count }} ألوان"
   },
   "collections": {
     "all": "كل المجموعات",

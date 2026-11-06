@@ -69,13 +69,13 @@
     "header": {
       "type": "header",
       "settings": {
-        "menu": "main-menu",
+        "menu": "editorial-menu",
         "transparent_home": true,
         "mega_image": "shopify://shop_images/sg-cine-beauty.png",
         "mega_caption": "The Glass Skin Edit",
         "mega_image_fashion": "shopify://shop_images/sg-cine-kavo.png",
         "mega_caption_fashion": "KAVO — Drop 001",
-        "menu_ar": "seoulglow-maison-ar"
+        "menu_ar": "editorial-menu-ar"
       }
     }
   },

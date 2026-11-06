@@ -1,0 +1,59 @@
+{%- comment -%} Two editions side by side: Fashion Edit / Beauty Edit. {%- endcomment -%}
+<section class="ed-dual ed-sec" style="--ed-pt: {{ section.settings.pad_top }}px">
+  <div class="ed-wrap ed-dual__grid">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign url = block.settings.link
+        if url == blank and block.settings.collection != blank
+          assign url = block.settings.collection.url
+        endif
+        assign im = block.settings.image
+        if im == blank and block.settings.collection != blank
+          assign im = block.settings.collection.featured_image
+        endif
+      -%}
+      <a class="ed-dual__item" href="{{ url | default: '#' }}" {{ block.shopify_attributes }} data-reveal style="--d: {{ forloop.index0 | times: 120 }}ms">
+        <span class="ed-dual__media">
+          {%- if im != blank -%}
+            {{ im | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 50vw, 100vw', widths: '600,900,1200,1400', class: 'ed-dual__img', alt: '' }}
+          {%- endif -%}
+        </span>
+        <span class="ed-dual__cap">
+          <span class="ed-num">{{ forloop.index | prepend: '0' }} —</span>
+          <span class="ed-dual__t">{% render 'tx', en: block.settings.title, ar: block.settings.title_ar %}</span>
+          <span class="ed-dual__d">{% render 'tx', en: block.settings.text, ar: block.settings.text_ar %}</span>
+          <span class="ed-link">{% render 'tx', en: block.settings.button, ar: block.settings.button_ar %}</span>
+        </span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial — two edits",
+  "class": "section-ed-dual",
+  "max_blocks": 2,
+  "settings": [
+    { "type": "range", "id": "pad_top", "label": "Top spacing", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "edit",
+      "name": "Edit",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Portrait 4:5. Falls back to the collection image." },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "url", "id": "link", "label": "Link (overrides collection)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "The Fashion Edit" },
+        { "type": "text", "id": "title_ar", "label": "Title (Arabic)" },
+        { "type": "text", "id": "text", "label": "Text" },
+        { "type": "text", "id": "text_ar", "label": "Text (Arabic)" },
+        { "type": "text", "id": "button", "label": "Link label", "default": "Shop now" },
+        { "type": "text", "id": "button_ar", "label": "Link label (Arabic)", "default": "تسوّقي الآن" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Editorial — two edits", "blocks": [{ "type": "edit" }, { "type": "edit" }] }]
+}
+{% endschema %}

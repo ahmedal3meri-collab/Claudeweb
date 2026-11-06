@@ -1,0 +1,61 @@
+{%- comment -%}
+  Product details from metafields. Renders ONLY values that exist — nothing is invented.
+  Beauty: shopify.active-ingredient / skin-care-effect / suitable-for-skin-type (taxonomy),
+          custom.benefits, custom.how_to_use, custom.ingredients_inci, custom.volume, custom.safety, custom.routine (product list).
+  Fashion: custom.material, custom.fit, custom.care, custom.model_info.
+{%- endcomment -%}
+{%- liquid
+  assign is_fashion = false
+  if product.tags contains 'kavo'
+    assign is_fashion = true
+  endif
+  assign mf = product.metafields
+  assign act = mf.shopify['active-ingredient'].value
+  assign eff = mf.shopify['skin-care-effect'].value
+  assign skin = mf.shopify['suitable-for-skin-type'].value
+  assign c = mf.custom
+-%}
+{%- capture rows -%}
+  {%- if is_fashion -%}
+    {%- if c.material != blank -%}<div class="ed-spec__row"><dt>{{ 'products.spec_material' | t }}</dt><dd>{{ c.material.value | newline_to_br }}</dd></div>{%- endif -%}
+    {%- if c.fit != blank -%}<div class="ed-spec__row"><dt>{{ 'products.spec_fit' | t }}</dt><dd>{{ c.fit.value | newline_to_br }}</dd></div>{%- endif -%}
+    {%- if c.model_info != blank -%}<div class="ed-spec__row"><dt>{{ 'products.spec_model' | t }}</dt><dd>{{ c.model_info.value | newline_to_br }}</dd></div>{%- endif -%}
+    {%- if c.care != blank -%}<div class="ed-spec__row"><dt>{{ 'products.spec_care' | t }}</dt><dd>{{ c.care.value | newline_to_br }}</dd></div>{%- endif -%}
+  {%- else -%}
+    {%- if act != blank -%}<div class="ed-spec__row"><dt>{{ 'products.spec_active' | t }}</dt><dd>{%- for m in act -%}{{ m.label.value | default: m.name.value }}{% unless forloop.last %}, {% endunless %}{%- endfor -%}</dd></div>{%- endif -%}
+    {%- if eff != blank -%}<div class="ed-spec__row"><dt>{{ 'products.spec_benefits' | t }}</dt><dd>{%- for m in eff -%}{{ m.label.value | default: m.name.value }}{% unless forloop.last %}, {% endunless %}{%- endfor -%}{%- if c.benefits != blank -%}{% if eff != blank %}<br>{% endif %}{{ c.benefits.value | newline_to_br }}{%- endif -%}</dd></div>
+    {%- elsif c.benefits != blank -%}<div class="ed-spec__row"><dt>{{ 'products.spec_benefits' | t }}</dt><dd>{{ c.benefits.value | newline_to_br }}</dd></div>{%- endif -%}
+    {%- if skin != blank -%}<div class="ed-spec__row"><dt>{{ 'products.spec_skin' | t }}</dt><dd>{%- for m in skin -%}{{ m.label.value | default: m.name.value }}{% unless forloop.last %}, {% endunless %}{%- endfor -%}</dd></div>{%- endif -%}
+    {%- if c.volume != blank -%}<div class="ed-spec__row"><dt>{{ 'products.spec_size' | t }}</dt><dd>{{ c.volume.value }}</dd></div>{%- endif -%}
+  {%- endif -%}
+{%- endcapture -%}
+{%- assign rows = rows | strip -%}
+{%- if rows != blank -%}
+  <dl class="ed-spec">{{ rows }}</dl>
+{%- endif -%}
+{%- unless is_fashion -%}
+  {%- if c.how_to_use != blank -%}
+    <details class="acc ed-acc"><summary>{{ 'products.spec_usage' | t }} {% render 'icon', name: 'plus' %}</summary><div class="acc__body rte">{{ c.how_to_use.value | newline_to_br }}</div></details>
+  {%- endif -%}
+  {%- if c.ingredients_inci != blank -%}
+    <details class="acc ed-acc"><summary>{{ 'products.spec_inci' | t }} {% render 'icon', name: 'plus' %}</summary><div class="acc__body rte ed-inci">{{ c.ingredients_inci.value }}</div></details>
+  {%- endif -%}
+  {%- if c.safety != blank -%}
+    <details class="acc ed-acc"><summary>{{ 'products.spec_safety' | t }} {% render 'icon', name: 'plus' %}</summary><div class="acc__body rte">{{ c.safety.value | newline_to_br }}</div></details>
+  {%- endif -%}
+  {%- assign routine = c.routine.value -%}
+  {%- if routine != blank -%}
+    <div class="ed-routine">
+      <p class="ed-routine__t">{{ 'products.spec_routine' | t }}</p>
+      <ul class="ed-look__list">
+        {%- for p in routine limit: 3 -%}
+          <li><a class="ed-look__p" href="{{ p.url }}">
+            <span class="ed-look__img">{%- if p.featured_media -%}{{ p.featured_media | image_url: width: 200 | image_tag: loading: 'lazy', alt: '', sizes: '80px' }}{%- endif -%}</span>
+            <span class="ed-look__n">{{ p.title }}</span>
+            <span class="ed-look__pr">{% render 'price', product: p %}</span>
+          </a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+{%- endunless -%}

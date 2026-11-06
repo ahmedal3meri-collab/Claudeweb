@@ -1,0 +1,9 @@
+{%- comment -%} Bilingual text with *word* → <em>word</em> (serif italic accent). Params: en, ar {%- endcomment -%}
+{%- liquid
+  assign t = en
+  if request.locale.iso_code == 'ar' and ar != blank
+    assign t = ar
+  endif
+  assign parts = t | escape | split: '*'
+-%}
+{%- for p in parts -%}{%- assign r = forloop.index0 | modulo: 2 -%}{%- if r == 1 -%}<em>{{ p }}</em>{%- else -%}{{ p }}{%- endif -%}{%- endfor -%}

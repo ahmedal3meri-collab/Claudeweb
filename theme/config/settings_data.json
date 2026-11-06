@@ -37,7 +37,10 @@
           "upsell_heading_ar": "أكملي روتينك"
         }
       }
-    }
+    },
+    "editorial_mode": true,
+    "ed_accent": "#5F7466",
+    "ed_serif": true
   },
   "presets": {
     "Default": {

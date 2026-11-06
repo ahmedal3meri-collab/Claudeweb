@@ -1,0 +1,30 @@
+{%- comment -%} Colour swatches from the product's real Color option (no invented colours). {%- endcomment -%}
+{%- liquid
+  assign copt = nil
+  for o in product.options_with_values
+    assign on = o.name | downcase
+    if on == 'color' or on == 'colour' or on == 'اللون' or on == 'لون'
+      assign copt = o
+    endif
+  endfor
+  assign map = 'white:#F7F6F2,ivory:#EFEADF,cream:#EDE4D1,beige:#D9C9AE,sand:#D6C3A2,brown:#7A5A43,camel:#B08457,khaki:#A39A75,olive:#6E6B47,mint:#BFE1CF,sage:#A8B5A0,green:#4F6B52,gray:#A3A3A0,grey:#A3A3A0,charcoal:#3A3A37,black:#1E1E1C,navy:#253046,blue:#5878A8,sky:#B6CDE6,purple:#8A6FB0,lavender:#C9BEDF,pink:#E7B9BE,red:#A8343A,burgundy:#6B2633,yellow:#E9D27A,orange:#D98B4A' | split: ','
+-%}
+{%- if copt and copt.values.size > 0 -%}
+  <div class="ed-swatches" aria-label="{{ copt.values.size }} {{ copt.name | escape }}">
+    {%- for v in copt.values limit: 5 -%}
+      {%- liquid
+        assign vk = v | downcase
+        assign hex = ''
+        for pair in map
+          assign kv = pair | split: ':'
+          if vk contains kv[0]
+            assign hex = kv[1]
+            break
+          endif
+        endfor
+      -%}
+      {%- if hex != '' -%}<span class="ed-swatch" style="--sw: {{ hex }}" title="{{ v | escape }}"></span>{%- endif -%}
+    {%- endfor -%}
+    {%- if copt.values.size > 1 -%}<span class="ed-swatches__n">{{ 'products.colours_count' | t: count: copt.values.size }}</span>{%- endif -%}
+  </div>
+{%- endif -%}

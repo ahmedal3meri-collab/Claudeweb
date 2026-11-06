@@ -42,6 +42,11 @@
   </div>
   <div class="footer__bottom container">
     <p>© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ 'general.made_in' | t }}</p>
+    {%- if settings.editorial_mode -%}
+      <ul class="ed-legal">
+        {%- for policy in shop.policies -%}<li><a href="{{ policy.url }}">{{ policy.title }}</a></li>{%- endfor -%}
+      </ul>
+    {%- endif -%}
     {%- if section.settings.show_payment -%}
       <ul class="payments">
         {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag: class: 'payment-icon' }}</li>{%- endfor -%}

@@ -50,12 +50,17 @@
           "settings": {
             "cutoff": 16
           }
+        },
+        "details": {
+          "type": "details",
+          "settings": {}
         }
       },
       "block_order": [
         "title",
         "price",
         "skin_tags",
+        "details",
         "buy",
         "eta",
         "perks",

@@ -149,6 +149,8 @@
                   {%- if block.settings.page != blank -%}{{ block.settings.page.content }}{%- endif -%}
                 </div>
               </details>
+            {%- when 'details' -%}
+              <div class="ed-details" {{ block.shopify_attributes }}>{% render 'ed-details', product: product %}</div>
             {%- when 'skin_tags' -%}
               <div {{ block.shopify_attributes }}>{% render 'skin-tags', product: product %}</div>
             {%- when 'eta' -%}
@@ -233,6 +235,7 @@
       ]
     },
     { "type": "skin_tags", "name": "Ingredients & skin type", "limit": 1 },
+    { "type": "details", "name": "Product details (metafields)", "limit": 1 },
     { "type": "eta", "name": "Delivery estimate", "limit": 1, "settings": [{ "type": "range", "id": "cutoff", "label": "Same-day dispatch cutoff (Dubai time)", "min": 10, "max": 22, "step": 1, "unit": "h", "default": 16 }] },
     { "type": "share", "name": "Share", "limit": 1 }
   ]
