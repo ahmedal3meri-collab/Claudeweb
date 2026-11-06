@@ -433,3 +433,9 @@ body.ed.mode-kavo .toolbar select, body.ed.mode-kavo .fdrop summary { color: var
 body.ed .pdp__stock, body.ed .pdp__stock * { color: var(--c-muted) !important; }
 body.ed .eta { border-radius: 0; background: var(--c-paper, #EAE6DF); }
 body.ed .eta__icon { border-radius: 0; background: transparent; }
+/* cart: delivery message reads as one sentence; calm progress bar */
+body.ed .ship-bar p { display: block; line-height: 1.5; }
+body.ed .ship-bar b, body.ed .ship-bar strong { color: var(--c-ink); font-weight: 600; white-space: nowrap; }
+body.ed .ship-bar__track { border-radius: 0; height: 3px; }
+body.ed .ship-bar__track span { background: var(--c-accent) !important; border-radius: 0; }
+body.ed .receipt-foot__stamp { color: var(--c-accent); border-color: var(--c-accent); }
