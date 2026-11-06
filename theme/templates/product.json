@@ -15,9 +15,6 @@
             "show_dynamic": true
           }
         },
-        "perks": {
-          "type": "perks"
-        },
         "description": {
           "type": "description"
         },
@@ -60,11 +57,10 @@
         "title",
         "price",
         "skin_tags",
-        "details",
         "buy",
         "eta",
-        "perks",
         "description",
+        "details",
         "shipping",
         "authentic",
         "share"

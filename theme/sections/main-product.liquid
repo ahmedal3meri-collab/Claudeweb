@@ -89,7 +89,7 @@
                   <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
                   {%- unless product.has_only_default_variant -%}
                     {%- for option in product.options_with_values -%}
-                      <fieldset class="opt" data-option-index="{{ forloop.index0 }}">
+                      <fieldset class="opt{% if option.values.size == 1 %} opt--single{% endif %}" data-option-index="{{ forloop.index0 }}">
                         <legend class="opt__label">{{ option.name }}: <b data-option-value>{{ option.selected_value }}</b>
                           {%- assign oname = option.name | downcase -%}
                           {%- if oname == 'size' or oname == 'المقاس' -%}<button type="button" class="opt__guide" data-drawer-open="size-guide">{{ 'products.size_guide' | t }}</button>{%- endif -%}
@@ -136,7 +136,9 @@
                   }
                 </script>
                 {%- if settings.free_shipping_threshold > 0 -%}
+                  {%- unless settings.editorial_mode -%}
                   <p class="pdp__ship small">{% render 'icon', name: 'truck' %} {{ 'products.free_shipping_note' | t: amount: settings.free_shipping_threshold }}</p>
+                  {%- endunless -%}
                 {%- endif -%}
               </div>
             {%- when 'description' -%}

@@ -14,8 +14,19 @@
   assign d = d | replace: '</summary>', close_summary
   assign d = d | replace: '✨ الوصف', 'الوصف' | replace: '💖 المميزات', 'المميزات' | replace: '🧪 طريقة الاستخدام', 'طريقة الاستخدام' | replace: '🌿 المكونات', 'المكونات' | replace: '👩 مناسب لـ', 'مناسب لـ'
   assign d = d | replace: '✔ ', '<span class="tick">✓</span> '
-  if d contains '<details class="acc" dir="auto"><summary>🚚'
-    assign d = d | split: '<details class="acc" dir="auto"><summary>🚚' | first
+  if d contains '🚚'
+    assign pre = d | split: '🚚' | first
+    assign chunks = pre | split: '<details'
+    assign keep = chunks.size | minus: 1
+    assign rebuilt = ''
+    for c in chunks limit: keep
+      if forloop.first
+        assign rebuilt = c
+      else
+        assign rebuilt = rebuilt | append: '<details' | append: c
+      endif
+    endfor
+    assign d = rebuilt
   endif
   assign d = d | replace_first: '<details class="acc" dir="auto">', '<details class="acc" dir="auto" open>'
 -%}
