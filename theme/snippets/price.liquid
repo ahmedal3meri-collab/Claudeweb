@@ -14,9 +14,9 @@
   {%- if product.price_varies and variant == blank and use_from -%}
     <span class="price__from">{{ 'products.from' | t }}</span>
   {%- endif -%}
-  <span class="price__now">{{ price | money }}</span>
+  <span class="price__now">{{ price | money_without_trailing_zeros }}</span>
   {%- if on_sale -%}
-    <s class="price__was">{{ compare | money }}</s>
+    <s class="price__was">{{ compare | money_without_trailing_zeros }}</s>
     {%- assign save = compare | minus: price | times: 100 | divided_by: compare | floor -%}
     <span class="price__save">−{{ save }}%</span>
   {%- endif -%}
