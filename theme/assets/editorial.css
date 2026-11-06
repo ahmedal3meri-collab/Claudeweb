@@ -406,3 +406,30 @@ body.ed .footer__big { display: none; }
 /* tables in page content never push the page sideways */
 body.ed .rte table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
 body.ed .rte th, body.ed .rte td { padding: 8px 12px; border-bottom: 1px solid var(--ed-line); white-space: nowrap; text-align: start; }
+
+/* v1.3 — consistency pass */
+body.ed { --c-gold: #8A7F72; --c-blush: #EAE6DF; --c-celadon: var(--ed-accent, #5F7466); }
+/* dynamic checkout: calm charcoal outline instead of bright blue */
+body.ed .shopify-payment-button__button--unbranded,
+body.ed .pdp__dynamic .shopify-payment-button__button--unbranded {
+  background: transparent !important; color: var(--c-ink) !important; border: 1px solid var(--c-ink) !important;
+  border-radius: 0 !important; min-height: 52px; font-family: var(--f-body) !important; font-size: 12px !important;
+  font-weight: 500 !important; letter-spacing: .16em; text-transform: uppercase; box-shadow: none !important;
+}
+body.ed .shopify-payment-button__button--unbranded:hover { background: var(--c-ink) !important; color: var(--c-bg) !important; }
+body.ed .shopify-payment-button__button { border-radius: 0 !important; }
+body.ed .shopify-payment-button__more-options { color: var(--c-muted); font-size: 12px; text-decoration: underline; }
+body.ed .btn--dark { background: var(--c-ink); color: var(--c-bg); }
+body.ed .btn::before { background: #3A3A37; }
+body.ed .btn--shine::after { display: none; }
+/* pills / chips: square, quiet */
+body.ed .kv-nav__pill, body.ed .pill, body.ed .skin-tag, body.ed .perk, body.ed .pdp__perks span, body.ed .chip { border-radius: 0 !important; }
+body.ed .kv-nav__pill { font-weight: 500; letter-spacing: .12em; }
+body.ed .kv-nav__pill--world { border-color: rgba(255,255,255,.6) !important; color: #F5F3EE !important; background: transparent !important; }
+/* collection toolbar: light, not a black slab */
+body.ed .toolbar, body.ed.mode-kavo .toolbar { background: var(--c-bg) !important; color: var(--c-ink); border-block: 1px solid var(--ed-line); }
+body.ed.mode-kavo .toolbar select, body.ed.mode-kavo .fdrop summary { color: var(--c-ink); }
+/* stock + drop labels in quiet tones */
+body.ed .pdp__stock, body.ed .pdp__stock * { color: var(--c-muted) !important; }
+body.ed .eta { border-radius: 0; background: var(--c-paper, #EAE6DF); }
+body.ed .eta__icon { border-radius: 0; background: transparent; }

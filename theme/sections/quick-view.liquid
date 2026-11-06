@@ -50,7 +50,7 @@
     {%- endform -%}
     <script type="application/json" data-product-json>
       {
-        "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "options": {{ v.options | json }}, "available": {{ v.available | json }}, "price": {{ v.price | money | json }}, "compare": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %}, "save": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price }}{% else %}0{% endif %}, "qty": {% if v.inventory_management == 'shopify' %}{{ v.inventory_quantity }}{% else %}null{% endif %}, "media": {% if v.featured_media %}{{ v.featured_media.id }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
+        "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "options": {{ v.options | json }}, "available": {{ v.available | json }}, "price": {{ v.price | money_without_trailing_zeros | json }}, "compare": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money_without_trailing_zeros | json }}{% else %}null{% endif %}, "save": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price }}{% else %}0{% endif %}, "qty": {% if v.inventory_management == 'shopify' %}{{ v.inventory_quantity }}{% else %}null{% endif %}, "media": {% if v.featured_media %}{{ v.featured_media.id }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
         "lowStock": {{ settings.low_stock_threshold }},
         "onlyLeft": {{ 'products.only_left' | t: count: '__N__' | json }}
       }

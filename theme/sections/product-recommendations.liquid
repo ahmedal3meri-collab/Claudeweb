@@ -1,4 +1,4 @@
-<section class="rail section" data-recs data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.limit }}&intent=related">
+<section class="rail section" data-recs{% if product %} data-kind="{% if product.tags contains 'kavo' %}kavo{% else %}beauty{% endif %}" data-kavo-eyebrow="{{ 'products.recs_kavo_eyebrow' | t | escape }}" data-kavo-heading="{{ 'products.recs_kavo_heading' | t | escape }}"{% endif %} data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.limit }}&intent=related">
   {%- if recommendations.performed and recommendations.products_count > 0 -%}
     <div class="container">
       <div class="section-head" data-reveal>

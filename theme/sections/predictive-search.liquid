@@ -7,7 +7,7 @@
           <li>
             <a href="{{ product.url }}" class="ps__item">
               {%- if product.featured_media -%}{{ product.featured_media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
-              <span><b>{{ product.title }}</b><small>{{ product.price | money }}</small></span>
+              <span><b>{{ product.title }}</b><small>{{ product.price | money_without_trailing_zeros }}</small></span>
             </a>
           </li>
         {%- endfor -%}

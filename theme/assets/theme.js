@@ -401,7 +401,10 @@ window.SGDrop = (() => {
       if (!data || !form) return;
       const selected = $$('fieldset[data-option-index]', form).map((fs) => { const c = $('input:checked', fs); return c ? c.value : null; });
       $$('fieldset[data-option-index]', form).forEach((fs, i) => { const v = $('[data-option-value]', fs); if (v) v.textContent = selected[i]; });
-      const variant = data.variants.find((v) => v.options.every((o, i) => o === selected[i]));
+      const hasOptions = $$('fieldset[data-option-index]', form).length > 0;
+      const variant = hasOptions
+        ? data.variants.find((v) => v.options.every((o, i) => o === selected[i]))
+        : (data.variants.find((v) => String(v.id) === String(idInput && idInput.value)) || data.variants[0]);
       // mark unavailable values for single-option products
       if ($$('fieldset[data-option-index]', form).length === 1) {
         $$('.pill', form).forEach((p) => { const val = $('input', p).value; const v = data.variants.find((x) => x.options[0] === val); p.classList.toggle('is-unavailable', !v || !v.available); });
@@ -463,6 +466,20 @@ window.SGDrop = (() => {
       tmp.innerHTML = html;
       const fresh = $('[data-recs]', tmp);
       if (fresh && fresh.innerHTML.trim()) {
+        const kind = sec.getAttribute('data-kind');
+        if (kind) {
+          // never mix fashion and beauty in recommendations
+          $$('.rail__item', fresh).forEach((it) => {
+            const isKavo = !!$('.card--kavo', it);
+            if ((kind === 'kavo') !== isKavo) it.parentNode.removeChild(it);
+          });
+          if (!$('.rail__item', fresh)) return;
+          if (kind === 'kavo') {
+            const eb = $('.eyebrow', fresh), h = $('.h2', fresh);
+            if (eb) eb.textContent = sec.getAttribute('data-kavo-eyebrow');
+            if (h) h.textContent = sec.getAttribute('data-kavo-heading');
+          }
+        }
         sec.innerHTML = fresh.innerHTML;
         $$('[data-rail]', sec).forEach(initRail);
         window.SGwatch && window.SGwatch(sec);

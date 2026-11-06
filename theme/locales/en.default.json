@@ -94,7 +94,9 @@
     "spec_inci": "Full ingredients",
     "spec_safety": "Good to know",
     "spec_routine": "Complete the routine",
-    "colours_count": "{{ count }} colours"
+    "colours_count": "{{ count }} colours",
+    "recs_kavo_eyebrow": "From the KAVO edit",
+    "recs_kavo_heading": "You may also like"
   },
   "collections": {
     "all": "All collections",

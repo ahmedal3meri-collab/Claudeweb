@@ -54,14 +54,14 @@
               <div class="cart-line__info">
                 <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
                 {%- unless item.product.has_only_default_variant -%}<p class="cart-line__variant">{{ item.variant.title }}</p>{%- endunless -%}
-                {%- for d in item.line_level_discount_allocations -%}<p class="cart-line__disc">{{ d.discount_application.title }} (−{{ d.amount | money }})</p>{%- endfor -%}
+                {%- for d in item.line_level_discount_allocations -%}<p class="cart-line__disc">{{ d.discount_application.title }} (−{{ d.amount | money_without_trailing_zeros }})</p>{%- endfor -%}
                 <div class="cart-line__row">
                   <div class="qty qty--sm">
                     <button type="button" data-cart-qty="{{ forloop.index }}" data-qty="{{ item.quantity | minus: 1 }}" aria-label="{{ 'cart.decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
                     <span>{{ item.quantity }}</span>
                     <button type="button" data-cart-qty="{{ forloop.index }}" data-qty="{{ item.quantity | plus: 1 }}" aria-label="{{ 'cart.increase' | t }}">{% render 'icon', name: 'plus' %}</button>
                   </div>
-                  <span class="cart-line__price">{{ item.final_line_price | money }}</span>
+                  <span class="cart-line__price">{{ item.final_line_price | money_without_trailing_zeros }}</span>
                 </div>
                 <button type="button" class="cart-line__remove" data-cart-qty="{{ forloop.index }}" data-qty="0">{{ 'cart.remove' | t }}</button>
               </div>
@@ -83,7 +83,7 @@
                   {%- if p.featured_media -%}{{ p.featured_media | image_url: width: 200 | image_tag: loading: 'lazy', alt: p.title }}{%- endif -%}
                   <div>
                     <p class="upsell__title">{{ p.title | truncate: 38 }}</p>
-                    <p class="upsell__price">{{ p.price | money }}</p>
+                    <p class="upsell__price">{{ p.price | money_without_trailing_zeros }}</p>
                   </div>
                   <button type="button" class="upsell__add" data-quick-add="{{ p.selected_or_first_available_variant.id }}" aria-label="{{ 'products.quick_add' | t }}">{% render 'icon', name: 'plus' %}</button>
                 </div>
@@ -98,7 +98,7 @@
     {%- if cart.item_count > 0 -%}
       <div class="drawer__foot cart-foot">
         {%- for d in cart.cart_level_discount_applications -%}
-          <p class="cart-foot__row"><span>{{ d.title }}</span><span>−{{ d.total_allocated_amount | money }}</span></p>
+          <p class="cart-foot__row"><span>{{ d.title }}</span><span>−{{ d.total_allocated_amount | money_without_trailing_zeros }}</span></p>
         {%- endfor -%}
         <p class="cart-foot__row cart-foot__total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
         <p class="small muted">{{ 'cart.taxes_note' | t }}</p>

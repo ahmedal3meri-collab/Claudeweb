@@ -30,7 +30,7 @@
           <span class="look__info">
             <span class="look__n">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
             <span class="look__t">{{ product.title | remove: 'KAVO — ' }}</span>
-            <span class="look__p">{{ product.price | money }}</span>
+            <span class="look__p">{{ product.price | money_without_trailing_zeros }}</span>
           </span>
         </a>
       {%- endfor -%}
