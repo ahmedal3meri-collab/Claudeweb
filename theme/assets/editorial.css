@@ -497,3 +497,9 @@ body.ed .pdp__share .icon { width: 14px; height: 14px; }
 /* sticky add-to-bag: mobile only */
 @media (min-width: 990px) { body.ed .sticky-atc { display: none; } }
 body.ed .sticky-atc__info img { border-radius: 0; }
+body.ed .opt__label { justify-content: flex-start; align-items: baseline; gap: 4px; }
+body.ed .opt__label .opt__guide { margin-inline-start: auto; }
+body.ed .pdp__acc + *, body.ed .pdp__desc + * { margin-top: 0; }
+body.ed .pdp__info > div:empty { display: none; }
+body.ed .pdp .acc + .acc, body.ed .pdp__acc .acc:last-child { margin-bottom: 0; }
+body.ed .pdp__info .acc { margin: 0; }

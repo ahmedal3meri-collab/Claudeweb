@@ -152,7 +152,8 @@
                 </div>
               </details>
             {%- when 'details' -%}
-              <div class="ed-details" {{ block.shopify_attributes }}>{% render 'ed-details', product: product %}</div>
+              {%- capture ed_det -%}{% render 'ed-details', product: product %}{%- endcapture -%}
+              {%- if ed_det != blank -%}<div class="ed-details" {{ block.shopify_attributes }}>{{ ed_det }}</div>{%- endif -%}
             {%- when 'skin_tags' -%}
               <div {{ block.shopify_attributes }}>{% render 'skin-tags', product: product %}</div>
             {%- when 'eta' -%}
