@@ -612,14 +612,15 @@ body.ed .col-hero--media:not(.tone-dark) .kv-nav__pill { color: var(--c-ink); bo
 
 /* v1.9 — collection toolbar: full-width solid band that follows the header */
 body.ed .toolbar {
-  top: var(--header-h, 76px); transition: top .5s var(--ed-ease);
+  position: sticky; top: var(--header-h, 76px); transition: top .5s var(--ed-ease);
   box-shadow: 0 0 0 100vmax var(--c-bg); clip-path: inset(0 -100vmax);
   margin-bottom: 32px; padding: 12px 0;
 }
 body.ed:has(.section-header.is-hidden) .toolbar { top: 0; }
-body.ed .toolbar::after { content: ''; position: absolute; inset-inline: -100vmax; bottom: -1px; height: 1px; background: var(--ed-line); }
-body.ed .toolbar { position: sticky; }
 body.ed .fdrop summary, body.ed .toolbar select { height: 44px; }
-body.ed .grid-toggle button { border-radius: 0; padding: 0; width: 44px; height: 44px; display: grid; place-items: center; opacity: .35; background: transparent !important; }
+body.ed .grid-toggle button { border-radius: 0; padding: 0; width: 44px; height: 44px; display: grid; place-items: center; opacity: .35; background: transparent !important; font-size: 0; letter-spacing: 0; }
+body.ed .grid-toggle button::before { content: ''; width: 18px; height: 16px; background: currentColor; }
+body.ed .grid-toggle button[data-cols="2"]::before { -webkit-mask: linear-gradient(90deg, #000 0 7px, transparent 7px 11px, #000 11px 18px); mask: linear-gradient(90deg, #000 0 7px, transparent 7px 11px, #000 11px 18px); }
+body.ed .grid-toggle button[data-cols="4"]::before { -webkit-mask: repeating-linear-gradient(90deg, #000 0 3.5px, transparent 3.5px 4.8px); mask: repeating-linear-gradient(90deg, #000 0 3.5px, transparent 3.5px 4.8px); }
 body.ed .grid-toggle button.is-active { opacity: 1; }
 body.ed .grid-toggle button:hover { opacity: .8; }
