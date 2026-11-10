@@ -562,3 +562,22 @@ html[lang="ar"] body.ed .card__badges .badge:not([class*="badge--"]) { font-weig
 /* receipt thank-you */
 body.ed .ed-script-inline { font-family: var(--f-script) !important; color: var(--ed-pop); font-size: 22px; letter-spacing: 0; text-transform: none; }
 @media (prefers-reduced-motion: reduce) { .ed-script { transform: none; } }
+
+/* =========================================================
+   v1.7 — usability: comfortable tap targets, calmer cart
+   ========================================================= */
+body.ed .drawer__title { font-family: var(--f-head); font-weight: 400; font-size: 30px; letter-spacing: -.01em; }
+html[lang="ar"] body.ed .drawer__title { font-weight: 600; font-size: 26px; }
+body.ed .lang-switch__btn { min-width: 44px; min-height: 40px; }
+body.ed .cart-line a[href*="/cart/change"], body.ed .cart-line__remove { display: inline-block; padding: 10px 0; font-size: 12px; }
+body.ed [data-cart-qty] { display: inline-flex; align-items: center; }
+body.ed [data-cart-qty] button { width: 40px; height: 44px; display: grid; place-items: center; }
+body.ed [data-cart-qty] input { width: 40px; text-align: center; -moz-appearance: textfield; }
+body.ed [data-cart-qty] input::-webkit-inner-spin-button { -webkit-appearance: none; }
+body.ed form.is-updating { opacity: .6; pointer-events: none; transition: opacity .2s; }
+@media (max-width: 749px) {
+  body.ed .footer__links a, body.ed .ed-legal a { display: inline-block; padding: 9px 0; }
+  body.ed .footer__links { gap: 0; }
+  body.ed .crumbs a { display: inline-block; padding: 10px 0; }
+  body.ed .pdp__share a { display: inline-flex; padding: 10px 0; }
+}

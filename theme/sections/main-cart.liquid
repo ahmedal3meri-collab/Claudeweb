@@ -1,10 +1,10 @@
 {%- liquid
   assign threshold = settings.free_shipping_threshold | times: 100
   assign remaining = threshold | minus: cart.total_price
-  assign remaining_money = remaining | money
+  assign remaining_money = remaining | money_without_trailing_zeros
   assign tier = settings.reduced_shipping_threshold | times: 100
   assign tier_remaining = tier | minus: cart.total_price
-  assign tier_remaining_money = tier_remaining | money
+  assign tier_remaining_money = tier_remaining | money_without_trailing_zeros
   assign pct = 100
   if threshold > 0
     assign pct = cart.total_price | times: 100 | divided_by: threshold
@@ -34,7 +34,7 @@
                   <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
                   {%- unless item.product.has_only_default_variant -%}<p class="cart-line__variant">{{ item.variant.title }}</p>{%- endunless -%}
                   <div class="cart-line__row">
-                    <div class="qty qty--sm"><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="{{ 'products.quantity' | t }}"></div>
+                    <div class="qty qty--sm" data-cart-qty><button type="button" data-cart-step="-1" aria-label="{{ 'cart.decrease' | t }}">{% render 'icon', name: 'minus' %}</button><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="{{ 'products.quantity' | t }}"><button type="button" data-cart-step="1" aria-label="{{ 'cart.increase' | t }}">{% render 'icon', name: 'plus' %}</button></div>
                     <span class="cart-line__price">{{ item.final_line_price | money_without_trailing_zeros }}</span>
                   </div>
                   <a href="{{ item.url_to_remove }}" class="cart-line__remove">{{ 'cart.remove' | t }}</a>
@@ -52,7 +52,7 @@
             </div>
           {%- endif -%}
           <label class="cart-note"><span>{{ 'cart.note' | t }}</span><textarea name="note" rows="3">{{ cart.note }}</textarea></label>
-          <p class="cart-foot__row cart-foot__total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
+          <p class="cart-foot__row cart-foot__total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_without_trailing_zeros }}</span></p>
           <p class="small muted">{{ 'cart.taxes_note' | t }}</p>
           <button type="submit" name="checkout" class="btn btn--dark btn--full btn--shine">{{ 'cart.checkout' | t }} {% render 'icon', name: 'arrow' %}</button>
           {%- if additional_checkout_buttons -%}<div class="cart-summary__dyn">{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}

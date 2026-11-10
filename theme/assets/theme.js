@@ -153,7 +153,7 @@ window.SGDrop = (() => {
       });
       document.dispatchEvent(new CustomEvent('sg:added'));
       await refreshCart(true);
-      toast(SG.strings.added || 'Added to bag');
+      if (!document.querySelector('[data-drawer="cart"].is-open')) toast(SG.strings.added || 'Added to bag');
       if (btn) { btn.classList.add('is-added'); setTimeout(() => btn.classList.remove('is-added'), 1600); }
     } catch (err) {
       toast((err && (err.description || err.message)) || SG.strings.error || 'Error');
@@ -794,3 +794,16 @@ window.SGDrop = (() => {
     pins.forEach((p, k) => p.addEventListener('click', () => show(k, true)));
   });
 })();
+
+/* Cart page: -/+ steppers update the bag immediately */
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-cart-step]');
+  if (!b) return;
+  const wrap = b.closest('[data-cart-qty]'); const inp = wrap && wrap.querySelector('input');
+  if (!inp) return;
+  inp.value = Math.max(0, (Number(inp.value) || 0) + Number(b.getAttribute('data-cart-step')));
+  const form = b.closest('form'); if (form) { form.classList.add('is-updating'); form.requestSubmit ? form.requestSubmit() : form.submit(); }
+});
+document.addEventListener('change', (e) => {
+  if (e.target.matches('[data-cart-qty] input')) { const form = e.target.closest('form'); if (form) form.requestSubmit ? form.requestSubmit() : form.submit(); }
+});

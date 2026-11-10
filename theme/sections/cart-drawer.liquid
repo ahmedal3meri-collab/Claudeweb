@@ -1,10 +1,10 @@
 {%- liquid
   assign threshold = settings.free_shipping_threshold | times: 100
   assign remaining = threshold | minus: cart.total_price
-  assign remaining_money = remaining | money
+  assign remaining_money = remaining | money_without_trailing_zeros
   assign tier = settings.reduced_shipping_threshold | times: 100
   assign tier_remaining = tier | minus: cart.total_price
-  assign tier_remaining_money = tier_remaining | money
+  assign tier_remaining_money = tier_remaining | money_without_trailing_zeros
   assign pct = 100
   if threshold > 0
     assign pct = cart.total_price | times: 100 | divided_by: threshold
@@ -100,7 +100,7 @@
         {%- for d in cart.cart_level_discount_applications -%}
           <p class="cart-foot__row"><span>{{ d.title }}</span><span>−{{ d.total_allocated_amount | money_without_trailing_zeros }}</span></p>
         {%- endfor -%}
-        <p class="cart-foot__row cart-foot__total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
+        <p class="cart-foot__row cart-foot__total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_without_trailing_zeros }}</span></p>
         <p class="small muted">{{ 'cart.taxes_note' | t }}</p>
         <form action="{{ routes.cart_url }}" method="post">
           <button type="submit" name="checkout" class="btn btn--dark btn--full btn--shine">{{ 'cart.checkout' | t }} {% render 'icon', name: 'arrow' %}</button>
