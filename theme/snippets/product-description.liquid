@@ -4,7 +4,17 @@
 {%- endcomment -%}
 {%- liquid
   assign plus = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>'
-  assign d = product.description
+  assign src = product.description
+  unless request.locale.iso_code == 'ar'
+    capture en_desc
+      render 'desc-en', handle: product.handle
+    endcapture
+    assign en_desc = en_desc | strip
+    if en_desc != blank
+      assign src = en_desc
+    endif
+  endunless
+  assign d = src
   assign d = d | replace: '<details style="background:#efede8;padding:14px;border-radius:12px;margin-bottom:12px;">', '<details class="acc" dir="auto">'
   assign d = d | replace: '<details style="background:#efede8;padding:14px;border-radius:12px;">', '<details class="acc" dir="auto">'
   assign d = d | replace: '<summary style="cursor:pointer;font-weight:bold;">', '<summary>'
@@ -30,11 +40,11 @@
   endif
   assign d = d | replace_first: '<details class="acc" dir="auto">', '<details class="acc" dir="auto" open>'
 -%}
-{%- if product.description contains '<details' -%}
+{%- if src contains '<details' -%}
   <div class="pdp__desc">{{ d }}</div>
 {%- else -%}
   <details class="acc" open>
     <summary>{{ 'products.details' | t }} {{ plus }}</summary>
-    <div class="acc__body rte" dir="auto">{{ product.description }}</div>
+    <div class="acc__body rte" dir="auto">{{ src }}</div>
   </details>
 {%- endif -%}
