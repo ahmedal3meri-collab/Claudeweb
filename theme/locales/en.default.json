@@ -96,7 +96,8 @@
     "spec_routine": "Complete the routine",
     "colours_count": "{{ count }} colours",
     "recs_kavo_eyebrow": "From the KAVO edit",
-    "recs_kavo_heading": "You may also like"
+    "recs_kavo_heading": "You may also like",
+    "story_title": "The details"
   },
   "collections": {
     "all": "All collections",

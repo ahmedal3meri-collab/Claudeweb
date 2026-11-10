@@ -104,7 +104,8 @@
     "spec_routine": "أكملي الروتين",
     "colours_count": "{{ count }} ألوان",
     "recs_kavo_eyebrow": "من مجموعة KAVO",
-    "recs_kavo_heading": "قد يعجبك أيضاً"
+    "recs_kavo_heading": "قد يعجبك أيضاً",
+    "story_title": "التفاصيل"
   },
   "collections": {
     "all": "كل المجموعات",

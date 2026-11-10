@@ -1,0 +1,38 @@
+{%- comment -%}
+  Fashion product story: after the buy box, the product's own photos shown large,
+  in an editorial rhythm (detail → full look). Renders only for KAVO pieces with 3+ images.
+{%- endcomment -%}
+{%- liquid
+  assign is_kavo = false
+  if product.tags contains 'kavo'
+    assign is_kavo = true
+  endif
+  assign imgs = product.media | where: 'media_type', 'image'
+-%}
+{%- if is_kavo and imgs.size > 2 -%}
+<section class="ed-story-pdp ed-sec" aria-label="{{ 'products.story_title' | t | escape }}">
+  <div class="ed-wrap">
+    <header class="ed-story-pdp__head" data-reveal>
+      <p class="ed-kicker">KAVO</p>
+      <h2 class="ed-h2">{{ 'products.story_title' | t }}</h2>
+      <p class="ed-body">{{ 'kavo.fit_note' | t }}</p>
+    </header>
+    <div class="ed-story-pdp__grid">
+      {%- for m in imgs offset: 1 limit: 8 -%}
+        <figure class="ed-story-pdp__f ed-story-pdp__f--{{ forloop.index0 | modulo: 4 }}" data-reveal data-reveal-img>
+          {{ m | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '600,900,1200,1400', alt: m.alt | default: product.title }}
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Fashion story",
+  "class": "section-ed-pdp-story",
+  "settings": [],
+  "presets": [{ "name": "Fashion story" }]
+}
+{% endschema %}

@@ -119,10 +119,15 @@
     "recent": {
       "type": "recently-viewed",
       "settings": {}
+    },
+    "story": {
+      "type": "ed-pdp-story",
+      "settings": {}
     }
   },
   "order": [
     "main",
+    "story",
     "recs",
     "recent",
     "trust"

@@ -154,6 +154,7 @@ window.SGDrop = (() => {
       document.dispatchEvent(new CustomEvent('sg:added'));
       await refreshCart(true);
       toast(SG.strings.added || 'Added to bag');
+      if (btn) { btn.classList.add('is-added'); setTimeout(() => btn.classList.remove('is-added'), 1600); }
     } catch (err) {
       toast((err && (err.description || err.message)) || SG.strings.error || 'Error');
     } finally {
