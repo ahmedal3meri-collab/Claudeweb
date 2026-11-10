@@ -609,3 +609,17 @@ body.ed .crumbs a, body.ed .crumbs span { line-height: 1.2; }
 body.ed .fdrop summary, body.ed .sort select, body.ed .toolbar select, body.ed .grid-toggle button { border-radius: 0 !important; }
 body.ed .kv-nav { gap: 8px; margin-top: 22px; }
 body.ed .col-hero--media:not(.tone-dark) .kv-nav__pill { color: var(--c-ink); border-color: var(--ed-line); }
+
+/* v1.9 — collection toolbar: full-width solid band that follows the header */
+body.ed .toolbar {
+  top: var(--header-h, 76px); transition: top .5s var(--ed-ease);
+  box-shadow: 0 0 0 100vmax var(--c-bg); clip-path: inset(0 -100vmax);
+  margin-bottom: 32px; padding: 12px 0;
+}
+body.ed:has(.section-header.is-hidden) .toolbar { top: 0; }
+body.ed .toolbar::after { content: ''; position: absolute; inset-inline: -100vmax; bottom: -1px; height: 1px; background: var(--ed-line); }
+body.ed .toolbar { position: sticky; }
+body.ed .fdrop summary, body.ed .toolbar select { height: 44px; }
+body.ed .grid-toggle button { border-radius: 0; padding: 0; width: 44px; height: 44px; display: grid; place-items: center; opacity: .35; background: transparent !important; }
+body.ed .grid-toggle button.is-active { opacity: 1; }
+body.ed .grid-toggle button:hover { opacity: .8; }
