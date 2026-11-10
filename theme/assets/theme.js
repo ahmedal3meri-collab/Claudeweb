@@ -51,7 +51,7 @@ window.SGDrop = (() => {
   /* ---------- Toast ---------- */
   const toastEl = $('[data-toast]');
   let toastT;
-  const toast = (msg) => {
+  const toast = window.SGtoast = (msg) => {
     if (!toastEl) return;
     toastEl.textContent = msg;
     toastEl.classList.add('is-visible');
@@ -795,15 +795,34 @@ window.SGDrop = (() => {
   });
 })();
 
-/* Cart page: -/+ steppers update the bag immediately */
-document.addEventListener('click', (e) => {
-  const b = e.target.closest('[data-cart-step]');
-  if (!b) return;
-  const wrap = b.closest('[data-cart-qty]'); const inp = wrap && wrap.querySelector('input');
-  if (!inp) return;
-  inp.value = Math.max(0, (Number(inp.value) || 0) + Number(b.getAttribute('data-cart-step')));
-  const form = b.closest('form'); if (form) { form.classList.add('is-updating'); form.requestSubmit ? form.requestSubmit() : form.submit(); }
-});
-document.addEventListener('change', (e) => {
-  if (e.target.matches('[data-cart-qty] input')) { const form = e.target.closest('form'); if (form) form.requestSubmit ? form.requestSubmit() : form.submit(); }
-});
+/* Cart page: -/+ steppers change one line safely (stock errors are shown, never empty the bag) */
+(function () {
+  const setQty = async (wrap, qty) => {
+    const form = wrap.closest('form'); if (form) form.classList.add('is-updating');
+    try {
+      const r = await fetch((window.SG && SG.routes && SG.routes.cartChange ? SG.routes.cartChange : '/cart/change') + '.js', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ line: Number(wrap.getAttribute('data-line')), quantity: Math.max(0, qty) })
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        if (form) form.classList.remove('is-updating');
+        const msg = j.description || j.message || 'Error';
+        const t = document.querySelector('[data-toast]');
+        if (window.SGtoast) window.SGtoast(msg); else if (t) { t.textContent = msg; t.classList.add('is-visible'); setTimeout(() => t.classList.remove('is-visible'), 3000); } else alert(msg);
+        return;
+      }
+      window.location.reload();
+    } catch (e) { if (form) form.classList.remove('is-updating'); }
+  };
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-cp-step]'); if (!b) return;
+    e.preventDefault();
+    const wrap = b.closest('[data-cp-qty]'); const inp = wrap && wrap.querySelector('input'); if (!inp) return;
+    setQty(wrap, (Number(inp.value) || 0) + Number(b.getAttribute('data-cp-step')));
+  });
+  document.addEventListener('change', (e) => {
+    const inp = e.target.closest('[data-cp-qty] input'); if (!inp) return;
+    setQty(inp.closest('[data-cp-qty]'), Number(inp.value) || 0);
+  });
+})();
