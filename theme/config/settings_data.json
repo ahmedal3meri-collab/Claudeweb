@@ -24,7 +24,7 @@
     "show_vendor": true,
     "show_second_image": true,
     "enable_quick_add": true,
-    "whatsapp_message": "Hi Seoul Glow! I need help choosing my routine ✨",
+    "whatsapp_message": "Hi Seoul Glow! I have a question ✨",
     "enable_reveal": true,
     "enable_grain": true,
     "sections": {
@@ -40,7 +40,8 @@
     },
     "editorial_mode": true,
     "ed_accent": "#5F7466",
-    "ed_serif": true
+    "ed_serif": true,
+    "whatsapp_number": "+971505425523"
   },
   "presets": {
     "Default": {

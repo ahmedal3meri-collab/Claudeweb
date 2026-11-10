@@ -170,8 +170,8 @@
           "settings": {
             "title": "Close to home",
             "title_ar": "قريبة منك",
-            "text": "Shipped from inside the UAE, with cash on delivery available.",
-            "text_ar": "الشحن من داخل الإمارات، مع خيار الدفع عند الاستلام."
+            "text": "Shipped from inside the UAE, with interest-free instalments via Tabby & Tamara.",
+            "text_ar": "الشحن من داخل الإمارات، مع التقسيط بدون فوائد عبر تابي وتمارا."
           }
         }
       },
@@ -221,10 +221,10 @@
           "type": "item",
           "settings": {
             "icon": "cash",
-            "title": "Cash on delivery",
-            "title_ar": "الدفع عند الاستلام",
-            "text": "Pay when it reaches your door",
-            "text_ar": "ادفعي عند وصول الطلب"
+            "title": "Tabby & Tamara",
+            "title_ar": "تابي وتمارا",
+            "text": "Split your order into interest-free instalments",
+            "text_ar": "قسّطي طلبك بدون فوائد"
           }
         },
         "t4": {

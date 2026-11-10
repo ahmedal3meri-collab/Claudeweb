@@ -70,6 +70,7 @@
               <div class="pdp__price" {{ block.shopify_attributes }}>
                 {% render 'price', product: product, variant: current_variant %}
                 {%- if cart.taxes_included -%}<p class="small muted">{{ 'products.tax_included' | t }}</p>{%- endif -%}
+                {%- if settings.editorial_mode -%}<p class="ed-bnpl"><span class="ed-bnpl__logos" aria-hidden="true"><b class="ed-bnpl__tabby">tabby</b><b class="ed-bnpl__tamara">tamara</b></span><span>{{ 'products.bnpl' | t }}</span></p>{%- endif -%}
               </div>
             {%- when 'perks' -%}
               <ul class="pdp__perks" {{ block.shopify_attributes }}>

@@ -41,10 +41,10 @@
           "type": "item",
           "settings": {
             "icon": "cash",
-            "title": "Cash on delivery",
-            "title_ar": "الدفع عند الاستلام",
-            "text": "Pay when it reaches your door",
-            "text_ar": "ادفعي عند وصول الطلب"
+            "title": "Tabby & Tamara",
+            "title_ar": "تابي وتمارا",
+            "text": "Split your order into interest-free instalments",
+            "text_ar": "قسّطي طلبك بدون فوائد"
           }
         }
       },

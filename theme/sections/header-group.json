@@ -24,8 +24,8 @@
         "m3": {
           "type": "message",
           "settings": {
-            "text": "Cash on delivery available",
-            "text_ar": "الدفع عند الاستلام متوفر",
+            "text": "Pay in interest-free instalments with tabby & tamara",
+            "text_ar": "قسّطيها بدون فوائد مع تابي وتمارا",
             "link": ""
           }
         },
@@ -44,22 +44,13 @@
             "text_ar": "خصم ١٥٪ للطلبات فوق ٢٠٠ درهم — كود KBEAUTY15",
             "link": "/collections/best"
           }
-        },
-        "m6": {
-          "type": "message",
-          "settings": {
-            "text": "20% off orders over 350 AED — code GLOW20",
-            "text_ar": "خصم ٢٠٪ للطلبات فوق ٣٥٠ درهم — كود GLOW20",
-            "link": "/collections/kits-bundles"
-          }
         }
       },
       "block_order": [
         "m1",
         "m5",
-        "m2",
-        "m6",
         "m3",
+        "m2",
         "m4"
       ],
       "settings": {
