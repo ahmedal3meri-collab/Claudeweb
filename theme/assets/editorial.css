@@ -581,3 +581,31 @@ body.ed form.is-updating { opacity: .6; pointer-events: none; transition: opacit
   body.ed .crumbs a { display: inline-block; padding: 10px 0; }
   body.ed .pdp__share a { display: inline-flex; padding: 10px 0; }
 }
+
+/* =========================================================
+   v1.8 — collection header: text beside the image, never over it
+   ========================================================= */
+body.ed .col-hero--media { display: grid; grid-template-columns: 1fr; background: var(--c-bg); color: var(--c-ink); }
+body.ed .col-hero--media.tone-dark { background: #20201E; color: #F5F3EE; }
+body.ed .col-hero--media .col-hero__media { position: relative; inset: auto; transform: none !important; aspect-ratio: 4 / 3; overflow: hidden; }
+body.ed .col-hero--media .col-hero__media img { object-position: 50% 30%; }
+body.ed .col-hero--media .hero__shade { display: none; }
+body.ed .col-hero--media .col-hero__inner.has-media { color: inherit; min-height: 0; padding-top: 28px; padding-bottom: 36px; justify-content: center; }
+body.ed .col-hero--media .col-hero__inner.has-media .crumbs { color: inherit; opacity: .6; }
+body.ed .col-hero--media .col-hero__inner.has-media .eyebrow { color: inherit; opacity: .7; }
+body.ed .col-hero__title { font-family: var(--f-head); font-weight: 400; text-transform: none; letter-spacing: -.012em; font-size: clamp(40px, 5vw, 76px); line-height: 1; }
+html[lang="ar"] body.ed .col-hero__title { font-weight: 600; line-height: 1.3; }
+body.ed .col-hero__desc { font-size: 15px; line-height: 1.7; opacity: .8; max-width: 46ch; }
+body.ed .col-hero__count { letter-spacing: .16em; font-size: 11px; }
+@media (min-width: 990px) {
+  body.ed .col-hero--media { grid-template-columns: 5fr 6fr; min-height: min(78vh, 760px); }
+  body.ed .col-hero--media .col-hero__media { order: 2; aspect-ratio: auto; height: 100%; }
+  body.ed .col-hero--media .col-hero__inner.has-media { order: 1; padding: calc(var(--header-h, 76px) + 40px) clamp(24px, 4vw, 64px) 56px; max-width: none; margin: 0; }
+}
+/* the header sits on the dark KAVO band — keep it solid there */
+body.ed .crumbs { align-items: center; gap: 6px 8px; }
+body.ed .crumbs a, body.ed .crumbs span { line-height: 1.2; }
+/* filters & sort: square, quiet */
+body.ed .fdrop summary, body.ed .sort select, body.ed .toolbar select, body.ed .grid-toggle button { border-radius: 0 !important; }
+body.ed .kv-nav { gap: 8px; margin-top: 22px; }
+body.ed .col-hero--media:not(.tone-dark) .kv-nav__pill { color: var(--c-ink); border-color: var(--ed-line); }

@@ -4,8 +4,8 @@
       "type": "main-collection",
       "settings": {
         "per_page": 24,
-        "default_banner": "shopify://shop_images/sg-cine-store.png",
-        "kavo_banner": "shopify://shop_images/sg-cine-alley.png",
+        "default_banner": "shopify://shop_images/sg-cine-portrait.png",
+        "kavo_banner": "shopify://shop_images/hf_20261106_022404_44b8ee07-aa26-41d8-8042-2b0de59dea59.png",
         "promo_image": "shopify://shop_images/sg-cine-counter.png",
         "promo_link": "/collections/kits-bundles",
         "promo_eyebrow": "Curated rituals",

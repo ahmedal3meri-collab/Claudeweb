@@ -4,13 +4,16 @@
     assign is_kavo = true
   endif
   assign banner = collection.image
+  if settings.editorial_mode and is_kavo and section.settings.kavo_banner != blank
+    assign banner = section.settings.kavo_banner
+  endif
   if banner == blank and is_kavo
     assign banner = section.settings.kavo_banner
   elsif banner == blank
     assign banner = section.settings.default_banner
   endif
 -%}
-<section class="col-hero{% if is_kavo %} tone-dark{% endif %}">
+<section class="col-hero{% if is_kavo %} tone-dark{% endif %}{% if banner != blank %} col-hero--media{% endif %}">
   {%- if banner != blank -%}
     <div class="col-hero__media" data-parallax="0.12">
       {{ banner | image_url: width: 2000 | image_tag: loading: 'eager', sizes: '100vw', widths: '750,1100,1500,2000', alt: '' }}
