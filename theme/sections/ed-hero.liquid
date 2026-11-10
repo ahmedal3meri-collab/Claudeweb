@@ -19,6 +19,7 @@
   </div>
   <div class="ed-hero__inner ed-wrap">
     {%- if section.settings.kicker != blank -%}<p class="ed-kicker ed-hero__kicker" data-reveal>{% render 'tx', en: section.settings.kicker, ar: section.settings.kicker_ar %}</p>{%- endif -%}
+{%- if section.settings.script != blank -%}<p class="ed-script" aria-hidden="true">{% render 'tx', en: section.settings.script, ar: section.settings.script_ar %}</p>{%- endif -%}
     <h1 class="ed-hero__title" data-reveal style="--d: 80ms">{% render 'ed-em', en: section.settings.heading, ar: section.settings.heading_ar %}</h1>
     <p class="ed-hero__sub" data-reveal style="--d: 160ms">{% render 'tx', en: section.settings.subheading, ar: section.settings.subheading_ar %}</p>
     <div class="ed-hero__ctas" data-reveal style="--d: 240ms">
@@ -38,24 +39,136 @@
   "name": "Editorial hero",
   "class": "section-ed-hero",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Image (desktop)", "info": "Landscape, 2400px+ wide" },
-    { "type": "image_picker", "id": "image_mobile", "label": "Image (mobile)", "info": "Portrait 4:5 or 9:16" },
-    { "type": "range", "id": "overlay", "label": "Overlay", "min": 0, "max": 70, "step": 5, "unit": "%", "default": 25 },
-    { "type": "select", "id": "align", "label": "Text position", "default": "start", "options": [{ "value": "start", "label": "Bottom start" }, { "value": "center", "label": "Bottom centre" }] },
-    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Seoul Editorial · UAE" },
-    { "type": "text", "id": "kicker_ar", "label": "Kicker (Arabic)", "default": "سيول التحريرية · الإمارات" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "A different kind of Seoul." },
-    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "سيول، بطريقة مختلفة." },
-    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Curated Korean Fashion & Beauty." },
-    { "type": "text", "id": "subheading_ar", "label": "Subheading (Arabic)", "default": "أزياء وجمال كوري، مختارة بعناية." },
-    { "type": "text", "id": "button", "label": "Button", "default": "Explore the edit" },
-    { "type": "text", "id": "button_ar", "label": "Button (Arabic)", "default": "اكتشفي المجموعة" },
-    { "type": "url", "id": "link", "label": "Button link" },
-    { "type": "text", "id": "button_2", "label": "Secondary link", "default": "New arrivals" },
-    { "type": "text", "id": "button_2_ar", "label": "Secondary link (Arabic)", "default": "وصل حديثاً" },
-    { "type": "url", "id": "link_2", "label": "Secondary link URL" },
-    { "type": "text", "id": "meta", "label": "Corner caption", "default": "서울 — Edition 01" }
+    {
+      "type": "text",
+      "id": "script",
+      "label": "Handwritten accent",
+      "info": "Short, playful line in the brush accent font"
+    },
+    {
+      "type": "text",
+      "id": "script_ar",
+      "label": "Handwritten accent (Arabic)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (desktop)",
+      "info": "Landscape, 2400px+ wide"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image (mobile)",
+      "info": "Portrait 4:5 or 9:16"
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "label": "Overlay",
+      "min": 0,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "default": 25
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Text position",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "Bottom start"
+        },
+        {
+          "value": "center",
+          "label": "Bottom centre"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Seoul Editorial · UAE"
+    },
+    {
+      "type": "text",
+      "id": "kicker_ar",
+      "label": "Kicker (Arabic)",
+      "default": "سيول التحريرية · الإمارات"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A different kind of Seoul."
+    },
+    {
+      "type": "text",
+      "id": "heading_ar",
+      "label": "Heading (Arabic)",
+      "default": "سيول، بطريقة مختلفة."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Curated Korean Fashion & Beauty."
+    },
+    {
+      "type": "text",
+      "id": "subheading_ar",
+      "label": "Subheading (Arabic)",
+      "default": "أزياء وجمال كوري، مختارة بعناية."
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button",
+      "default": "Explore the edit"
+    },
+    {
+      "type": "text",
+      "id": "button_ar",
+      "label": "Button (Arabic)",
+      "default": "اكتشفي المجموعة"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button_2",
+      "label": "Secondary link",
+      "default": "New arrivals"
+    },
+    {
+      "type": "text",
+      "id": "button_2_ar",
+      "label": "Secondary link (Arabic)",
+      "default": "وصل حديثاً"
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "Secondary link URL"
+    },
+    {
+      "type": "text",
+      "id": "meta",
+      "label": "Corner caption",
+      "default": "서울 — Edition 01"
+    }
   ],
-  "presets": [{ "name": "Editorial hero" }]
+  "presets": [
+    {
+      "name": "Editorial hero"
+    }
+  ]
 }
 {% endschema %}

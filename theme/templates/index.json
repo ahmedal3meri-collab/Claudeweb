@@ -19,7 +19,9 @@
         "button_2": "Shop beauty",
         "button_2_ar": "تسوّقي الجمال",
         "link_2": "shopify://collections/seoulglow-beauty-shop",
-        "meta": ""
+        "meta": "",
+        "script": "hello, Seoul",
+        "script_ar": "أهلاً سيول"
       }
     },
     "dual": {
@@ -71,7 +73,9 @@
         "view_all_ar": "عرض الكل",
         "show_count": true,
         "limit": 8,
-        "columns": 4
+        "columns": 4,
+        "script": "just landed",
+        "script_ar": "وصل للتو"
       }
     },
     "camp_fashion": {
@@ -95,7 +99,9 @@
         "products": [
           "kavo-pony-shearling-check-shirt-brown",
           "kavo-two-tone-nylon-parachute-pants"
-        ]
+        ],
+        "script": "wear it easy",
+        "script_ar": "البسها براحتك"
       }
     },
     "best": {
@@ -109,7 +115,9 @@
         "view_all_ar": "عرض الكل",
         "show_count": false,
         "limit": 8,
-        "columns": 4
+        "columns": 4,
+        "script": "loved by you",
+        "script_ar": "حبّيتوها"
       }
     },
     "camp_beauty": {
@@ -131,7 +139,9 @@
           "eqqualberry-nad-peptide-boosting-serum",
           "txa-niacinamide-15-glow-facial-serum-30ml",
           "beauty-of-joseon-relief-sun-rice-probiotics-spf-50-50ml"
-        ]
+        ],
+        "script": "your little ritual",
+        "script_ar": "روتينك الصغير"
       }
     },
     "story": {
@@ -179,7 +189,9 @@
         "image": "",
         "button": "Our story",
         "button_ar": "قصتنا",
-        "link": "shopify://pages/about"
+        "link": "shopify://pages/about",
+        "script": "made with love",
+        "script_ar": "بكل حب"
       }
     },
     "trust": {

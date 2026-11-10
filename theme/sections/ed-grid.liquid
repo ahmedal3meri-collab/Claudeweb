@@ -7,6 +7,7 @@
   <div class="ed-wrap">
     <header class="ed-head" data-reveal>
       {%- if section.settings.number != blank -%}<span class="ed-num">{{ section.settings.number }}</span>{%- endif -%}
+{%- if section.settings.script != blank -%}<p class="ed-script" aria-hidden="true">{% render 'tx', en: section.settings.script, ar: section.settings.script_ar %}</p>{%- endif -%}
       <h2 class="ed-h2">{% render 'tx', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
       {%- if col != blank -%}
         <a class="ed-link ed-head__more" href="{{ col.url }}">{% render 'tx', en: section.settings.view_all, ar: section.settings.view_all_ar %}{% if section.settings.show_count %} <span class="ed-count">({{ col.products_count }})</span>{% endif %}</a>
@@ -29,16 +30,81 @@
   "name": "Editorial — product grid",
   "class": "section-ed-grid",
   "settings": [
-    { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "text", "id": "number", "label": "Index number", "default": "03" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "New Arrivals" },
-    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)", "default": "وصل حديثاً" },
-    { "type": "text", "id": "view_all", "label": "View all label", "default": "View all" },
-    { "type": "text", "id": "view_all_ar", "label": "View all label (Arabic)", "default": "عرض الكل" },
-    { "type": "checkbox", "id": "show_count", "label": "Show product count", "default": true },
-    { "type": "range", "id": "limit", "label": "Products", "min": 2, "max": 16, "step": 1, "default": 8 },
-    { "type": "range", "id": "columns", "label": "Columns on desktop", "min": 3, "max": 5, "step": 1, "default": 4 }
+    {
+      "type": "text",
+      "id": "script",
+      "label": "Handwritten accent",
+      "info": "Short, playful line in the brush accent font"
+    },
+    {
+      "type": "text",
+      "id": "script_ar",
+      "label": "Handwritten accent (Arabic)"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "number",
+      "label": "Index number",
+      "default": "03"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "text",
+      "id": "heading_ar",
+      "label": "Heading (Arabic)",
+      "default": "وصل حديثاً"
+    },
+    {
+      "type": "text",
+      "id": "view_all",
+      "label": "View all label",
+      "default": "View all"
+    },
+    {
+      "type": "text",
+      "id": "view_all_ar",
+      "label": "View all label (Arabic)",
+      "default": "عرض الكل"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "Show product count",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Products",
+      "min": 2,
+      "max": 16,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns on desktop",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    }
   ],
-  "presets": [{ "name": "Editorial — product grid" }]
+  "presets": [
+    {
+      "name": "Editorial — product grid"
+    }
+  ]
 }
 {% endschema %}

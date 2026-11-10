@@ -9,6 +9,7 @@
     <div class="ed-camp__side">
       <div class="ed-camp__copy" data-reveal style="--d: 120ms">
         {%- if section.settings.kicker != blank -%}<p class="ed-kicker">{% render 'tx', en: section.settings.kicker, ar: section.settings.kicker_ar %}</p>{%- endif -%}
+{%- if section.settings.script != blank -%}<p class="ed-script" aria-hidden="true">{% render 'tx', en: section.settings.script, ar: section.settings.script_ar %}</p>{%- endif -%}
         <h2 class="ed-h2">{% render 'ed-em', en: section.settings.heading, ar: section.settings.heading_ar %}</h2>
         <p class="ed-body">{% render 'tx', en: section.settings.text, ar: section.settings.text_ar %}</p>
         {%- if section.settings.link != blank -%}
@@ -46,23 +47,135 @@
   "name": "Editorial — campaign",
   "class": "section-ed-campaign",
   "settings": [
-    { "type": "select", "id": "layout", "label": "Layout", "default": "left", "options": [{ "value": "left", "label": "Large image start" }, { "value": "right", "label": "Large image end" }] },
-    { "type": "select", "id": "tone", "label": "Background", "default": "none", "options": [{ "value": "none", "label": "Off-white" }, { "value": "ivory", "label": "Ivory" }, { "value": "dark", "label": "Charcoal" }] },
-    { "type": "image_picker", "id": "image", "label": "Main image", "info": "Portrait 4:5" },
-    { "type": "image_picker", "id": "image_2", "label": "Detail image", "info": "Portrait 3:4" },
-    { "type": "text", "id": "caption", "label": "Detail caption" },
-    { "type": "text", "id": "caption_ar", "label": "Detail caption (Arabic)" },
-    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Campaign — Fashion" },
-    { "type": "text", "id": "kicker_ar", "label": "Kicker (Arabic)" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Quiet pieces, Seoul attitude." },
-    { "type": "text", "id": "heading_ar", "label": "Heading (Arabic)" },
-    { "type": "textarea", "id": "text", "label": "Text" },
-    { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)" },
-    { "type": "text", "id": "button", "label": "Button", "default": "Discover" },
-    { "type": "text", "id": "button_ar", "label": "Button (Arabic)", "default": "اكتشفي" },
-    { "type": "url", "id": "link", "label": "Button link" },
-    { "type": "product_list", "id": "products", "label": "Shop the look", "limit": 3 }
+    {
+      "type": "text",
+      "id": "script",
+      "label": "Handwritten accent",
+      "info": "Short, playful line in the brush accent font"
+    },
+    {
+      "type": "text",
+      "id": "script_ar",
+      "label": "Handwritten accent (Arabic)"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Large image start"
+        },
+        {
+          "value": "right",
+          "label": "Large image end"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Background",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "Off-white"
+        },
+        {
+          "value": "ivory",
+          "label": "Ivory"
+        },
+        {
+          "value": "dark",
+          "label": "Charcoal"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Main image",
+      "info": "Portrait 4:5"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Detail image",
+      "info": "Portrait 3:4"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Detail caption"
+    },
+    {
+      "type": "text",
+      "id": "caption_ar",
+      "label": "Detail caption (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Campaign — Fashion"
+    },
+    {
+      "type": "text",
+      "id": "kicker_ar",
+      "label": "Kicker (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Quiet pieces, Seoul attitude."
+    },
+    {
+      "type": "text",
+      "id": "heading_ar",
+      "label": "Heading (Arabic)"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "textarea",
+      "id": "text_ar",
+      "label": "Text (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button",
+      "default": "Discover"
+    },
+    {
+      "type": "text",
+      "id": "button_ar",
+      "label": "Button (Arabic)",
+      "default": "اكتشفي"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button link"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Shop the look",
+      "limit": 3
+    }
   ],
-  "presets": [{ "name": "Editorial — campaign" }]
+  "presets": [
+    {
+      "name": "Editorial — campaign"
+    }
+  ]
 }
 {% endschema %}

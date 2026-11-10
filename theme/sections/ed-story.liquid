@@ -3,6 +3,7 @@
   <div class="ed-wrap">
     <div class="ed-story__top">
       <p class="ed-kicker" data-reveal>{% render 'tx', en: section.settings.kicker, ar: section.settings.kicker_ar %}</p>
+{%- if section.settings.script != blank -%}<p class="ed-script" aria-hidden="true">{% render 'tx', en: section.settings.script, ar: section.settings.script_ar %}</p>{%- endif -%}
       <h2 class="ed-story__statement" data-reveal style="--d: 80ms">{% render 'ed-em', en: section.settings.statement, ar: section.settings.statement_ar %}</h2>
     </div>
     <div class="ed-story__grid">
@@ -33,24 +34,122 @@
   "class": "section-ed-story",
   "max_blocks": 4,
   "settings": [
-    { "type": "select", "id": "tone", "label": "Background", "default": "ivory", "options": [{ "value": "none", "label": "Off-white" }, { "value": "ivory", "label": "Ivory" }] },
-    { "type": "text", "id": "kicker", "label": "Kicker", "default": "About Seoul Glow" },
-    { "type": "text", "id": "kicker_ar", "label": "Kicker (Arabic)", "default": "عن سيول جلو" },
-    { "type": "textarea", "id": "statement", "label": "Statement" },
-    { "type": "textarea", "id": "statement_ar", "label": "Statement (Arabic)" },
-    { "type": "image_picker", "id": "image", "label": "Image" },
-    { "type": "text", "id": "button", "label": "Link label", "default": "Our story" },
-    { "type": "text", "id": "button_ar", "label": "Link label (Arabic)", "default": "قصتنا" },
-    { "type": "url", "id": "link", "label": "Link" }
+    {
+      "type": "text",
+      "id": "script",
+      "label": "Handwritten accent",
+      "info": "Short, playful line in the brush accent font"
+    },
+    {
+      "type": "text",
+      "id": "script_ar",
+      "label": "Handwritten accent (Arabic)"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Background",
+      "default": "ivory",
+      "options": [
+        {
+          "value": "none",
+          "label": "Off-white"
+        },
+        {
+          "value": "ivory",
+          "label": "Ivory"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "About Seoul Glow"
+    },
+    {
+      "type": "text",
+      "id": "kicker_ar",
+      "label": "Kicker (Arabic)",
+      "default": "عن سيول جلو"
+    },
+    {
+      "type": "textarea",
+      "id": "statement",
+      "label": "Statement"
+    },
+    {
+      "type": "textarea",
+      "id": "statement_ar",
+      "label": "Statement (Arabic)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Link label",
+      "default": "Our story"
+    },
+    {
+      "type": "text",
+      "id": "button_ar",
+      "label": "Link label (Arabic)",
+      "default": "قصتنا"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
   ],
   "blocks": [
-    { "type": "point", "name": "Principle", "settings": [
-      { "type": "text", "id": "title", "label": "Title", "default": "Curated, not crowded" },
-      { "type": "text", "id": "title_ar", "label": "Title (Arabic)" },
-      { "type": "textarea", "id": "text", "label": "Text" },
-      { "type": "textarea", "id": "text_ar", "label": "Text (Arabic)" }
-    ] }
+    {
+      "type": "point",
+      "name": "Principle",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Curated, not crowded"
+        },
+        {
+          "type": "text",
+          "id": "title_ar",
+          "label": "Title (Arabic)"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "textarea",
+          "id": "text_ar",
+          "label": "Text (Arabic)"
+        }
+      ]
+    }
   ],
-  "presets": [{ "name": "Editorial — brand story", "blocks": [{ "type": "point" }, { "type": "point" }, { "type": "point" }] }]
+  "presets": [
+    {
+      "name": "Editorial — brand story",
+      "blocks": [
+        {
+          "type": "point"
+        },
+        {
+          "type": "point"
+        },
+        {
+          "type": "point"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

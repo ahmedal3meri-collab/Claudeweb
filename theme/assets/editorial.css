@@ -535,3 +535,30 @@ body.ed [data-add-btn].is-added [data-add-text]::after { content: ' ✓'; }
 body.ed .cart-count.is-bump { animation: edBump .5s var(--ed-ease); }
 @keyframes edBump { 40% { transform: scale(1.35); } }
 @media (prefers-reduced-motion: reduce) { body.ed .cart-count.is-bump { animation: none; } }
+
+/* =========================================================
+   v1.6 — playful handwritten accents (Stella-like brush, used sparingly)
+   ========================================================= */
+body.ed { --f-script: 'Darumadrop One', 'Marhey', cursive; --ed-pop: #C65D4B; }
+html[lang="ar"] body.ed { --f-script: 'Marhey', 'Darumadrop One', cursive; }
+.ed-script {
+  font-family: var(--f-script); font-weight: 400; color: var(--ed-pop);
+  font-size: clamp(22px, 2.4vw, 34px); line-height: 1; letter-spacing: 0; text-transform: none;
+  margin: 0 0 -.15em; transform: rotate(-3deg); transform-origin: left bottom; display: inline-block;
+}
+html[dir="rtl"] .ed-script { transform: rotate(3deg); transform-origin: right bottom; font-weight: 600; }
+.ed-hero .ed-script { color: #F2B8A8; font-size: clamp(30px, 3.4vw, 52px); margin-bottom: 4px; }
+.ed-tone-dark .ed-script { color: #F2B8A8; }
+.ed-head .ed-script { grid-area: num; align-self: end; }
+.ed-head { grid-template-areas: "num num" "title more"; }
+.ed-camp__copy .ed-script { margin-bottom: -6px; }
+.ed-story__top .ed-script { grid-column: 1 / -1; }
+/* "New" label: handwritten, no box */
+body.ed .card__badges .badge:not([class*="badge--"]) {
+  font-family: var(--f-script); text-transform: none; letter-spacing: 0; font-size: 17px; font-weight: 400;
+  background: transparent; color: var(--ed-pop); padding: 0 2px; transform: rotate(-4deg);
+}
+html[lang="ar"] body.ed .card__badges .badge:not([class*="badge--"]) { font-weight: 600; font-size: 16px; }
+/* receipt thank-you */
+body.ed .ed-script-inline { font-family: var(--f-script) !important; color: var(--ed-pop); font-size: 22px; letter-spacing: 0; text-transform: none; }
+@media (prefers-reduced-motion: reduce) { .ed-script { transform: none; } }

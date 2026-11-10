@@ -10,7 +10,7 @@
   <div class="receipt-foot" aria-hidden="true">
     <div class="receipt-foot__barcode"></div>
     <p class="receipt-foot__num" dir="ltr">SG {{ 'now' | date: '%y%m%d' }} {{ cart.item_count | prepend: '000' | slice: -3, 3 }} {{ cart.total_price | modulo: 100000 | prepend: '00000' | slice: -5, 5 }}</p>
-    <p class="receipt-foot__thanks">{{ 'receipt.thanks' | t }}</p>
+    <p class="receipt-foot__thanks ed-script-inline">{{ 'receipt.thanks' | t }}</p>
     <p class="receipt-foot__cashier">{{ 'receipt.cashier' | t }}</p>
     <span class="receipt-foot__stamp">SEOUL<br>GLOW<br><small>서울</small></span>
   </div>
