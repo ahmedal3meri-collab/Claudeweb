@@ -5,15 +5,21 @@
 {%- liquid
   assign plus = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>'
   assign src = product.description
-  unless request.locale.iso_code == 'ar'
+  if request.locale.iso_code == 'ar'
+    capture en_desc
+      render 'desc-ar', handle: product.handle
+    endcapture
+  else
     capture en_desc
       render 'desc-en', handle: product.handle
     endcapture
+  endif
+  if en_desc != nil
     assign en_desc = en_desc | strip
     if en_desc != blank
       assign src = en_desc
     endif
-  endunless
+  endif
   assign d = src
   assign d = d | replace: '<details style="background:#efede8;padding:14px;border-radius:12px;margin-bottom:12px;">', '<details class="acc" dir="auto">'
   assign d = d | replace: '<details style="background:#efede8;padding:14px;border-radius:12px;">', '<details class="acc" dir="auto">'
