@@ -36,7 +36,9 @@
     "copy": "Copy",
     "copied": "Code copied ✓",
     "no_thanks": "No thanks",
-    "shop_the_look": "Shop the look"
+    "shop_the_look": "Shop the look",
+    "pause_video": "Pause background video",
+    "play_video": "Play background video"
   },
   "newsletter": {
     "placeholder": "Your email address",
@@ -113,7 +115,9 @@
     "empty": "New arrivals landing soon",
     "coming_soon": "The next drop is coming",
     "empty_text": "This edit is being restocked. Explore what's available right now.",
-    "browse": "Explore the shop"
+    "browse": "Explore the shop",
+    "routine": "Shop by routine step",
+    "all_beauty": "All beauty"
   },
   "cart": {
     "title": "Your bag",

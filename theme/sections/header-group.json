@@ -34,7 +34,8 @@
           "settings": {
             "text": "KAVO Drop 001 — now live",
             "text_ar": "إصدار KAVO ٠٠١ متوفر الآن",
-            "link": "/collections/kavo-by-seoulglow"
+            "link": "/collections/kavo-by-seoulglow",
+            "context": "fashion"
           }
         },
         "m5": {
@@ -42,7 +43,8 @@
           "settings": {
             "text": "15% off orders over 200 AED — code KBEAUTY15",
             "text_ar": "خصم ١٥٪ للطلبات فوق ٢٠٠ درهم — كود KBEAUTY15",
-            "link": "/collections/best"
+            "link": "/collections/best",
+            "context": "beauty"
           }
         }
       },
@@ -54,7 +56,8 @@
         "m4"
       ],
       "settings": {
-        "speed": 45
+        "speed": 45,
+        "style": "static"
       }
     },
     "header": {

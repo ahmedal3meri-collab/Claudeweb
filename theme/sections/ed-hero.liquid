@@ -16,7 +16,16 @@
     {%- else -%}
       <div class="ed-hero__ph" aria-hidden="true"></div>
     {%- endif -%}
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'none', class: 'ed-hero__video', data-hero-video: '', aria-hidden: 'true', tabindex: '-1' }}
+    {%- endif -%}
   </div>
+  {%- if section.settings.video != blank -%}
+    <button type="button" class="ed-hero__toggle" data-hero-toggle aria-pressed="false" aria-label="{{ 'general.pause_video' | t }}" data-label-pause="{{ 'general.pause_video' | t }}" data-label-play="{{ 'general.play_video' | t }}">
+      <svg data-icon="pause" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12"/><rect x="8.5" y="1" width="3.5" height="12"/></svg>
+      <svg data-icon="play" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1l10 6-10 6z"/></svg>
+    </button>
+  {%- endif -%}
   <div class="ed-hero__inner ed-wrap">
     {%- if section.settings.kicker != blank -%}<p class="ed-kicker ed-hero__kicker" data-reveal>{% render 'tx', en: section.settings.kicker, ar: section.settings.kicker_ar %}</p>{%- endif -%}
 {%- if section.settings.script != blank -%}<p class="ed-script" aria-hidden="true">{% render 'tx', en: section.settings.script, ar: section.settings.script_ar %}</p>{%- endif -%}
@@ -61,6 +70,12 @@
       "id": "image_mobile",
       "label": "Image (mobile)",
       "info": "Portrait 4:5 or 9:16"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Background video (muted, optional)",
+      "info": "Use only licensed footage. The image above stays as poster and as the reduced-motion fallback."
     },
     {
       "type": "range",

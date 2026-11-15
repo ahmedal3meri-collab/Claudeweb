@@ -74,6 +74,29 @@
         "id": "ed_serif",
         "label": "Serif italic accents in headings",
         "default": true
+      },
+      {
+        "type": "header",
+        "content": "Master plan design system"
+      },
+      {
+        "type": "checkbox",
+        "id": "mp_mode",
+        "label": "Use master-plan design system",
+        "info": "Inter + IBM Plex Sans Arabic, neutral palette, Fashion/Beauty accents. Turn off to return to the previous look.",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "mp_accent_fashion",
+        "label": "Fashion accent",
+        "default": "#3B3A36"
+      },
+      {
+        "type": "color",
+        "id": "mp_accent_beauty",
+        "label": "Beauty accent",
+        "default": "#53634D"
       }
     ]
   },

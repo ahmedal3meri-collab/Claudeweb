@@ -39,6 +39,16 @@
         {%- endfor -%}
         <a href="/pages/kavo" class="kv-nav__pill kv-nav__pill--world">{{ 'kavo.world' | t }} {% render 'icon', name: 'arrow' %}</a>
       </nav>
+    {%- elsif settings.mp_mode -%}
+      <nav class="kv-nav mp-routine" aria-label="{{ 'collections.routine' | t }}">
+        {%- assign bt_handles = 'seoulglow-beauty-shop,cleanser,toner,pads,serum,cream,sunscreen,face-mask,eye-care,kits-bundles' | split: ',' -%}
+        {%- for h in bt_handles -%}
+          {%- assign kc = collections[h] -%}
+          {%- if kc.products_count > 0 or h == collection.handle -%}
+            <a href="{{ kc.url }}" class="kv-nav__pill{% if h == collection.handle %} is-active{% endif %}"{% if h == collection.handle %} aria-current="page"{% endif %}>{% if forloop.first %}{{ 'collections.all_beauty' | t }}{% else %}{{ kc.title }}{% endif %} <sup>{{ kc.products_count }}</sup></a>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
     {%- endif -%}
   </div>
 </section>
