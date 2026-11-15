@@ -96,7 +96,7 @@
         "type": "color",
         "id": "mp_accent_beauty",
         "label": "Beauty accent",
-        "default": "#6E7F6A"
+        "default": "#53634D"
       }
     ]
   },

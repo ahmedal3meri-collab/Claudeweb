@@ -31,7 +31,7 @@ body.mp {
   --c-muted: #625C55;       /* 5.9:1 on --mp-off */
   --c-ink-rgb: 17, 17, 16;
   --c-bg-rgb: 244, 242, 237;
-  --c-accent: var(--mp-beauty, #6E7F6A);
+  --c-accent: var(--mp-beauty, #53634D);
   --ed-line: rgba(17, 17, 16, .12);
   --line: var(--ed-line);
 
@@ -62,7 +62,7 @@ html[lang="ar"] body.mp {
 
 /* contextual accent — Fashion vs Beauty, one brand */
 body.mp.mode-kavo { --c-accent: var(--mp-fashion, #3B3A36); }
-body.mp.mode-beauty { --c-accent: var(--mp-beauty, #6E7F6A); }
+body.mp.mode-beauty { --c-accent: var(--mp-beauty, #53634D); }
 
 /* ---------- typography ---------- */
 body.mp .ed-hero__title, body.mp .ed-h2, body.mp .ed-dual__t, body.mp .ed-story__statement,
