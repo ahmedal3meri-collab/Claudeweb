@@ -161,3 +161,5 @@ body.mp .col-hero:not(.tone-dark):not(.col-hero--media) .kv-nav__pill.is-active 
   body.mp .col-hero--media .col-hero__inner.has-media { order: 1; padding-top: 24px; padding-bottom: 24px; }
   body.mp .col-hero__title { font-size: clamp(32px, 9vw, 44px); }
 }
+body.mp .col-hero__desc { max-width: min(100%, var(--mp-text)); overflow-wrap: anywhere; }
+body.mp .col-hero__inner { min-width: 0; max-width: 100%; }
