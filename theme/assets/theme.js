@@ -826,3 +826,21 @@ window.SGDrop = (() => {
     setQty(inp.closest('[data-cp-qty]'), Number(inp.value) || 0);
   });
 })();
+
+/* Master plan — hero video: play only when allowed, pausable (WCAG 2.2.2) */
+(function () {
+  var v = document.querySelector('[data-hero-video]');
+  if (!v) return;
+  var btn = document.querySelector('[data-hero-toggle]');
+  var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (rm || saveData) { if (btn) btn.hidden = true; return; }
+  v.addEventListener('playing', function () { v.classList.add('is-playing'); });
+  var start = function () { v.preload = 'auto'; var p = v.play(); if (p && p.catch) p.catch(function () { if (btn) btn.hidden = true; }); };
+  if (document.readyState === 'complete') setTimeout(start, 300); else window.addEventListener('load', function () { setTimeout(start, 300); });
+  if (btn) btn.addEventListener('click', function () {
+    var paused = btn.getAttribute('aria-pressed') === 'true';
+    if (paused) { v.play(); btn.setAttribute('aria-pressed', 'false'); btn.setAttribute('aria-label', btn.dataset.labelPause); }
+    else { v.pause(); btn.setAttribute('aria-pressed', 'true'); btn.setAttribute('aria-label', btn.dataset.labelPlay); }
+  });
+})();

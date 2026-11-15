@@ -36,7 +36,9 @@
     "copy": "Copy",
     "copied": "Code copied ✓",
     "no_thanks": "No thanks",
-    "shop_the_look": "Shop the look"
+    "shop_the_look": "Shop the look",
+    "pause_video": "Pause background video",
+    "play_video": "Play background video"
   },
   "newsletter": {
     "placeholder": "Your email address",

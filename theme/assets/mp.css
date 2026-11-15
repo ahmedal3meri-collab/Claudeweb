@@ -1,0 +1,146 @@
+/* =========================================================
+   SEOULGLOW — MASTER PLAN LAYER (mp.css)
+   Loaded last, only when Theme settings › Master plan design system is on.
+   Every rule is scoped to body.mp — switch the setting off = instant rollback.
+   Decisions: 4 (calm contextual accents), 5 (Inter + IBM Plex Sans Arabic),
+   15/30 (motion 180–450ms, reduced-motion), 31 (focus/hover/loading states).
+   ========================================================= */
+
+/* ---------- tokens ---------- */
+body.mp {
+  /* type — two families only */
+  --mp-sans: 'Inter', 'IBM Plex Sans Arabic', 'Helvetica Neue', Arial, sans-serif;
+  --f-display: var(--mp-sans);
+  --f-body: var(--mp-sans);
+  --f-head: var(--mp-sans);
+  --f-serif: var(--mp-sans);
+  --f-script: var(--mp-sans);
+  --f-logo: var(--mp-sans);
+  --f-kr: var(--mp-sans);
+
+  /* neutral palette */
+  --mp-white: #FBFAF7;      /* warm white */
+  --mp-off: #F4F2ED;        /* off-white */
+  --mp-stone: #D9D4CB;      /* stone */
+  --mp-charcoal: #2B2A27;   /* charcoal */
+  --mp-black: #111110;      /* black */
+  --c-bg: var(--mp-off);
+  --c-paper: #ECE8E1;
+  --c-ink: var(--mp-black);
+  --c-dark: var(--mp-black);
+  --c-muted: #625C55;       /* 5.9:1 on --mp-off */
+  --c-ink-rgb: 17, 17, 16;
+  --c-bg-rgb: 244, 242, 237;
+  --c-accent: var(--mp-beauty, #6E7F6A);
+  --ed-line: rgba(17, 17, 16, .12);
+  --line: var(--ed-line);
+
+  /* spacing — 4/8 scale */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+  --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px; --sp-10: 128px;
+  --ed-sec: clamp(64px, 8vw, 128px);
+
+  /* radius / borders / focus */
+  --radius: 0px; --radius-sm: 0px;
+  --mp-border: 1px solid var(--ed-line);
+  --mp-focus: 2px solid var(--mp-black);
+
+  /* motion */
+  --mp-fast: 180ms; --mp-mid: 280ms; --mp-slow: 450ms;
+  --mp-ease: cubic-bezier(.22, .61, .36, 1);
+
+  /* layout widths */
+  --ed-maxw: 1560px; --mp-text: 64ch;
+
+  font-family: var(--mp-sans);
+  font-feature-settings: 'ss01', 'cv11';
+}
+html[lang="ar"] body.mp {
+  --mp-sans: 'IBM Plex Sans Arabic', 'Inter', Tahoma, sans-serif;
+  font-feature-settings: normal;
+}
+
+/* contextual accent — Fashion vs Beauty, one brand */
+body.mp.mode-kavo { --c-accent: var(--mp-fashion, #3B3A36); }
+body.mp.mode-beauty { --c-accent: var(--mp-beauty, #6E7F6A); }
+
+/* ---------- typography ---------- */
+body.mp .ed-hero__title, body.mp .ed-h2, body.mp .ed-dual__t, body.mp .ed-story__statement,
+body.mp .pdp__title, body.mp .col-hero__title, body.mp .page-hero__title, body.mp .drawer__title,
+body.mp .grid-promo__copy .h2, body.mp .display, body.mp .h1, body.mp .h2, body.mp .h3 {
+  font-family: var(--mp-sans); font-style: normal; font-weight: 500; text-transform: none;
+  letter-spacing: -.025em; line-height: 1.02;
+}
+body.mp .ed-hero__title { font-size: clamp(44px, 6.4vw, 104px); line-height: .98; max-width: 12ch; }
+body.mp .ed-h2 { font-size: clamp(32px, 3.8vw, 58px); }
+body.mp .ed-story__statement { font-size: clamp(26px, 3.2vw, 48px); line-height: 1.12; font-weight: 400; }
+body.mp .pdp__title { font-size: clamp(26px, 2.6vw, 38px); line-height: 1.1; }
+body.mp .col-hero__title { font-size: clamp(36px, 4.4vw, 68px); }
+html[lang="ar"] body.mp .ed-hero__title, html[lang="ar"] body.mp .ed-h2, html[lang="ar"] body.mp .ed-dual__t,
+html[lang="ar"] body.mp .ed-story__statement, html[lang="ar"] body.mp .pdp__title,
+html[lang="ar"] body.mp .col-hero__title, html[lang="ar"] body.mp .page-hero__title {
+  font-weight: 600; letter-spacing: 0; line-height: 1.3;
+}
+/* emphasis inside headings: weight, not serif italics */
+body.mp .ed-hero__title em, body.mp .ed-h2 em, body.mp .ed-story__statement em, body.mp .col-hero__title em {
+  font-family: inherit; font-style: normal; font-weight: 600; color: inherit;
+}
+body.mp .logo__text { font-family: var(--mp-sans); font-weight: 600; letter-spacing: .32em; text-transform: uppercase; }
+body.mp .logo__kr { display: none; }
+
+/* handwritten accents retired (decision 5) */
+body.mp .ed-script { display: none !important; }
+body.mp .ed-head { grid-template-areas: "title more"; }
+body.mp .card__badges .badge:not([class*="badge--"]) {
+  font-family: var(--mp-sans); font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  transform: none; background: var(--mp-white); color: var(--mp-black); padding: 4px 8px;
+}
+body.mp .ed-script-inline { font-family: var(--mp-sans) !important; color: inherit; font-size: inherit; }
+
+/* ---------- states (decision 31) ---------- */
+body.mp a, body.mp button, body.mp .ed-btn, body.mp .btn {
+  transition: color var(--mp-fast) var(--mp-ease), background-color var(--mp-fast) var(--mp-ease),
+              border-color var(--mp-fast) var(--mp-ease), opacity var(--mp-fast) var(--mp-ease);
+}
+body.mp :focus { outline: none; }
+body.mp :focus-visible { outline: var(--mp-focus); outline-offset: 3px; }
+body.mp .ed-tone-dark :focus-visible, body.mp .ed-hero :focus-visible, body.mp .footer :focus-visible { outline-color: var(--mp-white); }
+body.mp button[disabled], body.mp .btn[disabled], body.mp .is-loading { cursor: progress; opacity: .55; }
+body.mp .form-error, body.mp .field-error, body.mp [role="alert"] { color: #9B2C20; }
+
+/* ---------- hero video (decision 11) ---------- */
+.ed-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity var(--mp-slow, 450ms) ease; }
+.ed-hero__video.is-playing { opacity: 1; }
+.ed-hero__toggle {
+  position: absolute; z-index: 2; inset-inline-end: var(--ed-gutter, 24px); bottom: clamp(20px, 3vw, 36px);
+  width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.55);
+  background: rgba(17,17,16,.25); color: #fff; border-radius: 999px; cursor: pointer;
+}
+.ed-hero__toggle svg { width: 14px; height: 14px; fill: currentColor; }
+.ed-hero__toggle [data-icon="play"] { display: none; }
+.ed-hero__toggle[aria-pressed="true"] [data-icon="play"] { display: block; }
+.ed-hero__toggle[aria-pressed="true"] [data-icon="pause"] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ed-hero__video, .ed-hero__toggle { display: none !important; }
+  body.mp .ed-hero__img { animation: none; transform: none; }
+  body.mp *, body.mp *::before, body.mp *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
+
+/* ---------- product cards: large, regular grid (decisions 13, 18) ---------- */
+body.mp .card__title { font-size: 14px; font-weight: 500; letter-spacing: -.005em; }
+body.mp .card__vendor { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--c-muted); }
+body.mp.mode-kavo .card__vendor { display: none; }
+body.mp .card__price { font-size: 14px; font-weight: 500; }
+
+/* ---------- small screens ---------- */
+@media (max-width: 749px) {
+  body.mp .ed-hero__title { font-size: clamp(38px, 11vw, 56px); }
+  html[lang="ar"] body.mp .ed-hero__title { font-size: clamp(34px, 10vw, 50px); }
+}
+
+/* ---------- announcement: single static message (decision 10) ---------- */
+.announce--static { display: flex; justify-content: center; align-items: center; min-height: 36px; padding: 8px var(--ed-gutter, 16px); text-align: center; }
+.announce__static { margin: 0; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+html[lang="ar"] .announce__static { font-size: 12px; letter-spacing: 0; text-transform: none; }
+.announce__static a { color: inherit; text-decoration: none; }
+.announce__static a:hover { text-decoration: underline; text-underline-offset: 3px; }

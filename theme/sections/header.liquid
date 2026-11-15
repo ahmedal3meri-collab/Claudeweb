@@ -15,6 +15,7 @@
       <nav class="nav" aria-label="{{ 'general.menu' | t }}">
         <ul class="nav__list">
           {%- for link in menu.links -%}
+            {%- if link.type == "collection_link" and link.object.products_count == 0 -%}{%- continue -%}{%- endif -%}
             <li class="nav__item{% if link.links != blank %} has-mega{% endif %}">
               <a href="{{ link.url }}" class="nav__link{% if link.active or link.child_active %} is-active{% endif %}">{{ link.title }}</a>
               {%- if link.links != blank -%}
@@ -24,6 +25,7 @@
                       <p class="mega__title">{{ link.title }}</p>
                       <ul class="mega__list{% if link.links.size > 8 %} mega__list--cols{% endif %}">
                         {%- for child in link.links -%}
+                          {%- if child.type == "collection_link" and child.object.products_count == 0 -%}{%- continue -%}{%- endif -%}
                           <li style="--i: {{ forloop.index0 }}"><a href="{{ child.url }}">{{ child.title }}</a></li>
                         {%- endfor -%}
                       </ul>
@@ -90,12 +92,13 @@
     </div>
     <nav class="mnav">
       {%- for link in menu.links -%}
+            {%- if link.type == "collection_link" and link.object.products_count == 0 -%}{%- continue -%}{%- endif -%}
         {%- if link.links != blank -%}
           <details class="mnav__group" style="--i: {{ forloop.index0 }}">
             <summary>{{ link.title }} {% render 'icon', name: 'plus' %}</summary>
             <ul>
               <li><a href="{{ link.url }}">{{ 'general.view_all' | t }}</a></li>
-              {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}
+              {%- for child in link.links -%}{%- if child.type == "collection_link" and child.object.products_count == 0 -%}{%- continue -%}{%- endif -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}
             </ul>
           </details>
         {%- else -%}

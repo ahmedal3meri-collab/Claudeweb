@@ -40,7 +40,9 @@
     "copy": "نسخ",
     "copied": "تم نسخ الكود ✓",
     "no_thanks": "لا، شكراً",
-    "shop_the_look": "تسوّقي الإطلالة"
+    "shop_the_look": "تسوّقي الإطلالة",
+    "pause_video": "إيقاف الفيديو",
+    "play_video": "تشغيل الفيديو"
   },
   "newsletter": {
     "placeholder": "بريدك الإلكتروني",
