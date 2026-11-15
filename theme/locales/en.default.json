@@ -115,7 +115,9 @@
     "empty": "New arrivals landing soon",
     "coming_soon": "The next drop is coming",
     "empty_text": "This edit is being restocked. Explore what's available right now.",
-    "browse": "Explore the shop"
+    "browse": "Explore the shop",
+    "routine": "Shop by routine step",
+    "all_beauty": "All beauty"
   },
   "cart": {
     "title": "Your bag",

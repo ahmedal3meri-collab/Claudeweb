@@ -144,3 +144,12 @@ body.mp .card__price { font-size: 14px; font-weight: 500; }
 html[lang="ar"] .announce__static { font-size: 12px; letter-spacing: 0; text-transform: none; }
 .announce__static a { color: inherit; text-decoration: none; }
 .announce__static a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- collection sub-navigation (decisions 16, 17) ---------- */
+body.mp .kv-nav { gap: 8px; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; padding-bottom: 2px; }
+body.mp .kv-nav::-webkit-scrollbar { display: none; }
+body.mp .kv-nav__pill { border-radius: 0; white-space: nowrap; min-height: 40px; font-weight: 500; }
+body.mp .col-hero:not(.tone-dark):not(.col-hero--media) .kv-nav__pill { border-color: var(--ed-line); color: var(--c-ink); }
+body.mp .col-hero:not(.tone-dark):not(.col-hero--media) .kv-nav__pill:hover,
+body.mp .col-hero:not(.tone-dark):not(.col-hero--media) .kv-nav__pill.is-active { background: var(--c-ink); color: var(--mp-white); }
+@media (min-width: 990px) { body.mp .kv-nav { flex-wrap: wrap; overflow: visible; } }
