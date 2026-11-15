@@ -153,3 +153,11 @@ body.mp .col-hero:not(.tone-dark):not(.col-hero--media) .kv-nav__pill { border-c
 body.mp .col-hero:not(.tone-dark):not(.col-hero--media) .kv-nav__pill:hover,
 body.mp .col-hero:not(.tone-dark):not(.col-hero--media) .kv-nav__pill.is-active { background: var(--c-ink); color: var(--mp-white); }
 @media (min-width: 990px) { body.mp .kv-nav { flex-wrap: wrap; overflow: visible; } }
+
+/* ---------- collection hero on mobile: title + sub-nav first, short image strip ---------- */
+@media (max-width: 989px) {
+  body.mp .col-hero--media .col-hero__media { order: 2; aspect-ratio: auto; height: 34vh; max-height: 300px; }
+  body.mp .col-hero--media .col-hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  body.mp .col-hero--media .col-hero__inner.has-media { order: 1; padding-top: 24px; padding-bottom: 24px; }
+  body.mp .col-hero__title { font-size: clamp(32px, 9vw, 44px); }
+}
